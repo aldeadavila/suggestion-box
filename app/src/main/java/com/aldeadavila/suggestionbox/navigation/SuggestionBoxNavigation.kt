@@ -12,9 +12,10 @@ import com.aldeadavila.suggestionbox.screens.image.ImageScreen
 import com.aldeadavila.suggestionbox.screens.login.LoginScreen
 
 @Composable
-fun ComplaintNavigation() {
+fun SuggestionBoxNavigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = ScreenRoutes.SplashScreen.name
+    NavHost(navController = navController,
+            startDestination = ScreenRoutes.SplashScreen.name
     ) {
         composable(ScreenRoutes.SplashScreen.name) {
             SplashScreen(navController = navController)

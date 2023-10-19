@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.aldeadavila.suggestionbox.navigation.ComplaintNavigation
+import com.aldeadavila.suggestionbox.navigation.SuggestionBoxNavigation
 import com.aldeadavila.suggestionbox.ui.theme.AldeadavilaSuggestionBoxTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,13 +30,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ComplaintApp()
+                    SuggestionBoxApp()
                 }
             }
         }
     }
     @Composable
-    fun ComplaintApp() {
+    fun SuggestionBoxApp() {
         Surface(modifier = Modifier
             .fillMaxSize()
             .padding(top = 46.dp),
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                ComplaintNavigation()
+                SuggestionBoxNavigation()
             }
         }
     }
