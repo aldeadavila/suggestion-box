@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Aldeadavila Suggestion Box</string>
+    <string name="sign_up">Crea una cuenta</string>
+    <string name="add_comments">Podrás añadir entradas y realizar comentarios</string>
+    <string name="first_name">Nombre</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="password_again">Repetir contraseña</string>
+    <string name="hide_password">Ocultar contraseña</string>
+    <string name="show_password">Mostrar contraseña</string>
+    <string name="terms_conditions">Si continua usted acepta nuestra política de privacidad y términos de uso.</string>
 </resources>
