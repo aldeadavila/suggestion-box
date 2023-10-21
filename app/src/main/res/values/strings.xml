@@ -8,5 +8,7 @@
     <string name="password_again">Repetir contraseña</string>
     <string name="hide_password">Ocultar contraseña</string>
     <string name="show_password">Mostrar contraseña</string>
-    <string name="terms_conditions">Si continua usted acepta nuestra política de privacidad y términos de uso.</string>
+    <string name="if_continue">Si continua usted acepta nuestra </string>
+    <string name="privacy_policy">política de privacidad</string>
+    <string name="use_terms">términos de uso.</string>
 </resources>

@@ -26,6 +26,8 @@ import com.aldeadavila.suggestionbox.components.MyPasswordTextField
 import com.aldeadavila.suggestionbox.components.MyTextField
 import com.aldeadavila.suggestionbox.components.NormalTextComponent
 import com.aldeadavila.suggestionbox.components.TitleTextComponent
+import com.aldeadavila.suggestionbox.navigation.Screen
+import com.aldeadavila.suggestionbox.navigation.SuggestionBoxAppRouter
 
 @Composable
 fun SignUpScreen() {
@@ -66,7 +68,10 @@ fun SignUpScreen() {
                 icon = Icons.Rounded.Lock
             )
             Spacer(modifier = Modifier.height(20.dp))
-            CheckBoxComponent(value = stringResource(id = R.string.terms_conditions))
+            CheckBoxComponent(value = stringResource(id = R.string.privacy_policy),
+                onTextSelected = {
+                    SuggestionBoxAppRouter.navigateTo(Screen.TermsAndConditionsScreen)
+                })
         }
     }
 }
