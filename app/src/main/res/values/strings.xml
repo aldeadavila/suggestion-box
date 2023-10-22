@@ -11,4 +11,12 @@
     <string name="if_continue">Si continua usted acepta nuestra </string>
     <string name="privacy_policy">política de privacidad</string>
     <string name="use_terms">términos de uso.</string>
+    <string name="create_account">Crea tu cuenta</string>
+    <string name="do_login">Haz login aquí</string>
+    <string name="welcome">!Bienvenido, le habíamos echado de menos!</string>
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="guest">O entre como invitado</string>
+    <string name="forget_password">¿Olvidó su contraseña?</string>
+    <string name="new_account">Cree su cuenta nueva</string>
+
 </resources>

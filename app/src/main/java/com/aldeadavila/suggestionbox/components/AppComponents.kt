@@ -3,8 +3,12 @@ package com.aldeadavila.suggestionbox.components
 
 
 import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -12,6 +16,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,6 +36,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -47,6 +54,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_secondary99
 import com.aldeadavila.suggestionbox.ui.theme.poppins
 
@@ -68,9 +77,26 @@ fun NormalTextComponent(value:String) {
 }
 
 @Composable
+fun SmallTextComponent(value:String, modifier:Modifier, color:Color) {
+    Text(
+        text = value,
+        color = color,
+        textAlign = TextAlign.Center,
+        modifier = modifier,
+        style = TextStyle(
+            fontSize = 12.sp,
+            fontWeight = FontWeight.SemiBold,
+            fontStyle = FontStyle.Normal,
+            fontFamily = poppins
+        ),
+        )
+}
+
+@Composable
 fun TitleTextComponent(value:String) {
     Text(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(top = 25.dp),
         text = value,
         color = md_theme_light_primary,
@@ -216,4 +242,38 @@ fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit) {
                 }
             }
     } )
+}
+
+
+@Composable
+fun ButtonComponent(value: String){
+    Button(
+        onClick = { TODO() },
+        modifier = Modifier
+            .fillMaxWidth()
+
+            .padding( top = 20.dp),
+        contentPadding = PaddingValues(),
+        colors = ButtonDefaults.buttonColors(Color.Transparent)
+    ) {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(48.dp).background(
+                brush = Brush.horizontalGradient(listOf(md_theme_light_primary, md_theme_light_secondary)),
+                shape = RoundedCornerShape(50.dp)
+            ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = value,
+               style = TextStyle(
+                   fontSize = 18.sp,
+                  fontWeight = FontWeight.Bold,
+                  fontStyle = FontStyle.Normal,
+                  color = md_theme_light_tertiaryContainer,
+                  fontFamily = poppins
+                ),
+            )
+        }
+    }
 }
