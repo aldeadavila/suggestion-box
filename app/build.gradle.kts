@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -65,6 +67,10 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
 
+    //DAGGER
+    implementation("com.google.dagger:hilt-android:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-beta01")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -73,4 +79,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
