@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.screens
+package com.aldeadavila.suggestionbox.screens.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
