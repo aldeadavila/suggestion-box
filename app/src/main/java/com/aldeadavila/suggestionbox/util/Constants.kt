@@ -13,4 +13,12 @@ object Constants {
 
     //Buttons
     const val SIGN_IN_BUTTON = "Iniciar sesión"
+    const val RESET_PASSWORD_BUTTON = "Resetea la contraseña"
+
+    //Messages
+    const val RESET_PASSWORD_MESSAGE = "Le hemos enviado un email con un enlace para resetear la contraseña."
+
+    //Text
+    const val FORGOT_PASSWORD = "¿Olvidó su contraseña?"
+
 }

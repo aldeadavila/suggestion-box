@@ -2,8 +2,8 @@ package com.aldeadavila.suggestionbox.di
 
 import com.aldeadavila.suggestionbox.data.datasource.LoginDataSource
 import com.aldeadavila.suggestionbox.data.datasource.impl.LoginDataSourceImpl
-import com.aldeadavila.suggestionbox.domain.repository.LoginRepository
-import com.aldeadavila.suggestionbox.data.repository.impl.LoginRepositoryImpl
+import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
+import com.aldeadavila.suggestionbox.data.repository.impl.AuthRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -22,7 +22,7 @@ class RepositoryModule {
     @Provides
     fun provideLoginRepository(
         auth: FirebaseAuth,
-    ): LoginRepository =
-        LoginRepositoryImpl(auth)
+    ): AuthRepository =
+        AuthRepositoryImpl(auth)
 
 }

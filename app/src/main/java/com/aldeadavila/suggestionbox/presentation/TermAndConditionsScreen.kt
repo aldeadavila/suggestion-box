@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.screens
+package com.aldeadavila.suggestionbox.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize

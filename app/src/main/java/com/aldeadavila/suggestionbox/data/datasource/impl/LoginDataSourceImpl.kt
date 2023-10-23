@@ -1,7 +1,7 @@
 package com.aldeadavila.suggestionbox.data.datasource.impl
 
 import com.aldeadavila.suggestionbox.data.datasource.LoginDataSource
-import com.aldeadavila.suggestionbox.util.Response
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

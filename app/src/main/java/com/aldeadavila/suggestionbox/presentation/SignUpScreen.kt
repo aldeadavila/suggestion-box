@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.screens
+package com.aldeadavila.suggestionbox.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,7 +23,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.components.ButtonComponent
 import com.aldeadavila.suggestionbox.components.CheckBoxComponent
 import com.aldeadavila.suggestionbox.components.MyPasswordTextField
 import com.aldeadavila.suggestionbox.components.MyTextField

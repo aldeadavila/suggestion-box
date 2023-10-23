@@ -1,6 +1,6 @@
 package com.aldeadavila.suggestionbox.di
 
-import com.aldeadavila.suggestionbox.domain.repository.LoginRepository
+import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
 import com.aldeadavila.suggestionbox.domain.usecase.LoginUseCase
 import dagger.Module
 import dagger.Provides
@@ -15,7 +15,7 @@ class UseCaseModule {
     @ViewModelScoped
     @Provides
     fun provideLoginUseCase(
-        loginRepository: LoginRepository,
-    ) = LoginUseCase(loginRepository)
+        authRepository: AuthRepository,
+    ) = LoginUseCase(authRepository)
 
 }

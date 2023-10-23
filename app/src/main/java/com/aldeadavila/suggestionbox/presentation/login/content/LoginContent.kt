@@ -1,7 +1,8 @@
-package com.aldeadavila.suggestionbox.screens.login.content
+package com.aldeadavila.suggestionbox.presentation.login.content
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,10 +34,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.components.ButtonComponent
 import com.aldeadavila.suggestionbox.components.EmailField
 import com.aldeadavila.suggestionbox.components.NormalTextComponent
 import com.aldeadavila.suggestionbox.components.PasswordField
@@ -47,6 +48,7 @@ import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.poppins
 import com.aldeadavila.suggestionbox.util.Constants.EMPTY_STRING
+import com.aldeadavila.suggestionbox.util.Constants.FORGOT_PASSWORD
 import com.aldeadavila.suggestionbox.util.Constants.SIGN_IN_BUTTON
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -102,11 +104,21 @@ fun LoginContent(
                 password = newValue
             }
         )
-        SmallTextComponent(
-            stringResource(id = R.string.forget_password),
-            modifier = Modifier.align(Alignment.End).padding(top=10.dp),
-            color = md_theme_light_primary
+        Text(
+            text = FORGOT_PASSWORD,
+            color = md_theme_light_primary,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.clickable {
+            navigateToForgotPasswordScreen()
+        },
+            style = TextStyle(
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold,
+                fontStyle = FontStyle.Normal,
+                fontFamily = poppins
+            ),
         )
+
         Button(
             onClick = {
                 keyboard?.hide()

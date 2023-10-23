@@ -1,7 +1,7 @@
-package com.aldeadavila.suggestionbox.util
+package com.aldeadavila.suggestionbox.domain.model
 
 sealed class Response<out T> {
     object Loading: Response<Nothing>()
     data class Success<out T>(val data: T) : Response<T>()
-    data class Failure(val exception: Exception) : Response<Nothing>()
+    data class Failure(val e: Exception) : Response<Nothing>()
 }
