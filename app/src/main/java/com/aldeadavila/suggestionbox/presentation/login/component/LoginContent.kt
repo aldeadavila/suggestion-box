@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.login.content
+package com.aldeadavila.suggestionbox.presentation.login.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -107,15 +107,14 @@ fun LoginContent(
         Text(
             text = FORGOT_PASSWORD,
             color = md_theme_light_primary,
-            textAlign = TextAlign.Center,
             modifier = Modifier.clickable {
-            navigateToForgotPasswordScreen()
-        },
+                navigateToForgotPasswordScreen()
+            }.padding(top = 10.dp),
             style = TextStyle(
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontStyle = FontStyle.Normal,
-                fontFamily = poppins
+            fontSize = 12.sp,
+            fontWeight = FontWeight.SemiBold,
+            fontStyle = FontStyle.Normal,
+            fontFamily = poppins
             ),
         )
 
@@ -126,7 +125,6 @@ fun LoginContent(
             },
             modifier = Modifier
                 .fillMaxWidth()
-
                 .padding( top = 20.dp),
             contentPadding = PaddingValues(),
             colors = ButtonDefaults.buttonColors(Color.Transparent)

@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aldeadavila.suggestionbox.presentation.forgotpassword.component.ForgotPassword
-import com.aldeadavila.suggestionbox.presentation.forgotpassword.content.ForgotPasswordContent
+import com.aldeadavila.suggestionbox.presentation.forgotpassword.component.ForgotPasswordContent
 import com.aldeadavila.suggestionbox.util.Constants.RESET_PASSWORD_MESSAGE
 import com.aldeadavila.suggestionbox.util.Utils.Companion.showMessage
 
