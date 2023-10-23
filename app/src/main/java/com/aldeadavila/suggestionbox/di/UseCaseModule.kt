@@ -1,6 +1,6 @@
 package com.aldeadavila.suggestionbox.di
 
-import com.aldeadavila.suggestionbox.data.repository.LoginRepository
+import com.aldeadavila.suggestionbox.domain.repository.LoginRepository
 import com.aldeadavila.suggestionbox.domain.usecase.LoginUseCase
 import dagger.Module
 import dagger.Provides
