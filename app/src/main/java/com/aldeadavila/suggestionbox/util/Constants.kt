@@ -17,8 +17,10 @@ object Constants {
 
     //Messages
     const val RESET_PASSWORD_MESSAGE = "Le hemos enviado un email con un enlace para resetear la contraseña."
+    const val VERIFY_EMAIL_MESSAGE = "Le hemos enviado un email con un link para verificar su cuenta de correo electrónico."
 
     //Text
     const val FORGOT_PASSWORD = "¿Olvidó su contraseña?"
+    const val NO_ACCOUNT = "Cree su cuenta nueva"
 
 }

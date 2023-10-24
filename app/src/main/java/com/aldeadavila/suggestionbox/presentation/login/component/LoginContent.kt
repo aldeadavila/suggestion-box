@@ -49,6 +49,7 @@ import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.poppins
 import com.aldeadavila.suggestionbox.util.Constants.EMPTY_STRING
 import com.aldeadavila.suggestionbox.util.Constants.FORGOT_PASSWORD
+import com.aldeadavila.suggestionbox.util.Constants.NO_ACCOUNT
 import com.aldeadavila.suggestionbox.util.Constants.SIGN_IN_BUTTON
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -150,11 +151,20 @@ fun LoginContent(
             }
         }
 
-        SmallTextComponent(
-            stringResource(id = R.string.new_account),
-            modifier = Modifier.padding(top=30.dp),
-            color = Color.Black
+        Text(
+            text = NO_ACCOUNT,
+            color = Color.Black,
+            modifier = Modifier.clickable {
+                navigateToSignUpScreen()
+            }.padding(top = 10.dp),
+            style = TextStyle(
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold,
+                fontStyle = FontStyle.Normal,
+                fontFamily = poppins
+            ),
         )
+
         Image(
             painter = painterResource(id = R.drawable.escudo_aldeadavila),
 

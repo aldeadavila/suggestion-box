@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.data.repository.impl
+package com.aldeadavila.suggestionbox.data.repository
 
 import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
 import com.aldeadavila.suggestionbox.domain.model.Response.Failure
@@ -11,6 +11,21 @@ class AuthRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth
 ) : AuthRepository {
 
+    override suspend fun firebaseSignUpWithEmailAndPassword(
+        email: String, password: String
+    ) = try {
+        auth.createUserWithEmailAndPassword(email, password).await()
+        Success(true)
+    } catch (e: Exception) {
+        Failure(e)
+    }
+
+    override suspend fun sendEmailVerification() = try {
+        auth.currentUser?.sendEmailVerification()?.await()
+        Success(true)
+    } catch (e: Exception) {
+        Failure(e)
+    }
 
     override suspend fun firebaseSignInWithEmailAndPassword(
         email: Any?, password: Any?

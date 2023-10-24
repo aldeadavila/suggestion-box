@@ -1,7 +1,7 @@
 package com.aldeadavila.suggestionbox.di
 
 import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
-import com.aldeadavila.suggestionbox.data.repository.impl.AuthRepositoryImpl
+import com.aldeadavila.suggestionbox.data.repository.AuthRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides

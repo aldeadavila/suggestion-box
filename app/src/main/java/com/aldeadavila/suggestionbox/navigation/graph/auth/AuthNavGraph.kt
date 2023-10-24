@@ -9,6 +9,7 @@ import com.aldeadavila.suggestionbox.navigation.Graph
 import com.aldeadavila.suggestionbox.navigation.screen.auth.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.forgotpassword.ForgotPasswordScreen
 import com.aldeadavila.suggestionbox.presentation.login.LoginScreen
+import com.aldeadavila.suggestionbox.presentation.register.RegisterScreen
 
 @Composable
 fun AuthNavGraph(navController: NavHostController) {
@@ -26,7 +27,7 @@ fun AuthNavGraph(navController: NavHostController) {
                 },
                 navigateToSignUpScreen = {
                     navController.navigate(
-                        route = AuthScreen.Login.route
+                        route = AuthScreen.Register.route
                     )
                 },
                 )
@@ -35,6 +36,15 @@ fun AuthNavGraph(navController: NavHostController) {
             route = AuthScreen.ForgotPasswordScreen.route
         ) {
             ForgotPasswordScreen(
+                navigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(
+            route = AuthScreen.Register.route
+        ) {
+            RegisterScreen(
                 navigateBack = {
                     navController.popBackStack()
                 }
