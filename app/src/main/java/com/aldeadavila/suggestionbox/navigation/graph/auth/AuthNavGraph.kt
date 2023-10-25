@@ -9,6 +9,7 @@ import com.aldeadavila.suggestionbox.navigation.Graph
 import com.aldeadavila.suggestionbox.navigation.screen.auth.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.forgotpassword.ForgotPasswordScreen
 import com.aldeadavila.suggestionbox.presentation.login.LoginScreen
+import com.aldeadavila.suggestionbox.presentation.profile.ProfileScreen
 import com.aldeadavila.suggestionbox.presentation.register.RegisterScreen
 
 @Composable
@@ -49,6 +50,12 @@ fun AuthNavGraph(navController: NavHostController) {
                     navController.popBackStack()
                 }
             )
+        }
+
+        composable(
+            route = AuthScreen.ProfileScreen.route
+        ) {
+            ProfileScreen()
         }
     }
 }

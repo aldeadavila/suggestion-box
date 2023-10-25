@@ -17,7 +17,7 @@ fun LoginScreen(
 ) {
 
     Scaffold (
-        modifier = Modifier.padding(30.dp),
+
         content = { padding ->
             LoginContent(
                 padding = padding,

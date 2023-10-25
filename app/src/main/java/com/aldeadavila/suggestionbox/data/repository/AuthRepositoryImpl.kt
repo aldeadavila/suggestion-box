@@ -11,6 +11,8 @@ class AuthRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth
 ) : AuthRepository {
 
+    override val currentUser get() = auth.currentUser
+
     override suspend fun firebaseSignUpWithEmailAndPassword(
         email: String, password: String
     ) = try {
@@ -42,5 +44,21 @@ class AuthRepositoryImpl @Inject constructor(
     } catch (e: Exception) {
         Failure(e)
     }
+
+    override suspend fun reloadFirebaseUser() = try {
+        auth.currentUser?.reload()?.await()
+        Success(true)
+    } catch (e: Exception) {
+        Failure(e)
+    }
+
+    override suspend fun revokeAccess() = try {
+        auth.currentUser?.delete()?.await()
+        Success(true)
+    } catch (e: Exception) {
+        Failure(e)
+    }
+    override fun signOut() = auth.signOut()
+
 
 }
