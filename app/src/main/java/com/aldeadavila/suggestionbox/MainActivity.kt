@@ -8,7 +8,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.aldeadavila.suggestionbox.navigation.graph.auth.AuthNavGraph
+import com.aldeadavila.suggestionbox.navigation.graph.AuthNavGraph
 import com.aldeadavila.suggestionbox.ui.theme.AldeadavilaSuggestionBoxTheme
 import dagger.hilt.android.AndroidEntryPoint
 
