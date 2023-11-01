@@ -3,9 +3,9 @@ package com.aldeadavila.suggestionbox.presentation.forgotpassword.component
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.aldeadavila.suggestionbox.components.ProgressBar
+import com.aldeadavila.suggestionbox.presentation.common.ProgressBar
 import com.aldeadavila.suggestionbox.presentation.forgotpassword.ForgotPasswordViewModel
-import com.aldeadavila.suggestionbox.domain.model.Response.*
+import com.aldeadavila.suggestionbox.domain.model.Resource.*
 
 
 @Composable
@@ -20,16 +20,16 @@ fun ForgotPassword(
         is Success -> {
             val isPasswordResetEmailSent = sendPasswordResetEmailResponse.data
             LaunchedEffect(isPasswordResetEmailSent) {
-                if (isPasswordResetEmailSent) {
+                if (isPasswordResetEmailSent == true) {
                     navigateBack()
                     showResetPasswordMessage()
                 }
             }
         }
-        is Failure -> sendPasswordResetEmailResponse.apply {
-            LaunchedEffect(e) {
-                print(e)
-                showErrorMessage(e.message)
+        is Error -> sendPasswordResetEmailResponse.apply {
+            LaunchedEffect(this.data) {
+
+                print("error sending password")
             }
         }
     }

@@ -8,14 +8,19 @@ import androidx.navigation.compose.composable
 import com.aldeadavila.suggestionbox.navigation.Graph
 import com.aldeadavila.suggestionbox.navigation.screen.AppScreen
 import com.aldeadavila.suggestionbox.presentation.forgotpassword.ForgotPasswordScreen
+import com.aldeadavila.suggestionbox.presentation.home.HomeScreen
 import com.aldeadavila.suggestionbox.presentation.login.LoginScreen
+import com.aldeadavila.suggestionbox.presentation.login.OneTapSignInViewModel
 import com.aldeadavila.suggestionbox.presentation.profile.ProfileScreen
 import com.aldeadavila.suggestionbox.presentation.register.RegisterScreen
 import com.aldeadavila.suggestionbox.presentation.splash.SplashScreen
 
 
 @Composable
-fun AuthNavGraph(navController: NavHostController) {
+fun AuthNavGraph(
+    navController: NavHostController,
+    oneTapSignInViewModel: OneTapSignInViewModel = hiltViewModel()
+    ) {
     NavHost(navController = navController,
         route = Graph.AUTH,
         startDestination =  AppScreen.Splash.route,
@@ -28,6 +33,8 @@ fun AuthNavGraph(navController: NavHostController) {
         composable(route = AppScreen.Login.route) {
             LoginScreen(
                 hiltViewModel(),
+                oneTapSignInViewModel = oneTapSignInViewModel,
+                navController = navController,
                 navigateToForgotPasswordScreen = {
                     navController.navigate(
                         route = AppScreen.ForgotPasswordScreen.route
@@ -60,9 +67,16 @@ fun AuthNavGraph(navController: NavHostController) {
         }
 
         composable(
-            route = AppScreen.ProfileScreen.route
+            route = AppScreen.Profile.route
         ) {
             ProfileScreen()
+        }
+        composable(
+            route = AppScreen.Home.route
+        ) {
+            HomeScreen(
+                navController = navController,
+            )
         }
     }
 }

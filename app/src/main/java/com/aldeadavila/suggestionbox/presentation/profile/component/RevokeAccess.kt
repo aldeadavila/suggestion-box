@@ -6,12 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.aldeadavila.suggestionbox.components.ProgressBar
-import com.aldeadavila.suggestionbox.domain.model.Response
+import com.aldeadavila.suggestionbox.presentation.common.ProgressBar
+import com.aldeadavila.suggestionbox.domain.model.Resource
 import com.aldeadavila.suggestionbox.presentation.profile.ProfileViewModel
 import com.aldeadavila.suggestionbox.util.Constants.ACCESS_REVOKED_MESSAGE
 import com.aldeadavila.suggestionbox.util.Constants.REVOKE_ACCESS_MESSAGE
-import com.aldeadavila.suggestionbox.util.Constants.SENSITIVE_OPERATION_MESSAGE
 import com.aldeadavila.suggestionbox.util.Constants.SIGN_OUT_ITEM
 import com.aldeadavila.suggestionbox.util.Utils.Companion.showMessage
 import kotlinx.coroutines.CoroutineScope
@@ -36,22 +35,21 @@ fun RevokeAccess(
         }
     }
 
-    when(val revokeAccessResponse = viewModel.revokeAccessResponse) {
-        is Response.Loading -> ProgressBar()
-        is Response.Success -> {
+    when(val revokeAccessResponse = viewModel.revokeAccessResource) {
+        is Resource.Loading -> ProgressBar()
+        is Resource.Success -> {
             val isAccessRevoked = revokeAccessResponse.data
             LaunchedEffect(isAccessRevoked) {
-                if (isAccessRevoked) {
+                if (isAccessRevoked == true) {
                     showMessage(context, ACCESS_REVOKED_MESSAGE)
                 }
             }
         }
-        is Response.Failure -> revokeAccessResponse.apply {
-            LaunchedEffect(e) {
-                print(e)
-                if (e.message == SENSITIVE_OPERATION_MESSAGE) {
+        is Resource.Error -> revokeAccessResponse.apply {
+            LaunchedEffect(this.data) {
+
                     showRevokeAccessMessage()
-                }
+
             }
         }
     }

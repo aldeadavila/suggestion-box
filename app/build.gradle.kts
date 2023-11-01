@@ -65,6 +65,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
 
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
     //FIREBASE
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.google.firebase:firebase-auth-ktx")
@@ -73,7 +75,7 @@ dependencies {
 
     //DAGGER
     implementation("com.google.dagger:hilt-android:2.48")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-beta01")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-rc01")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     testImplementation("junit:junit:4.13.2")

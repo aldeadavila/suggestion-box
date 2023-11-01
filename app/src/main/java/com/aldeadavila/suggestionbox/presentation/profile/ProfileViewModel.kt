@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aldeadavila.suggestionbox.domain.model.Response
-import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
+import com.aldeadavila.suggestionbox.domain.model.Resource
+import com.aldeadavila.suggestionbox.domain.repository.FirebaseRepository
 import com.aldeadavila.suggestionbox.domain.repository.ReloadUserResponse
 import com.aldeadavila.suggestionbox.domain.repository.RevokeAccessResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,16 +15,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val repo: AuthRepository
+    private val repo: FirebaseRepository
 ): ViewModel() {
-    var revokeAccessResponse by mutableStateOf<RevokeAccessResponse>(Response.Success(false))
+    var revokeAccessResource by mutableStateOf<RevokeAccessResponse>(Resource.Success(false))
         private set
-    var reloadUserResponse by mutableStateOf<ReloadUserResponse>(Response.Success(false))
+    var reloadUserResource by mutableStateOf<ReloadUserResponse>(Resource.Success(false))
         private set
 
     fun reloadUser() = viewModelScope.launch {
-        reloadUserResponse = Response.Loading
-        reloadUserResponse = repo.reloadFirebaseUser()
+        reloadUserResource = Resource.Loading()
+        reloadUserResource = repo.reloadFirebaseUser()
     }
 
     val isEmailVerified get() = repo.currentUser?.isEmailVerified ?: false
@@ -32,7 +32,7 @@ class ProfileViewModel @Inject constructor(
     fun signOut() = repo.signOut()
 
     fun revokeAccess() = viewModelScope.launch {
-        revokeAccessResponse = Response.Loading
-        revokeAccessResponse = repo.revokeAccess()
+        revokeAccessResource = Resource.Loading()
+        revokeAccessResource = repo.revokeAccess()
     }
 }
