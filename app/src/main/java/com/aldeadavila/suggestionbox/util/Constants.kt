@@ -30,6 +30,7 @@ object Constants {
     //Text
     const val FORGOT_PASSWORD = "¿Olvidó su contraseña?"
     const val NO_ACCOUNT = "Cree su cuenta nueva"
+    const val LOGIN_GOOGLE = "O inicia sesión con"
 
     //Error Messages
     const val SENSITIVE_OPERATION_MESSAGE = "Esta operación es sensible y requiere de una reciente autenticación. Inicia sesión de nuevo antes de reintentar esta petición"

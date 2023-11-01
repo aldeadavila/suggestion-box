@@ -3,7 +3,7 @@ package com.aldeadavila.suggestionbox.presentation.forgotpassword.component
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.aldeadavila.suggestionbox.components.ProgressBar
+import com.aldeadavila.suggestionbox.presentation.common.ProgressBar
 import com.aldeadavila.suggestionbox.presentation.forgotpassword.ForgotPasswordViewModel
 import com.aldeadavila.suggestionbox.domain.model.Resource.*
 

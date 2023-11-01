@@ -21,8 +21,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.components.EmailField
-import com.aldeadavila.suggestionbox.components.SmallSpacer
+import com.aldeadavila.suggestionbox.presentation.common.EmailField
+import com.aldeadavila.suggestionbox.presentation.common.SmallSpacer
 import com.aldeadavila.suggestionbox.util.Constants.EMPTY_STRING
 import com.aldeadavila.suggestionbox.util.Constants.RESET_PASSWORD_BUTTON
 

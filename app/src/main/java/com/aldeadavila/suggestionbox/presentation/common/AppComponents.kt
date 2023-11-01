@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.components
+package com.aldeadavila.suggestionbox.presentation.common
 
 
 

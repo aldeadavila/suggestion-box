@@ -50,28 +50,25 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.components.EmailField
-import com.aldeadavila.suggestionbox.components.NormalTextComponent
-import com.aldeadavila.suggestionbox.components.PasswordField
-import com.aldeadavila.suggestionbox.components.SmallTextComponent
-import com.aldeadavila.suggestionbox.components.TitleTextComponent
+import com.aldeadavila.suggestionbox.presentation.common.NormalTextComponent
+import com.aldeadavila.suggestionbox.presentation.common.SmallTextComponent
+import com.aldeadavila.suggestionbox.presentation.common.TitleTextComponent
 import com.aldeadavila.suggestionbox.domain.model.AuthUser
 import com.aldeadavila.suggestionbox.navigation.screen.AppScreen
-import com.aldeadavila.suggestionbox.presentation.forgotpassword.component.AuthenticationField
+import com.aldeadavila.suggestionbox.presentation.common.AuthenticationField
 import com.aldeadavila.suggestionbox.presentation.login.LoginViewModel
 import com.aldeadavila.suggestionbox.presentation.login.OneTapSignInViewModel
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.poppins
-import com.aldeadavila.suggestionbox.util.Constants.EMPTY_STRING
 import com.aldeadavila.suggestionbox.util.Constants.FORGOT_PASSWORD
+import com.aldeadavila.suggestionbox.util.Constants.LOGIN_GOOGLE
 import com.aldeadavila.suggestionbox.util.Constants.NO_ACCOUNT
 import com.aldeadavila.suggestionbox.util.Constants.SERVER_CLIENT_ID
 import com.aldeadavila.suggestionbox.util.Constants.SIGN_IN_BUTTON
@@ -206,7 +203,7 @@ fun LoginContent(
         ) {
             Box(modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(48.dp)
+                .heightIn(38.dp)
                 .background(
                     brush = Brush.horizontalGradient(
                         listOf(
@@ -231,35 +228,59 @@ fun LoginContent(
             }
         }
 
-        Text(
-            modifier = Modifier
-                .padding(
-                    top = 40.dp,
-                ),
-            text = "O haz sesión con ",
-            fontWeight = FontWeight.Medium, color = Color.Gray
-        )
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp), horizontalArrangement = Arrangement.Center
+        Column(
+            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            IconButton(onClick = {
-                val gso = GoogleSignInOptions
-                    .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(SERVER_CLIENT_ID)
-                    .requestEmail()
-                    .build()
-                val googleSignInClient = GoogleSignIn.getClient(context, gso)
-                launcher.launch(googleSignInClient.signInIntent)
-            }) {
-                Icon(
-                    modifier = Modifier.size(50.dp),
-                    painter = painterResource(id = R.drawable.ic_google),
-                    contentDescription = "Google Icon", tint = Color.Unspecified
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp), horizontalArrangement = Arrangement.Center
+
+            ) {
+
+                Text(
+                    text = LOGIN_GOOGLE,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .clickable {
+                            val gso = GoogleSignInOptions
+                                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                .requestIdToken(SERVER_CLIENT_ID)
+                                .requestEmail()
+                                .build()
+                            val googleSignInClient = GoogleSignIn.getClient(context, gso)
+                            launcher.launch(googleSignInClient.signInIntent)
+                        }
+                        .padding(top = 10.dp),
+                    style = TextStyle(
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        fontStyle = FontStyle.Normal,
+                        fontFamily = poppins
+                    ),
                 )
+
+                IconButton(
+                    onClick = {
+                        val gso = GoogleSignInOptions
+                            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestIdToken(SERVER_CLIENT_ID)
+                            .requestEmail()
+                            .build()
+                        val googleSignInClient = GoogleSignIn.getClient(context, gso)
+                        launcher.launch(googleSignInClient.signInIntent)
+                    }) {
+                    Icon(
+                        modifier = Modifier.size(50.dp),
+
+                        painter = painterResource(id = R.drawable.ic_google),
+                        contentDescription = "Google Icon", tint = Color.Unspecified
+                    )
+                }
             }
         }
+
 
         Text(
             text = NO_ACCOUNT,

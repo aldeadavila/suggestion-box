@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.components.TitleTextComponent
+import com.aldeadavila.suggestionbox.presentation.common.TitleTextComponent
 
 @Composable
 fun TermAndConditionsScreen() {

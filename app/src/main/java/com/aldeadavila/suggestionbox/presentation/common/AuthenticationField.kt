@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.forgotpassword.component
+package com.aldeadavila.suggestionbox.presentation.common
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +21,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_secondary99
 import com.aldeadavila.suggestionbox.ui.theme.poppins
 
 @Composable
@@ -90,7 +92,12 @@ fun CustomTextField(
         maxLines = maxLines,
         interactionSource = interactionSource,
         shape = shape,
-        colors = colors,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = md_theme_light_primary,
+            focusedLabelColor = md_theme_light_primary,
+            cursorColor = md_theme_light_primary,
+            containerColor = md_theme_secondary99
+        ),
     )
 
     if (isError) {
