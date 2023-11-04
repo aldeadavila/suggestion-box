@@ -14,6 +14,8 @@ import com.aldeadavila.suggestionbox.presentation.login.OneTapSignInViewModel
 import com.aldeadavila.suggestionbox.presentation.profile.ProfileScreen
 import com.aldeadavila.suggestionbox.presentation.register.RegisterScreen
 import com.aldeadavila.suggestionbox.presentation.splash.SplashScreen
+import com.aldeadavila.suggestionbox.presentation.suggestion_detail.SuggestionDetailScreen
+import com.aldeadavila.suggestionbox.presentation.suggestion_detail.SuggestionDetailViewModel
 
 
 @Composable
@@ -76,6 +78,16 @@ fun AuthNavGraph(
         ) {
             HomeScreen(
                 navController = navController,
+            )
+        }
+        composable(
+            route = AppScreen.SuggestionDetail.route
+        ) {
+            val viewModel: SuggestionDetailViewModel = hiltViewModel()
+            val state = viewModel.state.value
+            SuggestionDetailScreen(
+                state =  state,
+                addNewSuggestion = viewModel::addNewSuggestion
             )
         }
     }

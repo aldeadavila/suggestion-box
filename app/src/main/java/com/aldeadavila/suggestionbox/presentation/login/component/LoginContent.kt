@@ -328,7 +328,7 @@ fun LoginContent(
             val successful = signInState.value?.isSignedIn
             Toast.makeText(context, successful, Toast.LENGTH_LONG).show()
             navController.navigate(
-                AppScreen.Home.route
+                AppScreen.SuggestionDetail.route
             )
         }
     }
@@ -337,7 +337,7 @@ fun LoginContent(
         if (googleState.value.success != null) {
             // navController.popBackStack()
             navController.navigate(
-                AppScreen.Home.route
+                AppScreen.SuggestionDetail.route
             )
             val successful = googleState.value.success.toString()
             Toast.makeText(context, "successful", Toast.LENGTH_LONG).show()
