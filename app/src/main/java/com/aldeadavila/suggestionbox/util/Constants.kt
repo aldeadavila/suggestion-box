@@ -31,6 +31,7 @@ object Constants {
 
     //Messages
     const val RESET_PASSWORD_MESSAGE = "Le hemos enviado un email con un enlace para resetear la contraseña."
+    const val EMAIL_NOT_VERIFIED_MESSAGE = "Su email no ha sido verificado."
     const val VERIFY_EMAIL_MESSAGE = "Le hemos enviado un email con un link para verificar su cuenta de correo electrónico."
     const val REVOKE_ACCESS_MESSAGE = "Necistas iniciar sesión de nuevo antes de revocar el acceso."
     const val ACCESS_REVOKED_MESSAGE = "Su acceso ha sido revocado."
@@ -40,6 +41,8 @@ object Constants {
     const val FORGOT_PASSWORD = "¿Olvidó su contraseña?"
     const val NO_ACCOUNT = "Cree su cuenta nueva"
     const val LOGIN_GOOGLE = "O inicia sesión con"
+    const val ALREADY_VERIFIED = "¿Ya verificó su email?"
+    const val SPAM_EMAIL = "Si no, revise su bandeja de correo no deseado."
 
     //Error Messages
     const val SENSITIVE_OPERATION_MESSAGE = "Esta operación es sensible y requiere de una reciente autenticación. Inicia sesión de nuevo antes de reintentar esta petición"

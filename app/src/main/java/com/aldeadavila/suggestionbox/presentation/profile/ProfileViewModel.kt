@@ -5,7 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aldeadavila.suggestionbox.domain.model.Resource
+import com.aldeadavila.suggestionbox.domain.model.Response
+
 import com.aldeadavila.suggestionbox.domain.repository.FirebaseRepository
 import com.aldeadavila.suggestionbox.domain.repository.ReloadUserResponse
 import com.aldeadavila.suggestionbox.domain.repository.RevokeAccessResponse
@@ -17,14 +18,14 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val repo: FirebaseRepository
 ): ViewModel() {
-    var revokeAccessResource by mutableStateOf<RevokeAccessResponse>(Resource.Success(false))
+    var revokeAccessResponse by mutableStateOf<RevokeAccessResponse>(Response.Success(false))
         private set
-    var reloadUserResource by mutableStateOf<ReloadUserResponse>(Resource.Success(false))
+    var reloadUserResponse by mutableStateOf<ReloadUserResponse>(Response.Success(false))
         private set
 
     fun reloadUser() = viewModelScope.launch {
-        reloadUserResource = Resource.Loading()
-        reloadUserResource = repo.reloadFirebaseUser()
+        reloadUserResponse = Response.Loading
+        reloadUserResponse = repo.reloadFirebaseUser()
     }
 
     val isEmailVerified get() = repo.currentUser?.isEmailVerified ?: false
@@ -32,7 +33,7 @@ class ProfileViewModel @Inject constructor(
     fun signOut() = repo.signOut()
 
     fun revokeAccess() = viewModelScope.launch {
-        revokeAccessResource = Resource.Loading()
-        revokeAccessResource = repo.revokeAccess()
+        revokeAccessResponse = Response.Loading
+        revokeAccessResponse = repo.revokeAccess()
     }
 }

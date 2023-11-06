@@ -16,6 +16,7 @@ import com.aldeadavila.suggestionbox.presentation.register.RegisterScreen
 import com.aldeadavila.suggestionbox.presentation.splash.SplashScreen
 import com.aldeadavila.suggestionbox.presentation.suggestion_detail.SuggestionDetailScreen
 import com.aldeadavila.suggestionbox.presentation.suggestion_detail.SuggestionDetailViewModel
+import com.aldeadavila.suggestionbox.presentation.verify_email.VerifyEmailScreen
 
 
 @Composable
@@ -25,7 +26,7 @@ fun AuthNavGraph(
     ) {
     NavHost(navController = navController,
         route = Graph.AUTH,
-        startDestination =  AppScreen.Splash.route,
+        startDestination =  AppScreen.Login.route,
     ) {
 
         composable(route = AppScreen.Splash.route) {
@@ -72,6 +73,19 @@ fun AuthNavGraph(
             route = AppScreen.Profile.route
         ) {
             ProfileScreen()
+        }
+        composable(
+            route = AppScreen.VerifyEmail.route
+        ) {
+            VerifyEmailScreen(
+                navigateToProfileScreen = {
+                    navController.navigate(AppScreen.Profile.route) {
+                        popUpTo(navController.graph.id) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
         composable(
             route = AppScreen.Home.route

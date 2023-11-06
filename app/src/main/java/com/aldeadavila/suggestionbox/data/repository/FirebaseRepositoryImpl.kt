@@ -4,13 +4,17 @@ import com.aldeadavila.suggestionbox.domain.model.AuthUser
 import com.aldeadavila.suggestionbox.domain.model.Resource
 import com.aldeadavila.suggestionbox.domain.repository.FirebaseRepository
 import com.aldeadavila.suggestionbox.domain.model.Resource.Success
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -63,16 +67,16 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override suspend fun reloadFirebaseUser() = try {
         firebaseAuth.currentUser?.reload()?.await()
-        Success(true)
+        Response.Success(true)
     } catch (e: Exception) {
-        Resource.Error(e.message.toString())
+        Response.Failure(e)
     }
 
     override suspend fun revokeAccess() = try {
         firebaseAuth.currentUser?.delete()?.await()
-        Success(true)
+        Response.Success(true)
     } catch (e: Exception) {
-        Resource.Error(e.message.toString())
+        Response.Failure(e)
     }
 
     override suspend fun googleSignIn(credential: AuthCredential): Flow<Resource<AuthResult>> {
@@ -80,6 +84,16 @@ class FirebaseRepositoryImpl @Inject constructor(
     }
 
     override fun signOut() = firebaseAuth.signOut()
+
+    override fun getAuthState(viewModelScope: CoroutineScope) = callbackFlow {
+        val authStateListener = FirebaseAuth.AuthStateListener { auth ->
+            trySend(auth.currentUser == null)
+        }
+        firebaseAuth.addAuthStateListener(authStateListener)
+        awaitClose {
+            firebaseAuth.removeAuthStateListener(authStateListener)
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), firebaseAuth.currentUser == null)
 
 
 }

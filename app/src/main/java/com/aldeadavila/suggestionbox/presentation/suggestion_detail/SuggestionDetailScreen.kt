@@ -4,8 +4,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -30,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.aldeadavila.suggestionbox.domain.repository.AddImageToStorageResponse
+import com.aldeadavila.suggestionbox.presentation.common.NormalField
 import com.aldeadavila.suggestionbox.presentation.common.NormalTextComponent
 import com.aldeadavila.suggestionbox.presentation.suggestion_detail.components.AddImageToStorage
 import com.aldeadavila.suggestionbox.presentation.suggestion_detail.components.OpenGallery
@@ -56,23 +59,56 @@ fun SuggestionDetailScreen(
             viewModel.addImageToStorage(imageUri)
         }
     }
-    
-    
-    Scaffold (
-        content = { paddingValues -> 
+
+    Column (
+        modifier = Modifier
+            .padding(horizontal = 40.dp)
+            .fillMaxSize(),
+
+        horizontalAlignment = Alignment.CenterHorizontally
+
+    ) {
+        NormalField(value = "Title")
+        Spacer(modifier = Modifier.height(20.dp))
+        NormalField(value = "author")
+
         Box(modifier = Modifier
             .fillMaxSize()
-            .padding(paddingValues))
-            {
-                OpenGallery(
-                    openGallery = {
-                        galleryLauncher.launch(Constants.ALL_IMAGES)
-                    }
+            .padding(horizontal = 40.dp))
+        {
+            OpenGallery(
+                openGallery = {
+                    galleryLauncher.launch(Constants.ALL_IMAGES)
+                }
+            )
+        }
+
+
+        if(state.error.isNotBlank()) {
+            NormalTextComponent(value = state.error)
+        }
+
+        if(state.isLoading) {
+            CircularProgressIndicator()
+        } else {
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth(),
+
+                onClick = {
+                    addNewSuggestion(title, author)
+                },
+                colors = ButtonDefaults.buttonColors(
+                    Color.Gray
+                )
+            ) {
+                Text(
+                    text = "Añade una sugerencia",
+                    color = Color.Black
                 )
             }
-        },
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-    )
+        }
+    }
 
     fun showSnackBar() = couroutineScope.launch {
         val result = snackbarHostState.showSnackbar(
@@ -93,62 +129,5 @@ fun SuggestionDetailScreen(
         }
     )
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ){
-        Column(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                value = title,
-                onValueChange = { title = it},
-                label = {
-                    Text(text = "Title")
-                }
-            )
 
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                value = author,
-                onValueChange = { author = it},
-                label = {
-                    Text(text = "Author")
-                }
-            )
-
-
-        }
-
-        if(state.error.isNotBlank()) {
-            NormalTextComponent(value = state.error)
-        }
-
-        if(state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        } else {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth(),
-
-                onClick = {
-                    addNewSuggestion(title, author)
-                },
-                colors = ButtonDefaults.buttonColors(
-                    Color.Gray
-                )
-            ) {
-                Text(
-                    text = "Add New Book",
-                    color = Color.Black
-                )
-            }
-        }
-    }
 }
