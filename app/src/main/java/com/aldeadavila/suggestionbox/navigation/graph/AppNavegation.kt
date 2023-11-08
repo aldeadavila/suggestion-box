@@ -72,7 +72,9 @@ fun AuthNavGraph(
         composable(
             route = AppScreen.Profile.route
         ) {
-            ProfileScreen()
+            ProfileScreen(
+                navController = navController,
+            )
         }
         composable(
             route = AppScreen.VerifyEmail.route

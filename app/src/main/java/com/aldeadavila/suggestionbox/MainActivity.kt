@@ -21,13 +21,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
-
-                    navController = rememberNavController()
-                    AuthNavGraph(navController)
-
-                AuthState()
-
+            navController = rememberNavController()
+            AuthNavGraph(navController)
+            AuthState()
         }
     }
 
