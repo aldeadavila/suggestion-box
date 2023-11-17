@@ -4,5 +4,5 @@ import com.aldeadavila.suggestionbox.domain.repository.ProductsRepository
 
 class FindAllUseCase(private val repository: ProductsRepository) {
 
-    suspend operator fun invoke() = repository.findAll()
+    operator fun invoke() = repository.findAll()
 }

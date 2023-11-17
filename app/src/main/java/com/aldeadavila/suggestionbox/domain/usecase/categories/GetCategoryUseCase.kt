@@ -4,5 +4,5 @@ import com.aldeadavila.suggestionbox.domain.repository.CategoriesRepository
 
 class GetCategoryUseCase(private val categoriesRepository: CategoriesRepository) {
 
-    suspend operator fun invoke() = categoriesRepository.getCategories()
+    operator fun invoke() = categoriesRepository.getCategories()
 }

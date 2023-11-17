@@ -2,7 +2,6 @@ package com.aldeadavila.suggestionbox.ui.screens.client.category.list.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,7 +27,7 @@ fun ClientCategoryListItem(navHostController: NavHostController, category: Categ
         modifier = Modifier
             .padding(bottom = 15.dp)
             .clickable {
-                       navHostController.navigate(route = ClientCategoryScreen.ProductList.passCategory(category.toJson()))
+                navHostController.navigate(route = ClientCategoryScreen.ProductList.passCategory(category.toJson()))
             },
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(20.dp)
@@ -42,12 +41,19 @@ fun ClientCategoryListItem(navHostController: NavHostController, category: Categ
                 contentDescription = "imagen de la categoría"
             )
             Text(
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
+                modifier = Modifier.padding(
+                    horizontal = 20.dp,
+                    vertical = 10.dp
+                ),
                 text = category.name,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
+                modifier = Modifier.padding(
+                    start = 20.dp,
+                    end = 20.dp,
+                    bottom = 20.dp
+                ),
                 text = category.description,
                 fontSize = 14.sp,
                 color = Color.Gray
