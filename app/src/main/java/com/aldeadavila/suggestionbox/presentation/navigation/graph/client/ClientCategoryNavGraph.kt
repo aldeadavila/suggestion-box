@@ -8,7 +8,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.product.listbycategory.ClientProductListByCategoryScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientProductListByCategoryScreen
 
 fun NavGraphBuilder.ClientCategoryNavGraph(navHostController: NavHostController) {
     navigation(

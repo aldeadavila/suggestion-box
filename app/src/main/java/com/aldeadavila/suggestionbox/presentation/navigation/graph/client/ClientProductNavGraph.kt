@@ -8,7 +8,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientProductScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.product.detail.ClientProductDetailScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailScreen
 
 fun NavGraphBuilder.ClientProudctNavGraph(navHostController: NavHostController) {
     navigation(
@@ -23,7 +23,7 @@ fun NavGraphBuilder.ClientProudctNavGraph(navHostController: NavHostController) 
             })
         ) {
             it.arguments?.getString("product")?.let {
-                ClientProductDetailScreen(
+                ClientSuggestionDetailScreen(
                     navHostController,
                     it
                 )

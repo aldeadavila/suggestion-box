@@ -5,10 +5,10 @@ import com.aldeadavila.suggestionbox.data.datasource.local.AuthLocalDataSource
 import com.aldeadavila.suggestionbox.data.datasource.local.AuthLocalDataSourceImpl
 import com.aldeadavila.suggestionbox.data.datasource.local.CategoriesLocalDataSource
 import com.aldeadavila.suggestionbox.data.datasource.local.CategoriesLocalDataSourceImpl
-import com.aldeadavila.suggestionbox.data.datasource.local.ProductsLocalDataSource
-import com.aldeadavila.suggestionbox.data.datasource.local.ProductsLocalDataSourceImpl
+import com.aldeadavila.suggestionbox.data.datasource.local.SuggestionsLocalDataSource
+import com.aldeadavila.suggestionbox.data.datasource.local.SuggestionsLocalDataSourceImpl
 import com.aldeadavila.suggestionbox.data.datasource.local.dao.CategoriesDao
-import com.aldeadavila.suggestionbox.data.datasource.local.dao.ProductsDao
+import com.aldeadavila.suggestionbox.data.datasource.local.dao.suggestionsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,5 +25,5 @@ object LocalDataModule {
     fun provideCategoriesLocalDataSource(categoriesDao: CategoriesDao): CategoriesLocalDataSource = CategoriesLocalDataSourceImpl(categoriesDao)
 
     @Provides
-    fun provideProductsLocalDataSource(productsDao: ProductsDao): ProductsLocalDataSource = ProductsLocalDataSourceImpl(productsDao)
+    fun provideProductsLocalDataSource(suggestionsDao: suggestionsDao): SuggestionsLocalDataSource = SuggestionsLocalDataSourceImpl(suggestionsDao)
 }

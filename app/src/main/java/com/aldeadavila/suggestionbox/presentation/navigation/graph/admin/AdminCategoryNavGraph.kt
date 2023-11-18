@@ -10,9 +10,9 @@ import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.category.update.AdminCategoryUpdateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.category.create.AdminCategoryCreateScreen
-import com.aldeadavila.suggestionbox.presentation.screens.admin.product.create.AdminProductCreateScreen
-import com.aldeadavila.suggestionbox.presentation.screens.admin.product.list.AdminProductListScreen
-import com.aldeadavila.suggestionbox.presentation.screens.admin.product.update.AdminProductUpdateScreen
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.create.AdminSuggestionCreateScreen
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.list.AdminsuggestionListScreen
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.AdminProductUpdateScreen
 
 fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) {
     navigation(
@@ -42,23 +42,23 @@ fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) 
             })
         ) {
             it.arguments?.getString("category")?.let {
-                AdminProductListScreen(navHostController, it)
+                AdminsuggestionListScreen(navHostController, it)
             }
         }
 
         composable(
-            route = AdminCategoryScreen.ProductCreate.route,
+            route = AdminCategoryScreen.SuggestionCreate.route,
             arguments = listOf(navArgument("category") {
                 type = NavType.StringType
             })
         ) {
             it.arguments?.getString("category")?.let {
-                AdminProductCreateScreen(navHostController, it)
+                AdminSuggestionCreateScreen(navHostController, it)
             }
         }
 
         composable(
-            route = AdminCategoryScreen.ProductUpdate.route,
+            route = AdminCategoryScreen.SuggestionUpdate.route,
             arguments = listOf(navArgument("product") {
                 type = NavType.StringType
             })

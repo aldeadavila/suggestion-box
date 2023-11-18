@@ -4,7 +4,7 @@ import com.aldeadavila.suggestionbox.core.Config.BASE_URL
 import com.aldeadavila.suggestionbox.data.datasource.local.datastore.AuthDataStore
 import com.aldeadavila.suggestionbox.data.datasource.remote.service.AuthService
 import com.aldeadavila.suggestionbox.data.datasource.remote.service.CategoryService
-import com.aldeadavila.suggestionbox.data.datasource.remote.service.ProductsService
+import com.aldeadavila.suggestionbox.data.datasource.remote.service.SuggestionService
 import com.aldeadavila.suggestionbox.data.datasource.remote.service.UserService
 import dagger.Module
 import dagger.Provides
@@ -65,8 +65,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideProductsService(retrofit: Retrofit): ProductsService {
-        return retrofit.create(ProductsService::class.java)
+    fun provideProductsService(retrofit: Retrofit): SuggestionService {
+        return retrofit.create(SuggestionService::class.java)
     }
 
 }

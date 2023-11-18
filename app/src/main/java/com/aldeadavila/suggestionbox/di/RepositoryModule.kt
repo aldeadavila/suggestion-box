@@ -5,15 +5,15 @@ import com.aldeadavila.suggestionbox.data.repository.CategoriesRespositoryImpl
 import com.aldeadavila.suggestionbox.data.repository.UsersRepositoryImpl
 import com.aldeadavila.suggestionbox.data.datasource.local.AuthLocalDataSource
 import com.aldeadavila.suggestionbox.data.datasource.local.CategoriesLocalDataSource
-import com.aldeadavila.suggestionbox.data.datasource.local.ProductsLocalDataSource
+import com.aldeadavila.suggestionbox.data.datasource.local.SuggestionsLocalDataSource
 import com.aldeadavila.suggestionbox.data.datasource.remote.AuthRemoteDatasource
 import com.aldeadavila.suggestionbox.data.datasource.remote.CategoriesRemoteDatasource
-import com.aldeadavila.suggestionbox.data.datasource.remote.ProductsRemoteDataSource
+import com.aldeadavila.suggestionbox.data.datasource.remote.SuggestionsRemoteDataSource
 import com.aldeadavila.suggestionbox.data.datasource.remote.UsersRemoteDatasource
-import com.aldeadavila.suggestionbox.data.repository.ProductsRepositoryImpl
+import com.aldeadavila.suggestionbox.data.repository.SuggestionRepositoryImpl
 import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
 import com.aldeadavila.suggestionbox.domain.repository.CategoriesRepository
-import com.aldeadavila.suggestionbox.domain.repository.ProductsRepository
+import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.aldeadavila.suggestionbox.domain.repository.UsersRepository
 import dagger.Module
 import dagger.Provides
@@ -42,8 +42,8 @@ object RepositoryModule {
     ): CategoriesRepository = CategoriesRespositoryImpl(categoriesRemoteDatasource, categoriesLocalDataSource)
 
     @Provides
-    fun provideProductsRepository(
-        productsRemoteDataSource: ProductsRemoteDataSource,
-        productsLocalDataSource: ProductsLocalDataSource
-    ): ProductsRepository = ProductsRepositoryImpl(productsRemoteDataSource, productsLocalDataSource)
+    fun provideSuggestionsRepository(
+        suggestionsRemoteDataSource: SuggestionsRemoteDataSource,
+        suggestionsLocalDataSource: SuggestionsLocalDataSource
+    ): SuggestionRepository = SuggestionRepositoryImpl(suggestionsRemoteDataSource, suggestionsLocalDataSource)
 }

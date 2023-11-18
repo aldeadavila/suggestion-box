@@ -1,10 +1,10 @@
 package com.aldeadavila.suggestionbox.data.mapper
 
-import com.aldeadavila.suggestionbox.data.datasource.local.entity.ProductEntity
-import com.aldeadavila.suggestionbox.domain.model.Product
+import com.aldeadavila.suggestionbox.data.datasource.local.entity.SuggestionEntity
+import com.aldeadavila.suggestionbox.domain.model.Suggestion
 
-fun ProductEntity.toProduct(): Product {
-    return Product(
+fun SuggestionEntity.toProduct(): Suggestion {
+    return Suggestion(
         id = id,
         name = name,
         description = description,
@@ -16,8 +16,8 @@ fun ProductEntity.toProduct(): Product {
     )
 }
 
-fun Product.toProductEntity(): ProductEntity {
-    return ProductEntity(
+fun Suggestion.toProductEntity(): SuggestionEntity {
+    return SuggestionEntity(
         id = id ?: "",
         name = name,
         description = description,

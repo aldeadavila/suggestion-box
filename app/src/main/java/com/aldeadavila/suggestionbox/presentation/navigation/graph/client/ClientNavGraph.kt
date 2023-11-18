@@ -8,7 +8,7 @@ import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.navigation.graph.profile.ProfileNavGraph
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.category.list.ClientCategoryListScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.product.list.ClientProductListScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientProductListScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileScreen
 
 @Composable

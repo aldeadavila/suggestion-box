@@ -2,7 +2,7 @@ package com.aldeadavila.suggestionbox.di
 
 import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
 import com.aldeadavila.suggestionbox.domain.repository.CategoriesRepository
-import com.aldeadavila.suggestionbox.domain.repository.ProductsRepository
+import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.aldeadavila.suggestionbox.domain.repository.UsersRepository
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.auth.GetSessionDataUseCase
@@ -17,13 +17,13 @@ import com.aldeadavila.suggestionbox.domain.usecase.categories.DeleteCategoryUse
 import com.aldeadavila.suggestionbox.domain.usecase.categories.GetCategoryUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.categories.UpdateCategoryUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.categories.UpdateCategoryWithImageUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.products.CreateProductUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.products.DeleteProductUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.products.FindAllUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.products.FindByCategoryUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.products.ProductsUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.products.UpdateProductUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.products.UpdateProductWithImageUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.CreateSuggestionUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.DeleteSuggestionUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.FindAllUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.FindByCategoryUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestionUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestionWithImageUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UpdateUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UpdateUserWithImageUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
@@ -63,13 +63,13 @@ object UseCaseModule {
     )
 
     @Provides
-    fun provideProductsUseCase(productsRepository: ProductsRepository) = ProductsUseCase(
-        createProduct = CreateProductUseCase(productsRepository),
-        findAll = FindAllUseCase(productsRepository),
-        findByCategory = FindByCategoryUseCase(productsRepository),
-        updateProduct = UpdateProductUseCase(productsRepository),
-        updateProductWithImage = UpdateProductWithImageUseCase(productsRepository),
-        deleteProduct = DeleteProductUseCase(productsRepository),
+    fun provideProductsUseCase(suggestionRepository: SuggestionRepository) = SuggestionsUseCase(
+        createSuggestionUseCase = CreateSuggestionUseCase(suggestionRepository),
+        findAll = FindAllUseCase(suggestionRepository),
+        findByCategory = FindByCategoryUseCase(suggestionRepository),
+        updateSuggestion = UpdateSuggestionUseCase(suggestionRepository),
+        updateSuggestionWithImage = UpdateSuggestionWithImageUseCase(suggestionRepository),
+        deleteSuggestion = DeleteSuggestionUseCase(suggestionRepository),
 
     )
 }
