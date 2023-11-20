@@ -57,7 +57,7 @@ fun ClientProductListItem(
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = suggestion.price.toString(),
+                    text = suggestion.idUser.toString(),
                     color = Color.Gray,
                     fontSize = 14.sp
                 )

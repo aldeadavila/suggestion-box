@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 @Dao
-interface suggestionsDao {
+interface SuggestionsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(suggestionEntity: SuggestionEntity)
@@ -22,8 +22,8 @@ interface suggestionsDao {
     @Query("SELECT * FROM suggestions WHERE id_category = :id_category")
     fun getByCategory(id_category:String): Flow<List<SuggestionEntity>>
 
-    @Query("UPDATE suggestions SET name = :name, description = :description, image1 = :image1, image2 = :image2, price = :price WHERE id = :id")
-    suspend fun update(id:String, name:String, description:String, image1:String, image2:String, price:Double)
+    @Query("UPDATE suggestions SET name = :name, description = :description, image1 = :image1, image2 = :image2, id_user = :id_user WHERE id = :id")
+    suspend fun update(id:String, name:String, description:String, image1:String, image2:String, id_user:String)
 
     @Query("DELETE FROM suggestions WHERE id = :id")
     suspend fun delete(id:String)

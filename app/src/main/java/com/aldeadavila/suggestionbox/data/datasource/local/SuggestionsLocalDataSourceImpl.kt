@@ -1,10 +1,10 @@
 package com.aldeadavila.suggestionbox.data.datasource.local
 
-import com.aldeadavila.suggestionbox.data.datasource.local.dao.suggestionsDao
+import com.aldeadavila.suggestionbox.data.datasource.local.dao.SuggestionsDao
 import com.aldeadavila.suggestionbox.data.datasource.local.entity.SuggestionEntity
 import kotlinx.coroutines.flow.Flow
 
-class SuggestionsLocalDataSourceImpl(private val suggestionsDao: suggestionsDao): SuggestionsLocalDataSource {
+class SuggestionsLocalDataSourceImpl(private val suggestionsDao: SuggestionsDao): SuggestionsLocalDataSource {
     override suspend fun create(suggestionEntity: SuggestionEntity) = suggestionsDao.insert(suggestionEntity)
 
     override suspend fun insertAll(productsEntity: List<SuggestionEntity>) = suggestionsDao.insertAll(productsEntity)
@@ -18,8 +18,8 @@ class SuggestionsLocalDataSourceImpl(private val suggestionsDao: suggestionsDao)
         description: String,
         image1: String,
         image2: String,
-        price: Double
-    ) = suggestionsDao.update(id, name, description, image1, image2, price)
+        id_user: String
+    ) = suggestionsDao.update(id, name, description, image1, image2, id_user)
 
     override suspend fun delete(id: String) = suggestionsDao.delete(id)
 }

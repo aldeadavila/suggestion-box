@@ -10,6 +10,6 @@ interface SuggestionsLocalDataSource {
     suspend fun insertAll(productsEntity:List<SuggestionEntity>)
     fun getSuggestions(): Flow<List<SuggestionEntity>>
     fun findByCategory(idCategory:String): Flow<List<SuggestionEntity>>
-    suspend fun update(id:String, name:String, description:String, image1:String, image2:String, price:Double)
+    suspend fun update(id:String, name:String, description:String, image1:String, image2:String, idUser:String)
     suspend fun delete(id:String)
 }

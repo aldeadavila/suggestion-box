@@ -97,7 +97,7 @@ fun ClientSuggestionDetailContent(
                     fontSize = 16.sp
                 )
                 Text(
-                    text = vm.suggestion.price.toString(),
+                    text = vm.suggestion.idUser.toString(),
                     fontSize = 15.sp
                 )
                 Divider(

@@ -8,6 +8,6 @@ fun AdminSuggestionCreateState.toProduct(): Suggestion {
         name = name,
         description = description,
         idCategory = idCategory,
-        price = price
+        idUser = idUser
     )
 }

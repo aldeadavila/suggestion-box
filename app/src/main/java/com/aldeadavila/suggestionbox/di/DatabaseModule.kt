@@ -3,7 +3,7 @@ package com.aldeadavila.suggestionbox.di
 import android.app.Application
 import androidx.room.Room
 import com.aldeadavila.suggestionbox.data.datasource.local.dao.CategoriesDao
-import com.aldeadavila.suggestionbox.data.datasource.local.dao.suggestionsDao
+import com.aldeadavila.suggestionbox.data.datasource.local.dao.SuggestionsDao
 import com.aldeadavila.suggestionbox.data.datasource.local.db.EcommerceDB
 import dagger.Module
 import dagger.Provides
@@ -24,5 +24,5 @@ object DatabaseModule {
     fun provideCategoriesDao(db: EcommerceDB): CategoriesDao = db.categoriesDAO()
 
     @Provides
-    fun provideProductssDao(db: EcommerceDB): suggestionsDao = db.productsDAO()
+    fun provideProductssDao(db: EcommerceDB): SuggestionsDao = db.productsDAO()
 }

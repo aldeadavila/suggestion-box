@@ -177,8 +177,8 @@ fun AdminProductUpdateContent(
                 Spacer(modifier = Modifier.height(10.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = state.price.toString(),
-                    onValueChange = { vm.onPriceInput(it) },
+                    value = state.idUser,
+                    onValueChange = { vm.onIdUserInput(it) },
                     label = "Precio",
                     icon = Icons.Default.Info,
                     contentDescription = "",

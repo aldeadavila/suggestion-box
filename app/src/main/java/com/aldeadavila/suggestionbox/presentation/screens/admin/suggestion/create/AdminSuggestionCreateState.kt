@@ -8,5 +8,5 @@ data class AdminSuggestionCreateState(
     val idCategory: String = "",
     val image1: String = "",
     val image2: String = "",
-    val price: Double = 0.0,
+    val idUser: String = "",
 )

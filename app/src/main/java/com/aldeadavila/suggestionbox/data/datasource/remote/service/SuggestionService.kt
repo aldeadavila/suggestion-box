@@ -31,7 +31,7 @@ interface SuggestionService {
         @Part("name") name: RequestBody,
         @Part("description") description: RequestBody,
         @Part("id_category") idCategory: RequestBody,
-        @Part("price") price: RequestBody,
+        @Part("id_user") idUser: RequestBody,
     ): Response<Suggestion>
 
     @Multipart
@@ -42,7 +42,7 @@ interface SuggestionService {
         @Part("name") name: RequestBody,
         @Part("description") description: RequestBody,
         @Part("id_category") idCategory: RequestBody,
-        @Part("price") price: RequestBody,
+        @Part("id_user") idUser: RequestBody,
         @Part("images_to_update[]") imagesToUpdate: Array<RequestBody?>,
     ): Response<Suggestion>
 

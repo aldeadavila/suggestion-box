@@ -9,7 +9,7 @@ fun AdminProductUpdateState.toProduct(): Suggestion {
         name = name,
         description = description,
         idCategory = idCategory,
-        price = price,
+        idUser = idUser,
         imagesToUpdate = imagesToUpdate.toList(),
         image1 = image1,
         image2 = image2

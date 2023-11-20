@@ -10,7 +10,7 @@ fun SuggestionEntity.toProduct(): Suggestion {
         description = description,
         image1 = image1,
         image2 = image2,
-        price = price,
+        idUser = idUser,
         idCategory = idCategory,
         imagesToUpdate = null
     )
@@ -23,7 +23,7 @@ fun Suggestion.toProductEntity(): SuggestionEntity {
         description = description,
         image1 = image1 ?: "",
         image2 = image2 ?: "",
-        price = price,
+        idUser = idUser,
         idCategory = idCategory
     )
 }

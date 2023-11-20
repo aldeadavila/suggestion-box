@@ -111,7 +111,7 @@ class AdminProductCreateViewModel @Inject constructor(
             description = "",
             image1 = "",
             image2 = "",
-            price = 0.0,
+            idUser = "",
         )
         suggestionResponse = null
     }
@@ -124,7 +124,7 @@ class AdminProductCreateViewModel @Inject constructor(
         state = state.copy(description = input)
     }
 
-    fun onPriceInput(input: String) {
-        state = state.copy(price = input.toDouble())
+    fun onIdUserInput(input: String) {
+        state = state.copy(idUser = input)
     }
 }

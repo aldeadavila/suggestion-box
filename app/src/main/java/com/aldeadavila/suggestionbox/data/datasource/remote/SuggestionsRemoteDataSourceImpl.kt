@@ -38,14 +38,14 @@ class SuggestionsRemoteDataSourceImpl(private val suggestionService: SuggestionS
         val nameData = suggestion.name.toRequestBody(contentType.toMediaTypeOrNull())
         val descriptionData = suggestion.description.toRequestBody(contentType.toMediaTypeOrNull())
         val idCategoryData = suggestion.idCategory.toRequestBody(contentType.toMediaTypeOrNull())
-        val priceData = suggestion.price.toString().toRequestBody(contentType.toMediaTypeOrNull())
+        val idUserData = suggestion.idUser.toRequestBody(contentType.toMediaTypeOrNull())
 
         return suggestionService.create(
             images,
             nameData,
             descriptionData,
             idCategoryData,
-            priceData
+            idUserData
         )
     }
 
@@ -78,7 +78,7 @@ class SuggestionsRemoteDataSourceImpl(private val suggestionService: SuggestionS
         val nameData = suggestion.name.toRequestBody(contentType.toMediaTypeOrNull())
         val descriptionData = suggestion.description.toRequestBody(contentType.toMediaTypeOrNull())
         val idCategoryData = suggestion.idCategory.toRequestBody(contentType.toMediaTypeOrNull())
-        val priceData = suggestion.price.toString().toRequestBody(contentType.toMediaTypeOrNull())
+        val idUserData = suggestion.idUser.toString().toRequestBody(contentType.toMediaTypeOrNull())
 
         return suggestionService.updateWithImage(
             images,
@@ -86,7 +86,7 @@ class SuggestionsRemoteDataSourceImpl(private val suggestionService: SuggestionS
             nameData,
             descriptionData,
             idCategoryData,
-            priceData,
+            idUserData,
             imagesToUpdate
         )
     }
