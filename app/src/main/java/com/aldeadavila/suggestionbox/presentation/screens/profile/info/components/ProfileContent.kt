@@ -41,7 +41,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.ui.MainActivity
+import com.aldeadavila.suggestionbox.MainActivity
 import com.aldeadavila.suggestionbox.presentation.components.DefaultButton
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileViewModel

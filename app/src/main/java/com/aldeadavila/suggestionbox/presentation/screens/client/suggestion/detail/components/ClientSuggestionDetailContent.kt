@@ -28,7 +28,6 @@ import com.aldeadavila.suggestionbox.presentation.components.DefaultButton
 import com.aldeadavila.suggestionbox.presentation.components.DotsIndicator
 import com.aldeadavila.suggestionbox.presentation.components.SliderView
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientProductDetailViewModel
-import com.aldeadavila.suggestionbox.ui.theme.Gray100
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
@@ -74,7 +73,7 @@ fun ClientSuggestionDetailContent(
                 )
                 Divider(
                     modifier = Modifier.padding(vertical = 10.dp),
-                    color = Gray100
+                    color = Color.Gray
                 )
                 Text(
                     modifier = Modifier.padding(bottom = 7.dp),
@@ -88,7 +87,7 @@ fun ClientSuggestionDetailContent(
                 )
                 Divider(
                     modifier = Modifier.padding(vertical = 10.dp),
-                    color = Gray100
+                    color = Color.Gray
                 )
                 Text(
                     modifier = Modifier.padding(bottom = 7.dp),
@@ -102,7 +101,7 @@ fun ClientSuggestionDetailContent(
                 )
                 Divider(
                     modifier = Modifier.padding(vertical = 10.dp),
-                    color = Gray100
+                    color = Color.Gray
                 )
                 Text(
                     modifier = Modifier.padding(bottom = 7.dp),

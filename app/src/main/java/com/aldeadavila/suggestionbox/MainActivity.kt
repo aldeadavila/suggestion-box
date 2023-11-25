@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.ui
+package com.aldeadavila.suggestionbox
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

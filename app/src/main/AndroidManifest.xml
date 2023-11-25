@@ -32,7 +32,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SuggestionBox">
@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <provider
-            android:name=".ui.util.ComposeFileProvider"
+            android:name=".presentation.util.ComposeFileProvider"
             android:authorities="com.aldeadavila.suggestionbox.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true" />

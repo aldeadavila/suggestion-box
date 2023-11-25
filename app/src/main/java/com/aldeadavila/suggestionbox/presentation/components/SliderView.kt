@@ -8,13 +8,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.ui.theme.Gray200
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -31,7 +31,7 @@ fun SliderView(state: PagerState, images: List<String>) {
         modifier = Modifier
             .height(300.dp)
             .fillMaxWidth()
-            .background(color = Gray200)
+            .background(color = Color.Gray)
     ) { page ->
         imageUrl.value = images[page]
 

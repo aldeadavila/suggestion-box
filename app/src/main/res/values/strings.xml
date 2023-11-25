@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">suggestionBox</string>
+    <string name="do_login">Haz login aquí</string>
+    <string name="welcome">!Bienvenido, le habíamos echado de menos!</string>
 </resources>
