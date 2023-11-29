@@ -5,4 +5,7 @@ object Constants {
     const val SIGN_UP_BUTTON = "Cree su cuenta"
     const val SIGN_IN_BUTTON = "Iniciar sesión"
     const val NO_ACCOUNT = "Cree su cuenta nueva"
+    const val EMAIL_LABEL = "Email"
+    const val PASSWORD_LABEL = "Password"
+    const val EMPTY_STRING = ""
 }
