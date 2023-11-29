@@ -10,24 +10,35 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.aldeadavila.suggestionbox.ui.theme.AldeadavilaSuggestionBoxTheme
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.aldeadavila.suggestionbox.presentation.navigation.graph.root.RootNavGraph
+import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginScreen
+import com.aldeadavila.suggestionbox.ui.theme.SuggestionBoxTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private lateinit var navController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AldeadavilaSuggestionBoxTheme {
+            SuggestionBoxTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    navController = rememberNavController()
+                    RootNavGraph(navController = navController)
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -37,10 +48,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    showSystemUi = true
+)
 @Composable
 fun GreetingPreview() {
-    AldeadavilaSuggestionBoxTheme {
-        Greeting("Android")
+    SuggestionBoxTheme {
+        LoginScreen(rememberNavController())
     }
 }
