@@ -92,7 +92,7 @@ fun RegisterContent(
             modifier = Modifier
                 .padding(start = 50.dp)
                 .size(400.dp),
-            painter = painterResource(id = R.drawable.dibujo_amarillo),
+            painter = painterResource(id = R.drawable.bg_orange),
             contentDescription = "",
             contentScale = ContentScale.Crop,
             alignment = Alignment.TopEnd

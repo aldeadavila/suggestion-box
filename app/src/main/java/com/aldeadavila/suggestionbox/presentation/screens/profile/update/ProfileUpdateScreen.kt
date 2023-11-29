@@ -13,7 +13,7 @@ import com.aldeadavila.suggestionbox.presentation.screens.profile.update.compone
 @Composable
 fun ProfileUpdateScreen(navController: NavHostController, userParam: String) {
     Log.d(
-        "ProfileUpdateScree",
+        "ProfileUpdateScreen",
         "User: $userParam"
     )
     Scaffold(
