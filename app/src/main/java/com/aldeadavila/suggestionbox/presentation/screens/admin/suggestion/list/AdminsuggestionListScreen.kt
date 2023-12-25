@@ -23,11 +23,13 @@ import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.list.
 fun AdminsuggestionListScreen(navHostController: NavHostController, categoryParam: String) {
 
     val categoryParse = Category.fromJson(categoryParam).toJson()
+    val name = Category.fromJson(categoryParam).name
+
 
     Scaffold (
         topBar = {
                  DefaultTopBar(
-                     title = "Sugerencias",
+                     title = name,
                      navController  = navHostController,
                      upAvailable = true
 

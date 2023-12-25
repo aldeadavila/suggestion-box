@@ -27,7 +27,7 @@ fun ClientCategoryListItem(navHostController: NavHostController, category: Categ
         modifier = Modifier
             .padding(bottom = 15.dp)
             .clickable {
-                navHostController.navigate(route = ClientCategoryScreen.ProductList.passCategory(category.toJson()))
+                navHostController.navigate(route = ClientCategoryScreen.SuggestionList.passCategory(category.toJson()))
             },
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(20.dp)

@@ -21,7 +21,7 @@ fun CreateSuggestion(vm: AdminProductCreateViewModel = hiltViewModel()) {
             vm.clearForm()
             Toast.makeText(
                 LocalContext.current,
-                "El producto se ha creado correctamente",
+                "La sugerencia se ha creado correctamente",
                 Toast.LENGTH_LONG
             ).show()
         }

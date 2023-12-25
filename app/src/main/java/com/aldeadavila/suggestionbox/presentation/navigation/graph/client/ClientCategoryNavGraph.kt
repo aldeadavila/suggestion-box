@@ -13,11 +13,11 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list
 fun NavGraphBuilder.ClientCategoryNavGraph(navHostController: NavHostController) {
     navigation(
         route = Graph.CLIENT_CATEGORY,
-        startDestination = ClientCategoryScreen.ProductList.route
+        startDestination = ClientCategoryScreen.SuggestionList.route
     ) {
 
         composable(
-            route = ClientCategoryScreen.ProductList.route,
+            route = ClientCategoryScreen.SuggestionList.route,
             arguments = listOf(navArgument("category") {
                 type = NavType.StringType
             })

@@ -21,7 +21,7 @@ fun AdminCategoryCreateScreen(navHostController: NavHostController) {
                 navController = navHostController
             )
         },
-        containerColor = Color.Gray
+        containerColor = Color.White
     ){
 
         AdminCategoryCreateContent(paddingValues = it)

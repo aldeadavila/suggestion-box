@@ -3,6 +3,7 @@ package com.aldeadavila.suggestionbox.presentation.navigation.screen.admin
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class AdminScreen(
@@ -16,11 +17,11 @@ sealed class AdminScreen(
         icon = Icons.Default.List
     )
 
-    /* object ProductList: AdminScreen(
+    object ProductList: AdminScreen(
          route = "admin/product/list",
-         title = "Productos",
+         title = "Sugerencias",
          icon = Icons.Default.ThumbUp
-     )*/
+     )
 
     object Profile : AdminScreen(
         route = "admin/profile",

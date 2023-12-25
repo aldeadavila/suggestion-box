@@ -41,6 +41,7 @@ fun DefaultTextField(
             cursorColor = md_theme_light_primary,
             containerColor = md_theme_secondary99
         ),
+
         leadingIcon = {
             Icon(
                 imageVector = icon,

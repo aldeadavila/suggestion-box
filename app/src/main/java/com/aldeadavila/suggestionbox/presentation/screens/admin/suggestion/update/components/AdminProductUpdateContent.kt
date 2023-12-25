@@ -145,7 +145,7 @@ fun AdminProductUpdateContent(
                 Text(
                     modifier = Modifier
                         .padding(bottom = 20.dp),
-                    text = "PRODUCTO",
+                    text = "SUGERENCIA",
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
                     color = Color.Black
@@ -161,7 +161,7 @@ fun AdminProductUpdateContent(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.name,
                     onValueChange = { vm.onNameInput(it) },
-                    label = "Nombre del producto",
+                    label = "Nombre de la sugerencia",
                     icon = Icons.Default.List,
                     contentDescription = ""
                 )
@@ -190,7 +190,7 @@ fun AdminProductUpdateContent(
             DefaultButton(modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 15.dp),
-                text = "Actualizar Producto",
+                text = "Actualizar Sugerencia",
                 onClick = {
                     vm.updateProduct()
                 }

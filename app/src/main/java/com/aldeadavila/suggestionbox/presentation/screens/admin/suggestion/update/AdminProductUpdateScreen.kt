@@ -16,7 +16,7 @@ fun AdminProductUpdateScreen(navHostController: NavHostController, productParam:
     Scaffold(
         topBar = {
             DefaultTopBar(
-                title = "Actualizar Producto",
+                title = "Actualizar Sugerencia",
                 upAvailable = true,
                 navController = navHostController
             )
