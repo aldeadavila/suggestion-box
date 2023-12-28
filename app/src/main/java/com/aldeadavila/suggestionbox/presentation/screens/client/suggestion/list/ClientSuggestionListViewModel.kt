@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientProductListViewModel @Inject constructor(private val suggestionsUseCase: SuggestionsUseCase)  :ViewModel() {
+class ClientSuggestionListViewModel @Inject constructor(private val suggestionsUseCase: SuggestionsUseCase)  :ViewModel() {
 
     var productsResponse by mutableStateOf<Resource<List<Suggestion>>?>(null)
         private set

@@ -7,7 +7,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.create.AdminSuggestionCreateScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.ClientSuggestionCreateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientProductListByCategoryScreen
 
 fun NavGraphBuilder.ClientCategoryNavGraph(navHostController: NavHostController) {
@@ -27,6 +30,17 @@ fun NavGraphBuilder.ClientCategoryNavGraph(navHostController: NavHostController)
                     navHostController,
                     it
                 )
+            }
+        }
+
+        composable(
+            route = ClientCategoryScreen.SuggestionCreate.route,
+            arguments = listOf(navArgument("category") {
+                type = NavType.StringType
+            })
+        ) {
+            it.arguments?.getString("category")?.let {
+                ClientSuggestionCreateScreen(navHostController, it)
             }
         }
 

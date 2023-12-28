@@ -1,6 +1,5 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.components
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,27 +20,23 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientProductScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientProductListByCategoryViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
 
 @Composable
-fun ClientProductListByCategoryItem(
+fun ClientProductListItem(
     navHostController: NavHostController,
     suggestion: Suggestion,
-    vm: ClientProductListByCategoryViewModel = hiltViewModel()
+    vm: ClientSuggestionListViewModel = hiltViewModel()
 ) {
 
-
-    Column(modifier = Modifier
-        .padding(
-            start = 20.dp,
-            end = 20.dp,
-            top = 15.dp
-        )
-        .height(90.dp)
-        .clickable {
-            navHostController.navigate(route = ClientProductScreen.ProductDetail.passProduct(suggestion.toJson()))
-        }
+    Column(
+        modifier = Modifier
+            .padding(
+                start = 20.dp,
+                end = 20.dp,
+                top = 15.dp
+            )
+            .height(90.dp)
 
     ) {
         Row {
@@ -76,11 +71,10 @@ fun ClientProductListByCategoryItem(
                 contentDescription = ""
             )
 
-
         }
         Spacer(modifier = Modifier.height(10.dp))
         Divider(
-            modifier = Modifier.padding(80.dp),
+            modifier = Modifier.padding(end = 80.dp),
             color = Color.LightGray
         )
     }

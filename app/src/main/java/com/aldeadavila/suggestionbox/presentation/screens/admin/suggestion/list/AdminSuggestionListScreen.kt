@@ -20,7 +20,7 @@ import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.list.
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminsuggestionListScreen(navHostController: NavHostController, categoryParam: String) {
+fun  AdminSuggestionListScreen(navHostController: NavHostController, categoryParam: String) {
 
     val categoryParse = Category.fromJson(categoryParam).toJson()
     val name = Category.fromJson(categoryParam).name

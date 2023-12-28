@@ -18,7 +18,7 @@ sealed class AdminScreen(
     )
 
     object ProductList: AdminScreen(
-         route = "admin/product/list",
+         route = "admin/suggestion/list",
          title = "Sugerencias",
          icon = Icons.Default.ThumbUp
      )

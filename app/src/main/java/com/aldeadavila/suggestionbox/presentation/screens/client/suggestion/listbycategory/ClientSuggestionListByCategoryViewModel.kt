@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientProductListByCategoryViewModel @Inject constructor(
+class ClientSuggestionListByCategoryViewModel @Inject constructor(
     private val suggestionsUseCase: SuggestionsUseCase,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
