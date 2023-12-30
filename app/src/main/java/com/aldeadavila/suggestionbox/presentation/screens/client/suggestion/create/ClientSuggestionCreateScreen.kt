@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
+import com.aldeadavila.suggestionbox.domain.model.Category
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.components.ClientSuggestionCreateContent
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.components.CreateClientSuggestion
@@ -13,15 +14,15 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.crea
 @Composable
 fun ClientSuggestionCreateScreen(navHostController: NavHostController, categoryParam: String) {
 
+    val name = Category.fromJson(categoryParam).name
     Scaffold(
         topBar = {
             DefaultTopBar(
-                title = "Nueva Sugerencia",
+                title = "Añade tu ${name.dropLast(1)}",
                 upAvailable = true,
                 navController = navHostController
             )
-        },
-        containerColor = Color.Gray
+        }
     ) {
         ClientSuggestionCreateContent(paddingValues = it)
     }

@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Category
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
+import com.aldeadavila.suggestionbox.domain.model.User
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.mapper.toProduct
@@ -24,10 +26,14 @@ import javax.inject.Inject
 class ClientProductCreateViewModel @Inject constructor(
     @ApplicationContext val context: Context,
     private val savedStateHandle: SavedStateHandle,
-    private val productUseCase: SuggestionsUseCase
+    private val productUseCase: SuggestionsUseCase,
+    private val authUseCase: AuthUseCase
 ) : ViewModel() {
 
     var state by mutableStateOf(ClientSuggestionCreateState())
+        private set
+
+    var user by mutableStateOf<User?> (null)
         private set
 
     var suggestionResponse by mutableStateOf<Resource<Suggestion>?>(null)
@@ -43,14 +49,16 @@ class ClientProductCreateViewModel @Inject constructor(
 
     init {
         state = state.copy(idCategory = category.id ?: "")
+        getSessionDate()
     }
 
-    fun createProduct() = viewModelScope.launch {
+    fun createSuggestion() = viewModelScope.launch {
         if (file1 != null && file2 != null) {
             files = listOf(
                 file1!!,
                 file2!!
             )
+            state = user?.id?.let { state.copy(idUser = it) }!!
             suggestionResponse = Resource.Loading
             val result = productUseCase.createSuggestionUseCase(
                 state.toProduct(),
@@ -126,5 +134,11 @@ class ClientProductCreateViewModel @Inject constructor(
 
     fun onIdUserInput(input: String) {
         state = state.copy(idUser = input)
+    }
+
+    fun getSessionDate() = viewModelScope.launch {
+        authUseCase.getSessionData().collect() { data ->
+            user = data.user
+        }
     }
 }
