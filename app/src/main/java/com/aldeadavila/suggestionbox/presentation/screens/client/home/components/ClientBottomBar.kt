@@ -11,7 +11,7 @@ import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.Clien
 fun ClientBottomBar(navHostController: NavHostController) {
 
     val screens = listOf(
-        ClientScreen.ProductList,
+        ClientScreen.SuggestionList,
         ClientScreen.CategoryList,
         ClientScreen.Profile
     )

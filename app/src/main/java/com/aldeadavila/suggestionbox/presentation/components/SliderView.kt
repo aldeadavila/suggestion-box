@@ -2,6 +2,7 @@ package com.aldeadavila.suggestionbox.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -15,12 +16,14 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.aldeadavila.suggestionbox.R
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class, ExperimentalGlideComposeApi::class)
 @Composable
 fun SliderView(state: PagerState, images: List<String>) {
 
@@ -49,9 +52,10 @@ fun SliderView(state: PagerState, images: List<String>) {
                             scale(Scale.FILL)
                         }).build()
                 )
-                Image(
-                    modifier = Modifier.fillMaxSize(),
-                    painter = painter,
+                GlideImage(
+                    modifier = Modifier.clickable(onClick = {}) .width(300.dp)
+                        .height(300.dp),
+                    model= imageUrl.value,
                     contentDescription = "",
                 )
             }

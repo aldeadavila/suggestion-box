@@ -9,7 +9,7 @@ class SuggestionsLocalDataSourceImpl(private val suggestionsDao: SuggestionsDao)
 
     override suspend fun insertAll(productsEntity: List<SuggestionEntity>) = suggestionsDao.insertAll(productsEntity)
 
-    override fun getSuggestions(): Flow<List<SuggestionEntity>> = suggestionsDao.getProducts()
+    override fun getSuggestions(): Flow<List<SuggestionEntity>> = suggestionsDao.getSuggestions()
     override fun findByCategory(idCategory: String): Flow<List<SuggestionEntity>> = suggestionsDao.getByCategory(idCategory)
 
     override suspend fun update(

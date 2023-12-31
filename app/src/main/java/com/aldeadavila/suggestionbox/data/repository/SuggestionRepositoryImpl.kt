@@ -2,8 +2,8 @@ package com.aldeadavila.suggestionbox.data.repository
 
 import com.aldeadavila.suggestionbox.data.datasource.local.SuggestionsLocalDataSource
 import com.aldeadavila.suggestionbox.data.datasource.remote.SuggestionsRemoteDataSource
-import com.aldeadavila.suggestionbox.data.mapper.toProduct
-import com.aldeadavila.suggestionbox.data.mapper.toProductEntity
+import com.aldeadavila.suggestionbox.data.mapper.toSuggestion
+import com.aldeadavila.suggestionbox.data.mapper.toSuggestionEntity
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.aldeadavila.suggestionbox.domain.util.Resource
@@ -22,18 +22,18 @@ class SuggestionRepositoryImpl(
     override fun findAll(): Flow<Resource<List<Suggestion>>> = flow {
         suggestionsLocalDataSource.getSuggestions().collect() {
             it.run {
-                val productsLocalMap = this.map {productEntity -> productEntity.toProduct() }
+                val productsLocalMap = this.map {productEntity -> productEntity.toSuggestion() }
                 try {
                     ResponseToRequest.send(suggestionsRemoteDataSource.findAll()).run {
                         when(this) {
                             is Resource.Succes -> {
-                                val productsRemote = this.data
+                                val suggestionRemote = this.data
 
-                                if(!isListEqual(productsRemote, productsLocalMap)) {
-                                    suggestionsLocalDataSource.insertAll(productsRemote.map { product ->  product.toProductEntity()})
+                                if(!isListEqual(suggestionRemote, productsLocalMap)) {
+                                    suggestionsLocalDataSource.insertAll(suggestionRemote.map { suggestion ->  suggestion.toSuggestionEntity()})
                                 }
 
-                                emit(Resource.Succes(productsRemote))
+                                emit(Resource.Succes(suggestionRemote))
                             }
                             else -> {
                                 emit(Resource.Succes(productsLocalMap))
@@ -50,7 +50,7 @@ class SuggestionRepositoryImpl(
     override fun findByCategory(idCategory: String): Flow<Resource<List<Suggestion>>> = flow {
         suggestionsLocalDataSource.findByCategory(idCategory).collect() {
             it.run {
-                val productsLocalMap = this.map {productEntity -> productEntity.toProduct() }
+                val productsLocalMap = this.map {productEntity -> productEntity.toSuggestion() }
                 try {
                     ResponseToRequest.send(suggestionsRemoteDataSource.findByCategory(idCategory)).run {
                         when(this) {
@@ -58,7 +58,7 @@ class SuggestionRepositoryImpl(
                                 val productsRemote = this.data
 
                                 if(!isListEqual(productsRemote, productsLocalMap)) {
-                                    suggestionsLocalDataSource.insertAll(productsRemote.map { product ->  product.toProductEntity()})
+                                    suggestionsLocalDataSource.insertAll(productsRemote.map { product ->  product.toSuggestionEntity()})
                                 }
 
                                 emit(Resource.Succes(productsRemote))
@@ -81,7 +81,7 @@ class SuggestionRepositoryImpl(
         ResponseToRequest.send(suggestionsRemoteDataSource.create(suggestion, files)).run {
             return when(this) {
                 is Resource.Succes -> {
-                    suggestionsLocalDataSource.create(this.data.toProductEntity())
+                    suggestionsLocalDataSource.create(this.data.toSuggestionEntity())
                     Resource.Succes(this.data)
                 }
                 else -> {

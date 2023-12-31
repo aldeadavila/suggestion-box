@@ -22,6 +22,7 @@ data class Suggestion(
             id,
             name,
             description,
+            idUser,
             idCategory,
             if (!image1.isNullOrBlank()) URLEncoder.encode(
                 image1,
@@ -31,7 +32,6 @@ data class Suggestion(
                 image2,
                 StandardCharsets.UTF_8.toString()
             ) else "",
-            idUser,
             imagesToUpdate
         )
     )

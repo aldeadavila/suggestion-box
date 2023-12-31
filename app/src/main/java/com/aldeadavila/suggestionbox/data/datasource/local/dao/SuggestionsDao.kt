@@ -17,7 +17,7 @@ interface SuggestionsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(categoriesEntity: List<SuggestionEntity>)
     @Query("SELECT * FROM suggestions")
-    fun getProducts(): Flow<List<SuggestionEntity>>
+    fun getSuggestions(): Flow<List<SuggestionEntity>>
 
     @Query("SELECT * FROM suggestions WHERE id_category = :id_category")
     fun getByCategory(id_category:String): Flow<List<SuggestionEntity>>

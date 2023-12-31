@@ -11,7 +11,7 @@ class ClientProductDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    var data = savedStateHandle.get<String>("product")
+    var data = savedStateHandle.get<String>("suggestion")
     var suggestion = Suggestion.fromJson(data!!)
     var listProductImage = listOf<String>(
         suggestion.image1 ?: "",

@@ -18,11 +18,11 @@ fun NavGraphBuilder.ClientProudctNavGraph(navHostController: NavHostController) 
 
         composable(
             route = ClientProductScreen.ProductDetail.route,
-            arguments = listOf(navArgument("product") {
+            arguments = listOf(navArgument("suggestion") {
                 type = NavType.StringType
             })
         ) {
-            it.arguments?.getString("product")?.let {
+            it.arguments?.getString("suggestion")?.let {
                 ClientSuggestionDetailScreen(
                     navHostController,
                     it
