@@ -12,7 +12,7 @@ sealed class ClientCategoryScreen(val route: String) {
         fun passCategory(category: String) = "client/category/suggestions/create/$category"
     }
 
-    object SuggestionUpdate: ClientCategoryScreen("client/category/suggestions/update/{product}") {
+    object SuggestionUpdate: ClientCategoryScreen("client/category/suggestions/update/{suggestion}") {
         fun passSuggestion(suggestion: String) = "client/category/suggestions/update/$suggestion"
     }
 

@@ -1,5 +1,8 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,12 +17,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminCategoryScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
 
 @Composable
@@ -71,6 +78,35 @@ fun ClientProductListItem(
                 contentDescription = ""
             )
 
+            if (vm.getEditable(suggestion.idUser)) {
+                Spacer(modifier = Modifier.width(15.dp))
+                Column(
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        modifier = Modifier
+                            .size(25.dp)
+                            .clickable {
+                                navHostController.navigate(
+                                    route = ClientCategoryScreen.SuggestionUpdate.passSuggestion(
+                                        suggestion.toJson()
+                                    )
+                                )
+                            },
+                        painter = painterResource(id = R.drawable.edit),
+                        contentDescription = "editar")
+                    /*Spacer(modifier = Modifier.height(5.dp))
+                    Image(
+                        modifier = Modifier
+                            .size(25.dp)
+                            .clickable {
+                                // vm.deletesuggestion(suggestion.id ?: "")
+                            },
+                        painter = painterResource(id = R.drawable.trash),
+                        contentDescription = "eliminar"
+                    )*/
+                }
+            }
         }
         Spacer(modifier = Modifier.height(10.dp))
         Divider(

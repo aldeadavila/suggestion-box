@@ -7,6 +7,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
+import com.aldeadavila.suggestionbox.domain.model.User
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,20 +16,39 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientSuggestionListViewModel @Inject constructor(private val suggestionsUseCase: SuggestionsUseCase)  :ViewModel() {
+class ClientSuggestionListViewModel @Inject constructor(
+    private val suggestionsUseCase: SuggestionsUseCase,
+    private val authUseCase: AuthUseCase
+)  :ViewModel() {
 
-    var productsResponse by mutableStateOf<Resource<List<Suggestion>>?>(null)
+    var suggestionsResponse by mutableStateOf<Resource<List<Suggestion>>?>(null)
         private set
 
+    var user by mutableStateOf<User?> (null)
+        private set
+
+
     init {
-        getProducts()
+        getSuggestions()
+        getSessionDate()
     }
-    fun getProducts() = viewModelScope.launch {
-        productsResponse = Resource.Loading
+    fun getSuggestions() = viewModelScope.launch {
+        suggestionsResponse = Resource.Loading
         suggestionsUseCase.findAll().collect() {
             Log.d("ClientProductListViewModel", "Data: $it")
-            productsResponse = it
+            suggestionsResponse = it
         }
     }
+
+    fun getSessionDate() = viewModelScope.launch {
+        authUseCase.getSessionData().collect() { data ->
+            user = data.user
+        }
+    }
+
+    fun getEditable(idUser: String): Boolean {
+        return idUser == user?.id
+    }
+
 
 }

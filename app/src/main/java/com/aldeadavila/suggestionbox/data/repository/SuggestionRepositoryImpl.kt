@@ -101,7 +101,6 @@ class SuggestionRepositoryImpl(
                         description = this.data.description,
                         image1 = this.data.image1 ?: "",
                         image2 = this.data.image2 ?: "",
-                        idUser = this.data.idUser,
                     )
                     Resource.Succes(this.data)
                 }
@@ -122,7 +121,7 @@ class SuggestionRepositoryImpl(
                         description = this.data.description,
                         image1 = this.data.image1 ?: "",
                         image2 = this.data.image2 ?: "",
-                        idUser = this.data.idUser,
+
                     )
                     Resource.Succes(this.data)
                 }

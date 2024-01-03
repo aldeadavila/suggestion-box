@@ -1,6 +1,6 @@
-package com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update
 
-data class AdminProductUpdateState(
+data class ClientSuggestionUpdateState(
 
     val id: String = "",
     val name: String = "",
@@ -10,4 +10,5 @@ data class AdminProductUpdateState(
     val image1: String = "",
     val image2: String = "",
     val imagesToUpdate: MutableList<Int> = mutableListOf()
+
 )

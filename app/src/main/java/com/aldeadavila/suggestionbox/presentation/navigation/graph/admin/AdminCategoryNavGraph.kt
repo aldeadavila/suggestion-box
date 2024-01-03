@@ -59,11 +59,11 @@ fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) 
 
         composable(
             route = AdminCategoryScreen.SuggestionUpdate.route,
-            arguments = listOf(navArgument("product") {
+            arguments = listOf(navArgument("suggestion") {
                 type = NavType.StringType
             })
         ) {
-            it.arguments?.getString("product")?.let {
+            it.arguments?.getString("suggestion")?.let {
                 AdminProductUpdateScreen(navHostController, it)
             }
         }

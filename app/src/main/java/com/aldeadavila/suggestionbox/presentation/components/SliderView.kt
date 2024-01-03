@@ -40,7 +40,7 @@ fun SliderView(state: PagerState, images: List<String>) {
 
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(contentAlignment = Alignment.BottomCenter) {
@@ -49,11 +49,11 @@ fun SliderView(state: PagerState, images: List<String>) {
                     ImageRequest.Builder(LocalContext.current).data(data = imageUrl.value)
                         .apply(block = fun ImageRequest.Builder.() {
                             placeholder(R.drawable.user_image)
-                            scale(Scale.FILL)
+                            scale(Scale.FIT)
                         }).build()
                 )
                 GlideImage(
-                    modifier = Modifier.clickable(onClick = {}) .width(300.dp)
+                    modifier = Modifier.clickable(onClick = {}).width(300.dp)
                         .height(300.dp),
                     model= imageUrl.value,
                     contentDescription = "",

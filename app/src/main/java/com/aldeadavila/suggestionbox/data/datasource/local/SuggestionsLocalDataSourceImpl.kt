@@ -18,8 +18,8 @@ class SuggestionsLocalDataSourceImpl(private val suggestionsDao: SuggestionsDao)
         description: String,
         image1: String,
         image2: String,
-        id_user: String
-    ) = suggestionsDao.update(id, name, description, image1, image2, id_user)
+
+    ) = suggestionsDao.update(id, name, description, image1, image2)
 
     override suspend fun delete(id: String) = suggestionsDao.delete(id)
 }
