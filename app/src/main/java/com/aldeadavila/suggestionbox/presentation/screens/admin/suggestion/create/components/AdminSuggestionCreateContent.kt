@@ -146,7 +146,7 @@ fun AdminSuggestionCreateContent(
                 Text(
                     modifier = Modifier
                         .padding(bottom = 20.dp),
-                    text = "PRODUCTO",
+                    text = "SUGERENCIA",
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
                     color = Color.Black
@@ -162,7 +162,7 @@ fun AdminSuggestionCreateContent(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.name,
                     onValueChange = { vm.onNameInput(it) },
-                    label = "Nombre del producto",
+                    label = "Título de la sugerencia",
                     icon = Icons.Default.List,
                     contentDescription = ""
                 )
@@ -191,7 +191,7 @@ fun AdminSuggestionCreateContent(
             DefaultButton(modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 15.dp),
-                text = "Crear Producto",
+                text = "Crear Sugerencia",
                 onClick = {
                     vm.createProduct()
                 }

@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update
 
 import android.content.Context
 import androidx.compose.runtime.getValue
@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.mapper.toProduct
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.mapper.toSuggestion
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,13 +20,13 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class AdminProductUpdateViewModel @Inject constructor(
+class ClientProductUpdateViewModel @Inject constructor(
     @ApplicationContext val context: Context,
     private val savedStateHandle: SavedStateHandle,
     private val suggestionsUseCase: SuggestionsUseCase
 ) : ViewModel() {
 
-    var state by mutableStateOf(AdminProductUpdateState())
+    var state by mutableStateOf(ClientSuggestionUpdateState())
         private set
 
     var suggestionResponse by mutableStateOf<Resource<Suggestion>?>(null)
@@ -52,14 +52,14 @@ class AdminProductUpdateViewModel @Inject constructor(
         )
     }
 
-    fun updateProduct() = viewModelScope.launch {
+    fun updateSuggestion() = viewModelScope.launch {
 
         suggestionResponse = Resource.Loading
         if (file1 == null && file2 == null) {
 
             val result = suggestionsUseCase.updateSuggestion(
                 suggestion.id!!,
-                state.toProduct()
+                state.toSuggestion()
             )
             suggestionResponse = result
         } else {
@@ -74,7 +74,7 @@ class AdminProductUpdateViewModel @Inject constructor(
 
             val result = suggestionsUseCase.updateSuggestionWithImage(
                 suggestion.id!!,
-                state.toProduct(),
+                state.toSuggestion(),
                 files.toList()
             )
             suggestionResponse = result

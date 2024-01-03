@@ -17,7 +17,7 @@ sealed class ClientScreen(
         icon = Icons.Default.List
     )
 
-    object ProductList: ClientScreen(
+    object SuggestionList: ClientScreen(
         route = "client/suggestion/list",
         title = "Sugerencias",
         icon = Icons.Default.ThumbUp

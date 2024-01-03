@@ -22,13 +22,13 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientProductScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientProductListByCategoryViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientSuggestionListByCategoryViewModel
 
 @Composable
 fun ClientProductListByCategoryItem(
     navHostController: NavHostController,
     suggestion: Suggestion,
-    vm: ClientProductListByCategoryViewModel = hiltViewModel()
+    vm: ClientSuggestionListByCategoryViewModel = hiltViewModel()
 ) {
 
 

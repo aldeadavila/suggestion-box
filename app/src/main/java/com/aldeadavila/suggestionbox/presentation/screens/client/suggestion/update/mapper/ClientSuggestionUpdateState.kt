@@ -1,9 +1,9 @@
-package com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.mapper
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.mapper
 
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.AdminProductUpdateState
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.ClientSuggestionUpdateState
 
-fun AdminProductUpdateState.toProduct(): Suggestion {
+fun ClientSuggestionUpdateState.toSuggestion(): Suggestion {
     return Suggestion(
 
         name = name,

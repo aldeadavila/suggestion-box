@@ -22,7 +22,7 @@ fun UpdateProduct(vm: AdminProductUpdateViewModel = hiltViewModel()) {
 
             Toast.makeText(
                 LocalContext.current,
-                "El producto se ha actualizado correctamente",
+                "La sugerencia se ha actualizado correctamente",
                 Toast.LENGTH_LONG
             ).show()
         }

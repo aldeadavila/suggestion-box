@@ -35,7 +35,7 @@ fun AdminCategoryListItem(navHostController: NavHostController, category: Catego
         modifier = Modifier
             .padding(start = 20.dp, end = 20.dp, top = 15.dp)
             .height(90.dp)
-            .clickable { navHostController.navigate(route = AdminCategoryScreen.ProductList.passCategory(category.toJson())) }
+            .clickable { navHostController.navigate(route = AdminCategoryScreen.SuggestionList.passCategory(category.toJson())) }
     ) {
         Row {
             AsyncImage(

@@ -5,7 +5,7 @@ sealed class AdminCategoryScreen(val route: String) {
     object CategoryUpdate: AdminCategoryScreen("admin/category/update/{category}") {
         fun passCategory(category: String) = "admin/category/update/$category"
     }
-    object ProductList: AdminCategoryScreen("admin/category/suggestions/list/{category}") {
+    object SuggestionList: AdminCategoryScreen("admin/category/suggestions/list/{category}") {
         fun passCategory(category: String) = "admin/category/suggestions/list/$category"
     }
 
@@ -13,7 +13,7 @@ sealed class AdminCategoryScreen(val route: String) {
         fun passCategory(category: String) = "admin/category/suggestions/create/$category"
     }
 
-    object SuggestionUpdate: AdminCategoryScreen("admin/category/suggestions/update/{product}") {
+    object SuggestionUpdate: AdminCategoryScreen("admin/category/suggestions/update/{suggestion}") {
         fun passSuggestion(suggestion: String) = "admin/category/suggestions/update/$suggestion"
     }
 

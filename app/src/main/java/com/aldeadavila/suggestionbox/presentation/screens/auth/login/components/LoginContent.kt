@@ -133,7 +133,7 @@ fun LoginContent(
             text = state.password,
             placeHolder = "Password",
             isPasswordTextField = !passwordVisibility,
-            onValueChange = { state.password = it },
+            onValueChange = { vm.onPasswordInput(it) },
             errorMsg = "*Enter valid password",
             trailingIcon = {
                 IconButton(onClick = {
@@ -219,8 +219,7 @@ fun LoginContent(
 
             Image(
                 painter = painterResource(id = R.drawable.agrupacion_vecinal_ayc),
-
-                contentDescription = "Escudo de Aldeadávila",
+                contentDescription = "Agrupación vecinal de Aldeadávila",
                 modifier = Modifier.size(500.dp)
             )
 

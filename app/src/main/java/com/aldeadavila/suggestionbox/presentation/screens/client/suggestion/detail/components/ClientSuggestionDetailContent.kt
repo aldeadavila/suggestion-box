@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -44,7 +46,11 @@ fun ClientSuggestionDetailContent(
     Box(
         modifier = Modifier.padding(paddingValues)
     ) {
-        Column {
+        Column (
+            modifier = Modifier
+                .padding(20.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             SliderView(
                 state = state,
                 images = vm.listProductImage
@@ -54,113 +60,52 @@ fun ClientSuggestionDetailContent(
                 totalDots = vm.listProductImage.size,
                 selectedIndex = state.currentPage
             )
-        }
-
-        Card(
-            modifier = Modifier.padding(top = 310.dp),
-            shape = RoundedCornerShape(
-                topEnd = 40.dp,
-                topStart = 40.dp
+            Text(
+                text = vm.suggestion.name,
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
             )
-        ) {
-            Column(
-                modifier = Modifier.padding(20.dp)
-            ) {
-                Text(
-                    text = vm.suggestion.name,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
-                )
-                Divider(
-                    modifier = Modifier.padding(vertical = 10.dp),
-                    color = Color.Gray
-                )
-                Text(
-                    modifier = Modifier.padding(bottom = 7.dp),
-                    text = "Descripción",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-                Text(
-                    text = vm.suggestion.description,
-                    fontSize = 15.sp
-                )
-                Divider(
-                    modifier = Modifier.padding(vertical = 10.dp),
-                    color = Color.Gray
-                )
-                Text(
-                    modifier = Modifier.padding(bottom = 7.dp),
-                    text = "Precio",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-                Text(
-                    text = vm.suggestion.idUser.toString(),
-                    fontSize = 15.sp
-                )
-                Divider(
-                    modifier = Modifier.padding(vertical = 10.dp),
-                    color = Color.Gray
-                )
-                Text(
-                    modifier = Modifier.padding(bottom = 7.dp),
-                    text = "Tu orden",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-                Text(
-                    text = "Cantidad: ",
-                    fontSize = 15.sp
-                )
-                Text(
-                    text = "Precio C/U: 0",
-                    fontSize = 15.sp
-                )
-                Spacer(modifier = Modifier.weight(1f))
+            Divider(
+                modifier = Modifier.padding(vertical = 10.dp),
+                color = Color.Gray
+            )
+            Text(
+                modifier = Modifier.padding(bottom = 7.dp),
+                text = "Descripción",
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
+            )
+            Text(
+                text = vm.suggestion.description,
+                fontSize = 15.sp
+            )
+            Divider(
+                modifier = Modifier.padding(vertical = 10.dp),
+                color = Color.Gray
+            )
+            Text(
+                modifier = Modifier.padding(bottom = 7.dp),
+                text = "Usuario",
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
+            )
+            Text(
+                text = vm.suggestion.idUser.toString(),
+                fontSize = 15.sp
+            )
+            Divider(
+                modifier = Modifier.padding(vertical = 10.dp),
+                color = Color.Gray
+            )
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Card(
-                        modifier = Modifier
-                            .width(100.dp)
-                            .height(35.dp),
-                        shape = RoundedCornerShape(15.dp),
-                        colors = CardDefaults.cardColors(),
-                    ) {
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "-",
-                                fontSize = 18.sp,
-                                color = Color.White
-                            )
-                            Text(
-                                text = "0",
-                                fontSize = 19.sp,
-                                color = Color.White
-                            )
-                            Text(
-                                text = "+",
-                                fontSize = 19.sp,
-                                color = Color.White
-                            )
-                        }
-                    }
-                }
+            Spacer(modifier = Modifier.weight(1f))
 
-                DefaultButton(
-                    modifier = Modifier.width(200.dp),
-                    text = "AGREGAR",
-                    onClick = { })
-
-            }
+            DefaultButton(
+                modifier = Modifier.width(200.dp),
+                text = "Agregar Comentario",
+                onClick = { })
         }
+
     }
 
 

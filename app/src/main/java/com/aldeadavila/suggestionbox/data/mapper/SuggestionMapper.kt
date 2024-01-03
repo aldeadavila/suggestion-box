@@ -3,7 +3,7 @@ package com.aldeadavila.suggestionbox.data.mapper
 import com.aldeadavila.suggestionbox.data.datasource.local.entity.SuggestionEntity
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 
-fun SuggestionEntity.toProduct(): Suggestion {
+fun SuggestionEntity.toSuggestion(): Suggestion {
     return Suggestion(
         id = id,
         name = name,
@@ -16,7 +16,7 @@ fun SuggestionEntity.toProduct(): Suggestion {
     )
 }
 
-fun Suggestion.toProductEntity(): SuggestionEntity {
+fun Suggestion.toSuggestionEntity(): SuggestionEntity {
     return SuggestionEntity(
         id = id ?: "",
         name = name,

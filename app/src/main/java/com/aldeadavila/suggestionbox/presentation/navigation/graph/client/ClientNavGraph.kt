@@ -15,9 +15,9 @@ import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileSc
 fun ClientNavGraph(navController: NavHostController) {
     NavHost(navController = navController,
         route = Graph.CLIENT,
-        startDestination = ClientScreen.ProductList.route
+        startDestination = ClientScreen.SuggestionList.route
     ) {
-        composable(route = ClientScreen.ProductList.route) {
+        composable(route = ClientScreen.SuggestionList.route) {
             ClientProductListScreen(navController)
         }
 

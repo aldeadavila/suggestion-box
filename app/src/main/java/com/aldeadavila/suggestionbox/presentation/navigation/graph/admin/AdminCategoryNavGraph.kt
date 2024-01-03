@@ -11,7 +11,7 @@ import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminC
 import com.aldeadavila.suggestionbox.presentation.screens.admin.category.update.AdminCategoryUpdateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.category.create.AdminCategoryCreateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.create.AdminSuggestionCreateScreen
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.list.AdminsuggestionListScreen
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.list.AdminSuggestionListScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.AdminProductUpdateScreen
 
 fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) {
@@ -36,13 +36,13 @@ fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) 
         }
 
         composable(
-            route = AdminCategoryScreen.ProductList.route,
+            route = AdminCategoryScreen.SuggestionList.route,
             arguments = listOf(navArgument("category") {
                 type = NavType.StringType
             })
         ) {
             it.arguments?.getString("category")?.let {
-                AdminsuggestionListScreen(navHostController, it)
+                AdminSuggestionListScreen(navHostController, it)
             }
         }
 
@@ -59,11 +59,11 @@ fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) 
 
         composable(
             route = AdminCategoryScreen.SuggestionUpdate.route,
-            arguments = listOf(navArgument("product") {
+            arguments = listOf(navArgument("suggestion") {
                 type = NavType.StringType
             })
         ) {
-            it.arguments?.getString("product")?.let {
+            it.arguments?.getString("suggestion")?.let {
                 AdminProductUpdateScreen(navHostController, it)
             }
         }

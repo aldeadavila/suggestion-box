@@ -79,8 +79,10 @@ dependencies {
     //SLIDES
     implementation("com.google.accompanist:accompanist-pager:0.24.3-alpha")
     // If using indicators, also depend on
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.24.3-alpha")
 
+
+    //Glide
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 
     //FILES INFORMATION
     implementation("commons-io:commons-io:2.7")

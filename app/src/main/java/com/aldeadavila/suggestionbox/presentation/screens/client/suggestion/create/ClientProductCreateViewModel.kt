@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create
 
 import android.content.Context
 import androidx.compose.runtime.getValue
@@ -7,10 +7,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aldeadavila.suggestionbox.domain.model.Category
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
+import com.aldeadavila.suggestionbox.domain.model.User
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.mapper.toProduct
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.mapper.toProduct
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,73 +23,55 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class AdminProductUpdateViewModel @Inject constructor(
+class ClientProductCreateViewModel @Inject constructor(
     @ApplicationContext val context: Context,
     private val savedStateHandle: SavedStateHandle,
-    private val suggestionsUseCase: SuggestionsUseCase
+    private val productUseCase: SuggestionsUseCase,
+    private val authUseCase: AuthUseCase
 ) : ViewModel() {
 
-    var state by mutableStateOf(AdminProductUpdateState())
+    var state by mutableStateOf(ClientSuggestionCreateState())
+        private set
+
+    var user by mutableStateOf<User?> (null)
         private set
 
     var suggestionResponse by mutableStateOf<Resource<Suggestion>?>(null)
-        private set
 
-    var data = savedStateHandle.get<String>("suggestion")
-    var suggestion = Suggestion.fromJson(data!!)
+    var data = savedStateHandle.get<String>("category")
+    var category = Category.fromJson(data!!)
 
-    // IMAGENES
+    //imagenes
     var file1: File? = null
     var file2: File? = null
-    var files: MutableList<File> = mutableListOf()
+    var files: List<File> = listOf()
     val resultingActivityHandler = ResultingActivityHandler()
 
     init {
-        state = state.copy(
-            name = suggestion.name,
-            description = suggestion.description,
-            idUser = suggestion.idUser,
-            idCategory = suggestion.idCategory,
-            image1 = suggestion.image1 ?: "",
-            image2 = suggestion.image2 ?: "",
-        )
+        state = state.copy(idCategory = category.id ?: "")
+        getSessionDate()
     }
 
-    fun updateProduct() = viewModelScope.launch {
-
-        suggestionResponse = Resource.Loading
-        if (file1 == null && file2 == null) {
-
-            val result = suggestionsUseCase.updateSuggestion(
-                suggestion.id!!,
-                state.toProduct()
+    fun createSuggestion() = viewModelScope.launch {
+        if (file1 != null && file2 != null) {
+            files = listOf(
+                file1!!,
+                file2!!
             )
-            suggestionResponse = result
-        } else {
-            if (file1 != null) {
-                files.add(file1!!)
-                state.imagesToUpdate.add(0)
-            }
-            if (file2 != null) {
-                files.add(file2!!)
-                state.imagesToUpdate.add(1)
-            }
-
-            val result = suggestionsUseCase.updateSuggestionWithImage(
-                suggestion.id!!,
+            state = user?.id?.let { state.copy(idUser = it) }!!
+            suggestionResponse = Resource.Loading
+            val result = productUseCase.createSuggestionUseCase(
                 state.toProduct(),
-                files.toList()
+                files
             )
             suggestionResponse = result
         }
-        files.clear()
-        file1 = null
-        file2 = null
-        state.imagesToUpdate.clear()
+
     }
 
+
     fun pickImage(imageNumber: Int) = viewModelScope.launch {
-        val result = resultingActivityHandler.getContent("image/*") // URI
+        val result = resultingActivityHandler.getContent("image/*")
         if (result != null) {
             if (imageNumber == 1) {
                 file1 = ComposeFileProvider.createFileFromUri(
@@ -124,7 +109,19 @@ class AdminProductUpdateViewModel @Inject constructor(
                 )
                 file2 = File(state.image2)
             }
+
         }
+    }
+
+    fun clearForm() {
+        state = state.copy(
+            name = "",
+            description = "",
+            image1 = "",
+            image2 = "",
+            idUser = "",
+        )
+        suggestionResponse = null
     }
 
     fun onNameInput(input: String) {
@@ -137,5 +134,11 @@ class AdminProductUpdateViewModel @Inject constructor(
 
     fun onIdUserInput(input: String) {
         state = state.copy(idUser = input)
+    }
+
+    fun getSessionDate() = viewModelScope.launch {
+        authUseCase.getSessionData().collect() { data ->
+            user = data.user
+        }
     }
 }

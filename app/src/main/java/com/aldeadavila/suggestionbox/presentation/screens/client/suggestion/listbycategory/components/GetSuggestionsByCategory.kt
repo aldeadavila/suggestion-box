@@ -8,13 +8,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientProductListByCategoryViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientSuggestionListByCategoryViewModel
 
 @Composable
-fun GetProductsByCategory(
+fun GetSuggestionsByCategory(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
-    vm: ClientProductListByCategoryViewModel = hiltViewModel()
+    vm: ClientSuggestionListByCategoryViewModel = hiltViewModel()
 ) {
 
     when (val response = vm.suggestionResponse) {
