@@ -19,7 +19,7 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ClientProductListByCategoryScreen(navHostController: NavHostController, categoryParam: String) {
+fun ClientSuggestionListByCategoryScreen(navHostController: NavHostController, categoryParam: String) {
 
     val categoryParse = Category.fromJson(categoryParam).toJson()
     val name = Category.fromJson(categoryParam).name

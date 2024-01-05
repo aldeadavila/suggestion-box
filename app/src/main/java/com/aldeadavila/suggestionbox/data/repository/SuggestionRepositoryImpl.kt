@@ -22,26 +22,26 @@ class SuggestionRepositoryImpl(
     override fun findAll(): Flow<Resource<List<Suggestion>>> = flow {
         suggestionsLocalDataSource.getSuggestions().collect() {
             it.run {
-                val productsLocalMap = this.map {productEntity -> productEntity.toSuggestion() }
+                val suggestionsLocalMap = this.map { suggestionEntity -> suggestionEntity.toSuggestion() }
                 try {
                     ResponseToRequest.send(suggestionsRemoteDataSource.findAll()).run {
                         when(this) {
                             is Resource.Succes -> {
                                 val suggestionRemote = this.data
 
-                                if(!isListEqual(suggestionRemote, productsLocalMap)) {
+                                if(!isListEqual(suggestionRemote, suggestionsLocalMap)) {
                                     suggestionsLocalDataSource.insertAll(suggestionRemote.map { suggestion ->  suggestion.toSuggestionEntity()})
                                 }
 
                                 emit(Resource.Succes(suggestionRemote))
                             }
                             else -> {
-                                emit(Resource.Succes(productsLocalMap))
+                                emit(Resource.Succes(suggestionsLocalMap))
                             }
                         }
                     }
                 }catch (e: Exception) {
-                    emit(Resource.Succes(productsLocalMap))
+                    emit(Resource.Succes(suggestionsLocalMap))
                 }
             }
         }
@@ -50,26 +50,26 @@ class SuggestionRepositoryImpl(
     override fun findByCategory(idCategory: String): Flow<Resource<List<Suggestion>>> = flow {
         suggestionsLocalDataSource.findByCategory(idCategory).collect() {
             it.run {
-                val productsLocalMap = this.map {productEntity -> productEntity.toSuggestion() }
+                val suggestionsLocalMap = this.map { suggestionEntity -> suggestionEntity.toSuggestion() }
                 try {
                     ResponseToRequest.send(suggestionsRemoteDataSource.findByCategory(idCategory)).run {
                         when(this) {
                             is Resource.Succes -> {
-                                val productsRemote = this.data
+                                val suggestionsRemote = this.data
 
-                                if(!isListEqual(productsRemote, productsLocalMap)) {
-                                    suggestionsLocalDataSource.insertAll(productsRemote.map { product ->  product.toSuggestionEntity()})
+                                if(!isListEqual(suggestionsRemote, suggestionsLocalMap)) {
+                                    suggestionsLocalDataSource.insertAll(suggestionsRemote.map { suggestion ->  suggestion.toSuggestionEntity()})
                                 }
 
-                                emit(Resource.Succes(productsRemote))
+                                emit(Resource.Succes(suggestionsRemote))
                             }
                             else -> {
-                                emit(Resource.Succes(productsLocalMap))
+                                emit(Resource.Succes(suggestionsLocalMap))
                             }
                         }
                     }
                 }catch (e: Exception) {
-                    emit(Resource.Succes(productsLocalMap))
+                    emit(Resource.Succes(suggestionsLocalMap))
                 }
             }
         }

@@ -4,11 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -32,9 +34,8 @@ fun SliderView(state: PagerState, images: List<String>) {
         state = state,
         count = images.size,
         modifier = Modifier
-            .height(300.dp)
-            .fillMaxWidth()
-            .background(color = Color.Gray)
+            .height(200.dp)
+            .background(color = Color.White)
     ) { page ->
         imageUrl.value = images[page]
 
@@ -53,9 +54,10 @@ fun SliderView(state: PagerState, images: List<String>) {
                         }).build()
                 )
                 GlideImage(
-                    modifier = Modifier.clickable(onClick = {}).width(300.dp)
-                        .height(300.dp),
+                    modifier = Modifier.clickable(onClick = {})
+                        .clip(RoundedCornerShape(20.dp)),
                     model= imageUrl.value,
+                    alignment = Alignment.Center,
                     contentDescription = "",
                 )
             }

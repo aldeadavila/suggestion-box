@@ -27,6 +27,7 @@ import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientProductScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
 
 @Composable
@@ -43,7 +44,10 @@ fun ClientProductListItem(
                 end = 20.dp,
                 top = 15.dp
             )
-            .height(90.dp)
+            .height(200.dp)
+            .clickable {
+                navHostController.navigate(route = ClientProductScreen.ProductDetail.passProduct(suggestion.toJson()))
+            }
 
     ) {
         Row {
@@ -54,13 +58,13 @@ fun ClientProductListItem(
                 Text(
                     text = suggestion.name,
                     color = Color.Black,
-                    fontSize = 17.sp
+                    fontSize = 16.sp
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
                     text = suggestion.description,
                     color = Color.Gray,
-                    fontSize = 14.sp
+                    fontSize = 12.sp
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(

@@ -13,6 +13,4 @@ data class SuggestionEntity(
     @ColumnInfo("id_category")val idCategory: String = "",
     @ColumnInfo("image1")val image1: String = "",
     @ColumnInfo("image2")val image2: String = "",
-
-
     )

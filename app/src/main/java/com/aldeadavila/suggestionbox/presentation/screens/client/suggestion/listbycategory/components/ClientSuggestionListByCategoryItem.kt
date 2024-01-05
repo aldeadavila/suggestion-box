@@ -52,13 +52,13 @@ fun ClientProductListByCategoryItem(
                 Text(
                     text = suggestion.name,
                     color = Color.Black,
-                    fontSize = 17.sp
+                    fontSize = 16.sp
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
                     text = suggestion.description,
                     color = Color.Gray,
-                    fontSize = 14.sp
+                    fontSize = 12.sp
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
