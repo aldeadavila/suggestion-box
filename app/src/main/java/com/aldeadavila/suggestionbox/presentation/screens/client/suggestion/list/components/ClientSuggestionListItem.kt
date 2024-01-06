@@ -1,5 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components
 
+import android.text.Layout.Alignment
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,7 +27,8 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminCategoryScreen
+import com.aldeadavila.suggestionbox.domain.model.User
+import com.aldeadavila.suggestionbox.presentation.components.ZoomableImage
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientProductScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
@@ -34,6 +37,7 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list
 fun ClientProductListItem(
     navHostController: NavHostController,
     suggestion: Suggestion,
+    user: User?,
     vm: ClientSuggestionListViewModel = hiltViewModel()
 ) {
 
@@ -46,7 +50,11 @@ fun ClientProductListItem(
             )
             .height(200.dp)
             .clickable {
-                navHostController.navigate(route = ClientProductScreen.ProductDetail.passProduct(suggestion.toJson()))
+                navHostController.navigate(
+                    route = ClientProductScreen.ProductDetail.passProduct(
+                        suggestion.toJson()
+                    )
+                )
             }
 
     ) {
@@ -60,21 +68,24 @@ fun ClientProductListItem(
                     color = Color.Black,
                     fontSize = 16.sp
                 )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                        textAlign = TextAlign.Right,
+                    text = "by " + user!!.name,
+                    color = Color.Gray,
+                    fontSize = 8.sp
+                )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
                     text = suggestion.description,
                     color = Color.Gray,
                     fontSize = 12.sp
                 )
-                Spacer(modifier = Modifier.height(5.dp))
-                Text(
-                    text = suggestion.idUser.toString(),
-                    color = Color.Gray,
-                    fontSize = 14.sp
-                )
+
             }
             Spacer(modifier = Modifier.width(10.dp))
-            AsyncImage(
+
+             AsyncImage(
                 modifier = Modifier
                     .size(70.dp)
                     .clip(RoundedCornerShape(10.dp)),

@@ -30,10 +30,10 @@ class ClientSuggestionListByCategoryViewModel @Inject constructor(
         private set
 
     init {
-        getProducts()
+        getSuggestions()
     }
 
-    private fun getProducts() = viewModelScope.launch {
+    private fun getSuggestions() = viewModelScope.launch {
         suggestionResponse = Resource.Loading
         suggestionsUseCase.findByCategory(category.id!!).collect {
             suggestionResponse = it

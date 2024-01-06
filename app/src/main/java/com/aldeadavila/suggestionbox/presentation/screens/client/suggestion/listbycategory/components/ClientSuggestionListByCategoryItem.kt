@@ -25,7 +25,7 @@ import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.Clien
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientSuggestionListByCategoryViewModel
 
 @Composable
-fun ClientProductListByCategoryItem(
+fun ClientSuggestionListByCategoryItem(
     navHostController: NavHostController,
     suggestion: Suggestion,
     vm: ClientSuggestionListByCategoryViewModel = hiltViewModel()

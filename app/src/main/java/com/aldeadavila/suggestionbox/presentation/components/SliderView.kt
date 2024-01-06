@@ -50,16 +50,18 @@ fun SliderView(state: PagerState, images: List<String>) {
                     ImageRequest.Builder(LocalContext.current).data(data = imageUrl.value)
                         .apply(block = fun ImageRequest.Builder.() {
                             placeholder(R.drawable.user_image)
-                            scale(Scale.FIT)
+                            scale(Scale.FILL)
                         }).build()
                 )
-                GlideImage(
-                    modifier = Modifier.clickable(onClick = {})
+                ZoomableImage(image = imageUrl.value)
+                /*GlideImage(
+                    modifier = Modifier
+                        .clickable(onClick = {})
                         .clip(RoundedCornerShape(20.dp)),
                     model= imageUrl.value,
                     alignment = Alignment.Center,
                     contentDescription = "",
-                )
+                )*/
             }
         }
     }
