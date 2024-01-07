@@ -6,10 +6,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.ClientProductCreateViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.ClientSuggestionCreateViewModel
 
 @Composable
-fun CreateClientSuggestion(vm: ClientProductCreateViewModel = hiltViewModel()) {
+fun CreateClientSuggestion(vm: ClientSuggestionCreateViewModel = hiltViewModel()) {
 
     when (val response = vm.suggestionResponse) {
         Resource.Loading -> {

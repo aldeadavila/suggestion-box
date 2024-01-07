@@ -19,6 +19,10 @@ import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailViewModel
 import com.aldeadavila.suggestionbox.ui.theme.PurpleGrey80
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_dark_onTertiaryContainer
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primaryContainer
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 
 @Composable
 fun ClientCommentListBySuggestionItem(
@@ -35,11 +39,11 @@ fun ClientCommentListBySuggestionItem(
                 RoundedCornerShape(
                     topStart = 48f,
                     topEnd = 48f,
-                    bottomStart = if (isFromMe) 48f else 0f,
-                    bottomEnd = if (isFromMe) 0f else 48f
+                    bottomStart = if (isFromMe) 0f else 48f,
+                    bottomEnd = if (isFromMe) 48f else 0f
                 )
             )
-            .background(if (isFromMe) PurpleGrey80 else Color.Green)
+            .background(if (isFromMe) md_theme_dark_onTertiaryContainer  else md_theme_light_primaryContainer)
             .padding(5.dp),
         contentAlignment = if(isFromMe) Alignment.TopEnd else Alignment.TopStart
     ) {

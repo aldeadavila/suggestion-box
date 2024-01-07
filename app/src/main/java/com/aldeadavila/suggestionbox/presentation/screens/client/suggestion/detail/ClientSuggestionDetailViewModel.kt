@@ -8,8 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
+import com.aldeadavila.suggestionbox.domain.model.User
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.ClientCommentCreateState
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.mapper.toComment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ClientSuggestionDetailViewModel @Inject constructor(
     private val commentsUseCase: CommentsUseCase,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val authUseCase: AuthUseCase
 ) : ViewModel() {
 
     var data = savedStateHandle.get<String>("suggestion")
@@ -27,19 +32,43 @@ class ClientSuggestionDetailViewModel @Inject constructor(
         suggestion.image2 ?: ""
     )
     var commentsResponse by mutableStateOf<Resource<List<Comment>>?>(null)
+    var commentResponse by mutableStateOf<Resource<Comment>?>(null)
+    var state by mutableStateOf(ClientCommentCreateState())
+
+    var user by mutableStateOf<User?> (null)
+        private set
 
     init {
         getComments()
+        getSessionDate()
+    }
+
+    fun createComment() = viewModelScope.launch {
+        commentResponse = Resource.Loading
+        val result = commentsUseCase.createCommentUseCase(state.toComment())
+        commentResponse = result
+    }
+
+    fun onCommentContentInput(input: String) {
+        state = state.copy(content = input)
     }
 
     fun isFromMe(idUser: String): Boolean {
-        return suggestion.idUser == idUser
+        return user?.id == idUser
     }
 
     private fun getComments() = viewModelScope.launch {
         commentsResponse = Resource.Loading
         commentsUseCase.findBySuggestionUseCase(suggestion.id!!).collect {
             commentsResponse =  it
+        }
+    }
+
+    private fun getSessionDate() = viewModelScope.launch {
+        authUseCase.getSessionData().collect() { data ->
+            user = data.user
+            state = state.copy(idUser = user?.id!!)
+            state = state.copy(idSuggestion = suggestion?.id!!)
         }
     }
 

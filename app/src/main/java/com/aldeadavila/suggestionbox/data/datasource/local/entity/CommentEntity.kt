@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName="comments")
 data class CommentEntity(
     @PrimaryKey val id: String = "",
+    @ColumnInfo("content")val content: String = "",
     @ColumnInfo("id_user")val idUser: String = "",
     @ColumnInfo("id_suggestion")val idSuggestion: String = "",
-    @ColumnInfo("content")val content: String = "",
+
 )
