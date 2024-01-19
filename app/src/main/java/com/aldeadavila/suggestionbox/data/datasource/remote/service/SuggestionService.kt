@@ -16,12 +16,12 @@ import retrofit2.http.Path
 
 interface SuggestionService {
 
-    @GET("suggestion/category/{id_category}")
+    @GET("suggestions/category/{id_category}")
     suspend fun findByCategory(
         @Path("id_category") idCategory: String
     ): Response<List<Suggestion>>
 
-    @GET("suggestion")
+    @GET("suggestions")
     suspend fun findAll(): Response<List<Suggestion>>
 
     @Multipart

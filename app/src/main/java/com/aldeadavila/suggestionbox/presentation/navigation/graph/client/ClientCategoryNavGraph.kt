@@ -9,7 +9,7 @@ import androidx.navigation.navigation
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.ClientSuggestionCreateScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientProductListByCategoryScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientSuggestionListByCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.ClientSuggestionUpdateScreen
 
 fun NavGraphBuilder.ClientCategoryNavGraph(navHostController: NavHostController) {
@@ -25,7 +25,7 @@ fun NavGraphBuilder.ClientCategoryNavGraph(navHostController: NavHostController)
             })
         ) {
             it.arguments?.getString("category")?.let {
-                ClientProductListByCategoryScreen(
+                ClientSuggestionListByCategoryScreen(
                     navHostController,
                     it
                 )

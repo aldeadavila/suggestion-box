@@ -11,7 +11,10 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.deta
 fun ClientSuggestionDetailScreen(navHostController: NavHostController, productParam: String) {
 
     Scaffold {
-        ClientSuggestionDetailContent(it)
+        ClientSuggestionDetailContent(
+            navHostController = navHostController,
+            paddingValues = it
+        )
     }
 
 }

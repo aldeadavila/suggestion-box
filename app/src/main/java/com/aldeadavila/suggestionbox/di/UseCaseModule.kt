@@ -2,6 +2,7 @@ package com.aldeadavila.suggestionbox.di
 
 import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
 import com.aldeadavila.suggestionbox.domain.repository.CategoriesRepository
+import com.aldeadavila.suggestionbox.domain.repository.CommentsRepository
 import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.aldeadavila.suggestionbox.domain.repository.UsersRepository
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
@@ -17,6 +18,13 @@ import com.aldeadavila.suggestionbox.domain.usecase.categories.DeleteCategoryUse
 import com.aldeadavila.suggestionbox.domain.usecase.categories.GetCategoryUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.categories.UpdateCategoryUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.categories.UpdateCategoryWithImageUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.comments.CreateCommentUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.comments.DeleteCommentUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.comments.FindAllCommentsUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.comments.FindBySuggestionUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.comments.FindByUserUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.comments.UpdateCommentUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.CreateSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.DeleteSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.FindAllUseCase
@@ -50,7 +58,6 @@ object UseCaseModule {
     fun provideUsersUseCase(usersRepository: UsersRepository) = UsersUseCase(
         updateUser = UpdateUserUseCase(usersRepository),
         updateUserWithImageUseCase = UpdateUserWithImageUseCase(usersRepository)
-
     )
 
     @Provides
@@ -63,13 +70,22 @@ object UseCaseModule {
     )
 
     @Provides
-    fun provideProductsUseCase(suggestionRepository: SuggestionRepository) = SuggestionsUseCase(
+    fun provideSuggestionsUseCase(suggestionRepository: SuggestionRepository) = SuggestionsUseCase(
         createSuggestionUseCase = CreateSuggestionUseCase(suggestionRepository),
         findAll = FindAllUseCase(suggestionRepository),
         findByCategory = FindByCategoryUseCase(suggestionRepository),
         updateSuggestion = UpdateSuggestionUseCase(suggestionRepository),
         updateSuggestionWithImage = UpdateSuggestionWithImageUseCase(suggestionRepository),
-        deleteSuggestion = DeleteSuggestionUseCase(suggestionRepository),
+        deleteSuggestion = DeleteSuggestionUseCase(suggestionRepository)
+    )
 
+    @Provides
+    fun provideCommentsUseCase(commentsRepository: CommentsRepository) = CommentsUseCase(
+        createCommentUseCase = CreateCommentUseCase(commentsRepository),
+        deleteCommentUseCase = DeleteCommentUseCase(commentsRepository),
+        findAllCommentsUseCase = FindAllCommentsUseCase(commentsRepository),
+        findBySuggestionUseCase = FindBySuggestionUseCase(commentsRepository),
+        findByUserUseCase = FindByUserUseCase(commentsRepository),
+        updateCommentUseCase = UpdateCommentUseCase(commentsRepository)
     )
 }

@@ -12,14 +12,18 @@ import com.aldeadavila.suggestionbox.domain.model.Suggestion
 
 
 @Composable
-fun ClientProductListByCategoryContent(navHostController: NavHostController, paddingValues: PaddingValues, suggestions: List<Suggestion>) {
+fun ClientProductListByCategoryContent(
+    navHostController: NavHostController,
+    paddingValues: PaddingValues,
+    suggestions: List<Suggestion>
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
     ) {
         items(items = suggestions) {
-            ClientProductListByCategoryItem(navHostController = navHostController, suggestion = it)
+            ClientSuggestionListByCategoryItem(navHostController = navHostController, suggestion = it)
         }
     }
 }

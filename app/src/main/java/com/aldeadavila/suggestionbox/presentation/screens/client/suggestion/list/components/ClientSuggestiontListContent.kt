@@ -9,12 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
+import com.aldeadavila.suggestionbox.domain.model.User
 
 @Composable
 fun ClientProductListContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
-    suggestions: List<Suggestion>
+    suggestions: List<Suggestion>,
+    user: User?
 ) {
     LazyColumn(
         modifier = Modifier
@@ -24,7 +26,8 @@ fun ClientProductListContent(
         items(items = suggestions) {
             ClientProductListItem(
                 navHostController = navHostController,
-                suggestion = it
+                suggestion = it,
+                user = user
             )
         }
     }

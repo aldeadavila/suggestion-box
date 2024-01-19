@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.components
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,29 +8,25 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailViewModel
 
 @Composable
-fun GetSuggestions(
+fun GetCommentsBySuggestion(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
-    vm: ClientSuggestionListViewModel = hiltViewModel()
+    vm: ClientSuggestionDetailViewModel = hiltViewModel()
 ) {
-
-    when (val response = vm.suggestionsResponse) {
+    when (val response = vm.commentsResponse) {
         Resource.Loading -> {
             ProgressBar()
         }
 
         is Resource.Succes -> {
-
-            ClientProductListContent(
+            ClientCommentListBySuggestionContent(
                 navHostController,
                 paddingValues = paddingValues,
-                suggestions = response.data,
-                user = vm.user
+                comments = response.data
             )
-
         }
 
         is Resource.Failure -> {
@@ -45,11 +41,10 @@ fun GetSuggestions(
             if (response != null) {
                 Toast.makeText(
                     LocalContext.current,
-                    "Hubo un error desconocido",
+                    "Hubo un error desconocido mostrando el listado de comentarios",
                     Toast.LENGTH_LONG
                 ).show()
             }
         }
     }
-
 }
