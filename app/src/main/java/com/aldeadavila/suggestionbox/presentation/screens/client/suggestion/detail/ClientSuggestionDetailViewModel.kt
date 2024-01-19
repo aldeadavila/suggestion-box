@@ -13,6 +13,7 @@ import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.ClientCommentCreateState
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.ClientCommentUpdateState
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.mapper.toComment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -34,6 +35,9 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     var commentsResponse by mutableStateOf<Resource<List<Comment>>?>(null)
     var commentResponse by mutableStateOf<Resource<Comment>?>(null)
     var state by mutableStateOf(ClientCommentCreateState())
+    var stateUpdate by mutableStateOf(ClientCommentUpdateState())
+    var deleteCommentResponse by mutableStateOf<Resource<Unit>?>(null)
+        private set
 
     var user by mutableStateOf<User?> (null)
         private set
@@ -41,6 +45,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     init {
         getComments()
         getSessionDate()
+
     }
 
     fun createComment() = viewModelScope.launch {
@@ -49,9 +54,19 @@ class ClientSuggestionDetailViewModel @Inject constructor(
         commentResponse = result
     }
 
+    fun updateComment(comment: Comment) = viewModelScope.launch {
+        commentsUseCase.findByUserUseCase
+    }
+    fun deleteComment(id: String) = viewModelScope.launch {
+        deleteCommentResponse = Resource.Loading
+        val result = commentsUseCase.deleteCommentUseCase(id)
+        deleteCommentResponse = result
+    }
+
     fun onCommentContentInput(input: String) {
         state = state.copy(content = input)
     }
+
 
     fun isFromMe(idUser: String): Boolean {
         return user?.id == idUser
