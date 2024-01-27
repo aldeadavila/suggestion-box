@@ -2,6 +2,7 @@ package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.det
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +33,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Comment
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCommentScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientSuggestionScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailViewModel
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_dark_onTertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primaryContainer
@@ -59,7 +62,10 @@ fun ClientCommentListBySuggestionItem(
                     )
                 )
                 .background(md_theme_dark_onTertiaryContainer)
-                .padding(5.dp),
+                .padding(5.dp)
+                .clickable {
+                    navHostController.navigate(route = ClientCommentScreen.CommentDetail.passComment(comment.toJson()))
+                },
             contentAlignment = Alignment.TopEnd
         ) {
 
@@ -91,7 +97,7 @@ fun ClientCommentListBySuggestionItem(
 
                     DropdownMenuItem(
                         text = { Text("Editar mensaje") },
-                        onClick = { vm.updateComment(comment) }
+                        onClick = { vm.updateComment() }
                     )
                     DropdownMenuItem(
                         text = { Text("Eliminar mensaje") },

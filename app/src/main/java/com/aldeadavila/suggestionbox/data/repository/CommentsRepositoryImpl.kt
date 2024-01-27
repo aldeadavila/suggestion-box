@@ -1,6 +1,5 @@
 package com.aldeadavila.suggestionbox.data.repository
 
-import android.widget.Toast
 import com.aldeadavila.suggestionbox.data.datasource.local.CommentsLocalDataSource
 import com.aldeadavila.suggestionbox.data.datasource.remote.CommentsRemoteDataSource
 import com.aldeadavila.suggestionbox.data.mapper.toComment
@@ -131,7 +130,7 @@ class CommentsRepositoryImpl(
        }
     }
 
-    override suspend fun detele(id: String): Resource<Unit> {
+    override suspend fun delete(id: String): Resource<Unit> {
         ResponseToRequest.send(commentsRemoteDataSource.detele(id)).run {
             return when(this) {
                 is Resource.Succes -> {

@@ -12,9 +12,10 @@ import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.ClientCommentCreateState
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.ClientCommentUpdateState
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.mapper.toComment
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.ClientCommentCreateState
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.mapper.toComment
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.ClientCommentUpdateState
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.mapper.toComment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,6 +39,8 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     var stateUpdate by mutableStateOf(ClientCommentUpdateState())
     var deleteCommentResponse by mutableStateOf<Resource<Unit>?>(null)
         private set
+    var suggestionUpdateResponse by mutableStateOf<Resource<Comment>?>(null)
+        private set
 
     var user by mutableStateOf<User?> (null)
         private set
@@ -54,8 +57,13 @@ class ClientSuggestionDetailViewModel @Inject constructor(
         commentResponse = result
     }
 
-    fun updateComment(comment: Comment) = viewModelScope.launch {
-        commentsUseCase.findByUserUseCase
+    fun updateComment() = viewModelScope.launch {
+        suggestionUpdateResponse = Resource.Loading
+        val result = commentsUseCase.updateCommentUseCase(
+            user?.id ?: "",
+            stateUpdate.toComment()
+        )
+        suggestionUpdateResponse = result
     }
     fun deleteComment(id: String) = viewModelScope.launch {
         deleteCommentResponse = Resource.Loading

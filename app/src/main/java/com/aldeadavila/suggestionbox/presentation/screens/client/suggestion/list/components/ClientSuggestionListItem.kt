@@ -1,6 +1,5 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components
 
-import android.text.Layout.Alignment
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,9 +27,8 @@ import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.presentation.components.ZoomableImage
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientProductScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientSuggestionScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
 
 @Composable
@@ -51,7 +49,7 @@ fun ClientProductListItem(
             .height(200.dp)
             .clickable {
                 navHostController.navigate(
-                    route = ClientProductScreen.ProductDetail.passProduct(
+                    route = ClientSuggestionScreen.SuggestionDetail.passSuggestion(
                         suggestion.toJson()
                     )
                 )

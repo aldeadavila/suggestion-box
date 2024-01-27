@@ -33,6 +33,8 @@ fun ClientNavGraph(navController: NavHostController) {
 
         ClientCategoryNavGraph(navController)
 
-        ClientProudctNavGraph(navController)
+        ClientSuggestionNavGraph(navController)
+
+        ClientCommentNavGraph(navController)
     }
 }

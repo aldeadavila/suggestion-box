@@ -7,17 +7,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientProductScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientSuggestionScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailScreen
 
-fun NavGraphBuilder.ClientProudctNavGraph(navHostController: NavHostController) {
+fun NavGraphBuilder.ClientSuggestionNavGraph(navHostController: NavHostController) {
     navigation(
-        route = Graph.CLIENT_PRODUCT,
-        startDestination = ClientProductScreen.ProductDetail.route
+        route = Graph.CLIENT_SUGGESTION,
+        startDestination = ClientSuggestionScreen.SuggestionDetail.route
     ) {
 
         composable(
-            route = ClientProductScreen.ProductDetail.route,
+            route = ClientSuggestionScreen.SuggestionDetail.route,
             arguments = listOf(navArgument("suggestion") {
                 type = NavType.StringType
             })

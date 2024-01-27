@@ -119,8 +119,6 @@ fun AdminCategoryUpdateContent(
                     icon = Icons.Default.Info,
                     contentDescription = ""
                 )
-
-
             }
 
             Spacer(modifier = Modifier.height(200.dp))
