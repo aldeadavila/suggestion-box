@@ -7,6 +7,7 @@ fun RegisterState.toUser(): User {
     return User(
         name = name,
         lastname = lastname,
+        nickname = nickname,
         email = email,
         phone = phone,
         password = password

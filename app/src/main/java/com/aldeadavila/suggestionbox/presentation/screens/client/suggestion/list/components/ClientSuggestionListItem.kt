@@ -70,7 +70,7 @@ fun ClientProductListItem(
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
                         textAlign = TextAlign.Right,
-                    text = "by " + user!!.name,
+                    text = "de " + user!!.nickname,
                     color = Color.Gray,
                     fontSize = 8.sp
                 )

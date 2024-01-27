@@ -45,6 +45,7 @@ class ProfileUpdateViewModel @Inject constructor(
         state = state.copy(
             name = user.name,
             lastname = user.lastname,
+            nickname = user.nickname,
             phone = user.phone,
             image = user.image
         )
@@ -112,6 +113,10 @@ class ProfileUpdateViewModel @Inject constructor(
 
     fun onLastNameInput(input: String) {
         state = state.copy(lastname = input)
+    }
+
+    fun onNicknameInput(input: String) {
+        state = state.copy(nickname = input)
     }
 
     fun onImageInput(input: String) {

@@ -25,6 +25,7 @@ interface UserService {
         @Path("id") id: String,
         @Part("name") name: RequestBody,
         @Part("lastname") lastname: RequestBody,
+        @Part("nickname") nickname: RequestBody,
         @Part("phone") phone: RequestBody,
     ): Response<User>
 }

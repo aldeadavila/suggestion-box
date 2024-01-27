@@ -139,6 +139,15 @@ fun RegisterContent(
 
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
+                    value = state.nickname,
+                    onValueChange = { vm.onNicknameInput(it) },
+                    label = "Apodo (será el dato visible)",
+                    icon = Icons.Outlined.Person,
+                    contentDescription = ""
+                )
+
+                DefaultTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     value = state.email,
                     onValueChange = { vm.onEmailInput(it) },
                     label = "Email",
