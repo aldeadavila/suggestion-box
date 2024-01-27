@@ -116,7 +116,7 @@ fun ClientSuggestionDetailContent(
     }
 
     LaunchedEffect(key1 = pageState.currentPage) {
-        delay(2000)
+        delay(20000)
         var newPosition = pageState.currentPage + 1
         if (newPosition > vm.listProductImage.size - 1) {
             newPosition = 0

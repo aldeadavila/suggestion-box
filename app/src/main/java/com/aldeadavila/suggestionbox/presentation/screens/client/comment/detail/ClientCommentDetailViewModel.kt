@@ -10,6 +10,7 @@ import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCase
+import com.aldeadavila.suggestionbox.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,9 +27,17 @@ class ClientCommentDetailViewModel @Inject constructor(
 
     var user by mutableStateOf<User?> (null)
         private set
+    var deleteCommentResponse by mutableStateOf<Resource<Unit>?>(null)
+        private set
 
     init {
         getSessionDate()
+    }
+
+    fun deleteComment(id: String) = viewModelScope.launch {
+        deleteCommentResponse = Resource.Loading
+        var result = commentsUseCase.deleteCommentUseCase(id)
+        deleteCommentResponse = result
     }
 
     fun getEditable(idUser: String): Boolean {

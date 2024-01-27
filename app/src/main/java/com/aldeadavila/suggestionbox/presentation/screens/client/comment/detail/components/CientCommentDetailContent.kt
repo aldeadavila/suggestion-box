@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -49,7 +51,7 @@ fun ClientCommentDetailContent(
             contentScale = ContentScale.Crop,
             alignment = Alignment.TopEnd
         )
-        Row (
+        Row(
             modifier = Modifier.fillMaxSize()
         ) {
 
@@ -79,14 +81,11 @@ fun ClientCommentDetailContent(
 
             }
             if (vm.getEditable(vm.comment.idUser)) {
-                // Spacer(modifier = Modifier.width(15.dp))
-                Column(
-                    //verticalArrangement = Arrangement.Center
-                ) {
+                Column {
+                    Spacer(modifier = Modifier.height(5.dp))
                     Image(
                         modifier = Modifier
                             .size(25.dp)
-                            .padding(top = 10.dp)
                             .clickable {
                                 navHostController.navigate(
                                     route = ClientCommentScreen.CommentUpdate.passComment(
@@ -97,16 +96,16 @@ fun ClientCommentDetailContent(
                         painter = painterResource(id = R.drawable.edit),
                         contentDescription = "editar"
                     )
-                    /*Spacer(modifier = Modifier.height(5.dp))
-                Image(
-                    modifier = Modifier
-                        .size(25.dp)
-                        .clickable {
-                            // vm.deletesuggestion(suggestion.id ?: "")
-                        },
-                    painter = painterResource(id = R.drawable.trash),
-                    contentDescription = "eliminar"
-                )*/
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Image(
+                        modifier = Modifier
+                            .size(25.dp)
+                            .clickable {
+                                vm.deleteComment(vm.comment.id ?: "")
+                            },
+                        painter = painterResource(id = R.drawable.trash),
+                        contentDescription = "eliminar"
+                    )
                 }
             }
         }

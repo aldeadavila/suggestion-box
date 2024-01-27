@@ -23,7 +23,8 @@ class ClientSuggestionListViewModel @Inject constructor(
 
     var suggestionsResponse by mutableStateOf<Resource<List<Suggestion>>?>(null)
         private set
-
+    var deleteSuggestionResponse by mutableStateOf<Resource<Unit>?>(null)
+        private set
     var user by mutableStateOf<User?> (null)
         private set
 
@@ -32,6 +33,13 @@ class ClientSuggestionListViewModel @Inject constructor(
         getSuggestions()
         getSessionDate()
     }
+
+    fun deleteSuggestion(id: String) = viewModelScope.launch {
+        deleteSuggestionResponse = Resource.Loading
+        val result = suggestionsUseCase.deleteSuggestion(id)
+        deleteSuggestionResponse = result
+    }
+
     fun getSuggestions() = viewModelScope.launch {
         suggestionsResponse = Resource.Loading
         suggestionsUseCase.findAll().collect() {
