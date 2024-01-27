@@ -130,6 +130,15 @@ fun ProfileUpdateContent(
 
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
+                    value = state.nickname,
+                    onValueChange = { vm.onNicknameInput(it) },
+                    label = "Apodo",
+                    icon = Icons.Default.Person,
+                    contentDescription = ""
+                )
+
+                DefaultTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     value = state.phone,
                     onValueChange = { vm.onPhoneInput(it) },
                     label = "Teléfono",

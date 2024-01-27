@@ -28,6 +28,7 @@ class UsersRemoteDatasourceImpl(private val userService: UserService) : UsersRem
         )
         val nameData = user.name.toRequestBody(contentType.toMediaTypeOrNull())
         val lastnameData = user.lastname.toRequestBody(contentType.toMediaTypeOrNull())
+        val nicknameData = user.nickname.toRequestBody(contentType.toMediaTypeOrNull())
         val phoneData = user.phone.toRequestBody(contentType.toMediaTypeOrNull())
 
         return userService.updateWithImage(
@@ -35,6 +36,7 @@ class UsersRemoteDatasourceImpl(private val userService: UserService) : UsersRem
             id,
             nameData,
             lastnameData,
+            nicknameData,
             phoneData
         )
     }

@@ -161,9 +161,31 @@ fun ProfileContent(
                     Column(
                         modifier = Modifier.padding(horizontal = 5.dp)
                     ) {
+                        Text(text = "${vm.user?.nickname}" )
+                        Text(
+                            text = "Apodo/Mote",
+                            fontSize = 12.sp,
+                            color = Color.Gray
+                        )
+                    }
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 15.dp),
+                    verticalAlignment = Alignment.CenterVertically
+
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = ""
+                    )
+                    Column(
+                        modifier = Modifier.padding(horizontal = 5.dp)
+                    ) {
                         Text(text = "${vm.user?.name} ${vm.user?.lastname}")
                         Text(
-                            text = "Nombre de usuario",
+                            text = "Nombre",
                             fontSize = 12.sp,
                             color = Color.Gray
                         )

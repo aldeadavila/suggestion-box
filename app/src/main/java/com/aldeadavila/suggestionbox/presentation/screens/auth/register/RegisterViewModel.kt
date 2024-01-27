@@ -47,6 +47,10 @@ class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase
         state = state.copy(lastname = input)
     }
 
+    fun onNicknameInput(input: String) {
+        state = state.copy(nickname = input)
+    }
+
     fun onEmailInput(input: String) {
         state = state.copy(email = input)
     }
@@ -70,6 +74,9 @@ class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase
             return false
         } else if (state.lastname == "") {
             errorMessage = "Ingrese los apellidos"
+            return false
+        } else if (state.nickname == "") {
+            errorMessage = "Ingrese el apodo con el que quiere aparece en la app"
             return false
         } else if (state.email == "") {
             errorMessage = "Ingrese el email"

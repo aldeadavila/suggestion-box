@@ -7,6 +7,7 @@ fun ProfileUpdateState.toUser(): User {
     return User(
         name = name,
         lastname = lastname,
+        nickname = nickname,
         phone = phone,
         image = image
     )
