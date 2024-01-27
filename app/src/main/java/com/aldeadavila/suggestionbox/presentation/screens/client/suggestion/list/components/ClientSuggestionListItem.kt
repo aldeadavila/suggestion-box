@@ -1,6 +1,5 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components
 
-import android.text.Layout.Alignment
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -28,9 +28,8 @@ import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.presentation.components.ZoomableImage
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientProductScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientSuggestionScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
 
 @Composable
@@ -45,13 +44,13 @@ fun ClientProductListItem(
         modifier = Modifier
             .padding(
                 start = 20.dp,
-                end = 20.dp,
+                end = 10.dp,
                 top = 15.dp
             )
             .height(200.dp)
             .clickable {
                 navHostController.navigate(
-                    route = ClientProductScreen.ProductDetail.passProduct(
+                    route = ClientSuggestionScreen.SuggestionDetail.passSuggestion(
                         suggestion.toJson()
                     )
                 )
@@ -85,19 +84,21 @@ fun ClientProductListItem(
             }
             Spacer(modifier = Modifier.width(10.dp))
 
-             AsyncImage(
-                modifier = Modifier
-                    .size(70.dp)
-                    .clip(RoundedCornerShape(10.dp)),
-                model = suggestion.image1,
-                contentDescription = ""
-            )
 
             if (vm.getEditable(suggestion.idUser)) {
-                Spacer(modifier = Modifier.width(15.dp))
+
                 Column(
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    AsyncImage(
+                        modifier = Modifier
+                            .size(70.dp)
+                            .clip(RoundedCornerShape(10.dp)),
+                        model = suggestion.image1,
+                        contentDescription = ""
+                    )
+                    Spacer(modifier = Modifier.width(15.dp))
                     Image(
                         modifier = Modifier
                             .size(25.dp)
@@ -110,17 +111,25 @@ fun ClientProductListItem(
                             },
                         painter = painterResource(id = R.drawable.edit),
                         contentDescription = "editar")
-                    /*Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                     Image(
                         modifier = Modifier
                             .size(25.dp)
                             .clickable {
-                                // vm.deletesuggestion(suggestion.id ?: "")
+                                vm.deleteSuggestion(suggestion.id ?: "")
                             },
                         painter = painterResource(id = R.drawable.trash),
                         contentDescription = "eliminar"
-                    )*/
+                    )
                 }
+            } else {
+                AsyncImage(
+                    modifier = Modifier
+                        .size(70.dp)
+                        .clip(RoundedCornerShape(10.dp)),
+                    model = suggestion.image1,
+                    contentDescription = ""
+                )
             }
         }
         Spacer(modifier = Modifier.height(10.dp))

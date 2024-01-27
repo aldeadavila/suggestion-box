@@ -9,6 +9,7 @@ object Graph {
     const val ADMIN = "admin_graph"
     const val ADMIN_CATEGORY = "admin_category_graph"
     const val CLIENT_CATEGORY = "client_category_graph"
-    const val CLIENT_PRODUCT = "client_product_graph"
+    const val CLIENT_SUGGESTION = "client_suggestion_graph"
+    const val CLIENT_COMMENT = "client_comment_graph"
     const val PROFILE = "profile_graph"
 }

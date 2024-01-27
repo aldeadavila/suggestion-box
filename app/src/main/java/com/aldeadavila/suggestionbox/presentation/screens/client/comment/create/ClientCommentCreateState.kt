@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.comment
+package com.aldeadavila.suggestionbox.presentation.screens.client.comment.create
 
 data class ClientCommentCreateState(
     val id: String = "",

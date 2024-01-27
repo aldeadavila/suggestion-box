@@ -21,7 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientProductScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientSuggestionScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientSuggestionListByCategoryViewModel
 
 @Composable
@@ -40,7 +40,7 @@ fun ClientSuggestionListByCategoryItem(
         )
         .height(90.dp)
         .clickable {
-            navHostController.navigate(route = ClientProductScreen.ProductDetail.passProduct(suggestion.toJson()))
+            navHostController.navigate(route = ClientSuggestionScreen.SuggestionDetail.passSuggestion(suggestion.toJson()))
         }
 
     ) {

@@ -1,7 +1,7 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.comment.mapper
+package com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.mapper
 
 import com.aldeadavila.suggestionbox.domain.model.Comment
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.ClientCommentCreateState
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.ClientCommentCreateState
 
 fun ClientCommentCreateState.toComment(): Comment {
     return Comment(
