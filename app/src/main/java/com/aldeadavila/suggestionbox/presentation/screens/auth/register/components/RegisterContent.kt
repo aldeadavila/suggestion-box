@@ -107,7 +107,7 @@ fun RegisterContent(
 
             TitleTextComponent(value = stringResource(id = R.string.sign_up))
             NormalTextComponent(value = stringResource(id = R.string.add_comments))
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(10.dp))
             Column(
                 modifier = Modifier
                     .padding(
@@ -121,27 +121,9 @@ fun RegisterContent(
 
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = state.name,
-                    onValueChange = { vm.onNameInput(it) },
-                    label = "Nombre",
-                    icon = Icons.Default.Person,
-                    contentDescription = ""
-                )
-
-                DefaultTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = state.lastname,
-                    onValueChange = { vm.onLastNameInput(it) },
-                    label = "Apellidos",
-                    icon = Icons.Outlined.Person,
-                    contentDescription = ""
-                )
-
-                DefaultTextField(
-                    modifier = Modifier.fillMaxWidth(),
                     value = state.nickname,
                     onValueChange = { vm.onNicknameInput(it) },
-                    label = "Apodo (será el dato visible)",
+                    label = "Nombre de usuario",
                     icon = Icons.Outlined.Person,
                     contentDescription = ""
                 )
@@ -154,16 +136,6 @@ fun RegisterContent(
                     icon = Icons.Default.Email,
                     contentDescription = "",
                     keyboardType = KeyboardType.Email
-                )
-
-                DefaultTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = state.phone,
-                    onValueChange = { vm.onPhoneInput(it) },
-                    label = "Teléfono",
-                    icon = Icons.Default.Call,
-                    contentDescription = "",
-                    keyboardType = KeyboardType.Number
                 )
 
                 DefaultTextField(

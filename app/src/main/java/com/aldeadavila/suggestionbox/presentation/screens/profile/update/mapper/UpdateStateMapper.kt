@@ -5,10 +5,7 @@ import com.aldeadavila.suggestionbox.presentation.screens.profile.update.Profile
 
 fun ProfileUpdateState.toUser(): User {
     return User(
-        name = name,
-        lastname = lastname,
         nickname = nickname,
-        phone = phone,
         image = image
     )
 }

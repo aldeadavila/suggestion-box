@@ -55,6 +55,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
         commentResponse = Resource.Loading
         val result = commentsUseCase.createCommentUseCase(state.toComment())
         commentResponse = result
+        clearComment()
     }
 
     fun updateComment() = viewModelScope.launch {
@@ -75,9 +76,12 @@ class ClientSuggestionDetailViewModel @Inject constructor(
         state = state.copy(content = input)
     }
 
-
     fun isFromMe(idUser: String): Boolean {
         return user?.id == idUser
+    }
+
+    private fun clearComment() {
+        state = state.copy(content = "")
     }
 
     private fun getComments() = viewModelScope.launch {
