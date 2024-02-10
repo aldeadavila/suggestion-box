@@ -74,7 +74,7 @@ fun ClientCommentDetailContent(
                     modifier = Modifier
                         .padding(bottom = 7.dp)
                         .align(alignment = Alignment.End),
-                    text = "Creado por " + vm.user?.name,
+                    text = "Creado por " + vm.user?.nickname,
                     fontWeight = FontWeight.Normal,
                     fontSize = 12.sp
                 )

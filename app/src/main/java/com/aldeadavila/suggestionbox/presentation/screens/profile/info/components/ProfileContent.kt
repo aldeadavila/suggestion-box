@@ -21,7 +21,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -33,8 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -163,29 +160,7 @@ fun ProfileContent(
                     ) {
                         Text(text = "${vm.user?.nickname}" )
                         Text(
-                            text = "Apodo/Mote",
-                            fontSize = 12.sp,
-                            color = Color.Gray
-                        )
-                    }
-                }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 15.dp),
-                    verticalAlignment = Alignment.CenterVertically
-
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = ""
-                    )
-                    Column(
-                        modifier = Modifier.padding(horizontal = 5.dp)
-                    ) {
-                        Text(text = "${vm.user?.name} ${vm.user?.lastname}")
-                        Text(
-                            text = "Nombre",
+                            text = "Usuario",
                             fontSize = 12.sp,
                             color = Color.Gray
                         )
@@ -215,28 +190,6 @@ fun ProfileContent(
                     }
                 }
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 15.dp),
-                    verticalAlignment = Alignment.CenterVertically
-
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Phone,
-                        contentDescription = ""
-                    )
-                    Column(
-                        modifier = Modifier.padding(horizontal = 5.dp)
-                    ) {
-                        Text(text = vm.user?.phone ?: "")
-                        Text(
-                            text = "Teléfono",
-                            fontSize = 12.sp,
-                            color = Color.Gray
-                        )
-                    }
-                }
             }
             Spacer(modifier = Modifier.height(20.dp))
             Button(

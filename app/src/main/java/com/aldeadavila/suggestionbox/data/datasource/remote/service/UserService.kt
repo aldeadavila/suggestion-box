@@ -23,9 +23,6 @@ interface UserService {
     suspend fun updateWithImage(
         @Part file: MultipartBody.Part,
         @Path("id") id: String,
-        @Part("name") name: RequestBody,
-        @Part("lastname") lastname: RequestBody,
         @Part("nickname") nickname: RequestBody,
-        @Part("phone") phone: RequestBody,
     ): Response<User>
 }

@@ -19,7 +19,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -109,42 +108,15 @@ fun ProfileUpdateContent(
 
             Column(modifier = Modifier.padding(20.dp)) {
 
-
-                DefaultTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = state.name,
-                    onValueChange = { vm.onNameInput(it) },
-                    label = "Nombre",
-                    icon = Icons.Default.Person,
-                    contentDescription = ""
-                )
-
-                DefaultTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = state.lastname,
-                    onValueChange = { vm.onLastNameInput(it) },
-                    label = "Apellidos",
-                    icon = Icons.Default.Person,
-                    contentDescription = ""
-                )
-
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.nickname,
                     onValueChange = { vm.onNicknameInput(it) },
-                    label = "Apodo",
+                    label = "Nombre de usuario",
                     icon = Icons.Default.Person,
                     contentDescription = ""
                 )
 
-                DefaultTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = state.phone,
-                    onValueChange = { vm.onPhoneInput(it) },
-                    label = "Teléfono",
-                    icon = Icons.Default.Phone,
-                    contentDescription = ""
-                )
             }
 
             Spacer(modifier = Modifier.height(20.dp))

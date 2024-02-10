@@ -72,7 +72,7 @@ fun ClientCommentListBySuggestionContent(
 
             TextField(
                 value = state.content,
-                onValueChange = { state.content = it },
+                onValueChange = { vm.onCommentContentInput(it)},
                 label = { Text("Añade tu comentario") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 colors = TextFieldDefaults.outlinedTextFieldColors(

@@ -39,24 +39,12 @@ class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase
         }
     }
 
-    fun onNameInput(input: String) {
-        state = state.copy(name = input)
-    }
-
-    fun onLastNameInput(input: String) {
-        state = state.copy(lastname = input)
-    }
-
     fun onNicknameInput(input: String) {
         state = state.copy(nickname = input)
     }
 
     fun onEmailInput(input: String) {
         state = state.copy(email = input)
-    }
-
-    fun onPhoneInput(input: String) {
-        state = state.copy(phone = input)
     }
 
     fun onPasswordInput(input: String) {
@@ -69,20 +57,11 @@ class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase
 
     fun isValidateForm(): Boolean {
 
-        if (state.name == "") {
-            errorMessage = "Ingrese el nombre"
-            return false
-        } else if (state.lastname == "") {
-            errorMessage = "Ingrese los apellidos"
-            return false
-        } else if (state.nickname == "") {
+   if (state.nickname == "") {
             errorMessage = "Ingrese el apodo con el que quiere aparece en la app"
             return false
         } else if (state.email == "") {
             errorMessage = "Ingrese el email"
-            return false
-        } else if (state.phone == "") {
-            errorMessage = "Ingrese el teléfono"
             return false
         } else if (state.password == "") {
             errorMessage = "Ingrese la contraseña"

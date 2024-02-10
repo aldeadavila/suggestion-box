@@ -7,11 +7,8 @@ import java.nio.charset.StandardCharsets
 
 data class User(
     @SerializedName("id") val id: String? = null,
-    @SerializedName("name") var name: String,
-    @SerializedName("lastname") var lastname: String,
     @SerializedName("nickname") var nickname: String,
     @SerializedName("email") val email: String? = null,
-    @SerializedName("phone") var phone: String,
     @SerializedName("password") val password: String? = null,
     @SerializedName("image") var image: String? = null,
     @SerializedName("notification_token") val notificationToken: String? = null,
@@ -19,11 +16,8 @@ data class User(
 ) {
     fun toJson(): String = Gson().toJson(User(
         id,
-        name,
-        lastname,
         nickname,
         email,
-        phone,
         password,
         if(!image.isNullOrBlank()) URLEncoder.encode(image, StandardCharsets.UTF_8.toString()) else  "",
         notificationToken,
