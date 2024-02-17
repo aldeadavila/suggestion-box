@@ -4,11 +4,9 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,7 +29,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -55,7 +52,6 @@ import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.AuthenticationField
 import com.aldeadavila.suggestionbox.presentation.components.NormalTextComponent
 import com.aldeadavila.suggestionbox.presentation.components.TitleTextComponent
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminScreen.CategoryList.icon
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.auth.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants.FORGOT_PASSWORD
@@ -65,8 +61,6 @@ import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.poppins
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -88,7 +82,6 @@ fun LoginContent(
         painterResource(id = R.drawable.password_toggle)
     }
     val keyboard = LocalSoftwareKeyboardController.current
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(
         key1 = vm.errorMessage
@@ -101,11 +94,12 @@ fun LoginContent(
             ).show()
             vm.errorMessage = ""
         }
-
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 40.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 40.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TitleTextComponent(value = stringResource(id = R.string.do_login))
@@ -154,9 +148,11 @@ fun LoginContent(
         Text(
             text = FORGOT_PASSWORD,
             color = md_theme_light_primary,
-            modifier = Modifier.clickable {
+            modifier = Modifier
+                .clickable {
                     // navigateToForgotPasswordScreen()
-                }.padding(top = 10.dp),
+                }
+                .padding(top = 10.dp),
             style = TextStyle(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -170,12 +166,17 @@ fun LoginContent(
                 keyboard?.hide()
                 vm.login()
             },
-            modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
             contentPadding = PaddingValues(),
             colors = ButtonDefaults.buttonColors(Color.Transparent)
         ) {
             Box(
-                modifier = Modifier.fillMaxWidth().heightIn(38.dp).background(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(38.dp)
+                    .background(
                         brush = Brush.horizontalGradient(
                             listOf(
                                 md_theme_light_primary,
@@ -206,9 +207,11 @@ fun LoginContent(
             Text(
                 text = NO_ACCOUNT,
                 color = Color.Black,
-                modifier = Modifier.clickable {
+                modifier = Modifier
+                    .clickable {
                         navController.navigate(route = AuthScreen.Register.route)
-                    }.padding(top = 10.dp),
+                    }
+                    .padding(top = 10.dp),
                 style = TextStyle(
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,

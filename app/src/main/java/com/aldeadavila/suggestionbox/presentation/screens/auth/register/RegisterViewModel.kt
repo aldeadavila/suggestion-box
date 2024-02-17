@@ -33,7 +33,6 @@ class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase
     fun register() = viewModelScope.launch {
         if (isValidateForm()) {
             registerResponse = Resource.Loading
-            Log.d("REGISTRO",state.toString())
             val result = authUseCase.register(state.toUser())
             registerResponse = result
         }
@@ -57,7 +56,7 @@ class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase
 
     fun isValidateForm(): Boolean {
 
-   if (state.nickname == "") {
+        if (state.nickname == "") {
             errorMessage = "Ingrese el apodo con el que quiere aparece en la app"
             return false
         } else if (state.email == "") {

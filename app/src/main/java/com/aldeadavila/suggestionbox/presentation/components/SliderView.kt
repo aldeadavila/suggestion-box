@@ -26,32 +26,23 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 
 
-@OptIn(ExperimentalPagerApi::class, ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SliderView(state: PagerState, images: List<String>) {
 
     val imageUrl = remember { mutableStateOf("") }
-    val horizontalPadding = 16
-    val itemWidth = LocalConfiguration.current.screenWidthDp
-    val screenWidth = LocalConfiguration.current.screenWidthDp
-    val contentPadding = PaddingValues(start = (horizontalPadding).dp, end = (screenWidth - itemWidth + horizontalPadding).dp)
     HorizontalPager(
-        contentPadding = PaddingValues(start = (horizontalPadding).dp, end = (screenWidth - itemWidth + horizontalPadding).dp),
         state = state,
-        count = images.size,
-        modifier = Modifier
+        count = images.size, modifier = Modifier
             .height(150.dp)
-            .widthIn(itemWidth.dp)
-            .fillMaxSize()
-            .background(color = Color.White),
-        itemSpacing = 20.dp,
-
+            .fillMaxWidth()
+            .background(color = Color.White)
     ) { page ->
         imageUrl.value = images[page]
 
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(contentAlignment = Alignment.BottomCenter) {
@@ -63,17 +54,14 @@ fun SliderView(state: PagerState, images: List<String>) {
                             scale(Scale.FILL)
                         }).build()
                 )
-                ZoomableImage(image = imageUrl.value)
-                /*GlideImage(
-                    modifier = Modifier
-                        .clickable(onClick = {})
-                        .clip(RoundedCornerShape(20.dp)),
-                    model= imageUrl.value,
-                    alignment = Alignment.Center,
+                Image(
+                    modifier = Modifier.fillMaxSize(),
+                    painter = painter,
                     contentDescription = "",
-                )*/
+                )
             }
         }
     }
 }
+
 
