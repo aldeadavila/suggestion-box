@@ -43,7 +43,6 @@ class ClientSuggestionListViewModel @Inject constructor(
     fun getSuggestions() = viewModelScope.launch {
         suggestionsResponse = Resource.Loading
         suggestionsUseCase.findAll().collect() {
-            Log.d("ClientProductListViewModel", "Data: $it")
             suggestionsResponse = it
         }
     }

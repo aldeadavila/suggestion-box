@@ -39,12 +39,12 @@ import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.DefaultButton
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTextField
 import com.aldeadavila.suggestionbox.presentation.components.DialagoCapturePicture
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.create.AdminProductCreateViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.create.AdminSuggestionCreateViewModel
 
 @Composable
 fun AdminSuggestionCreateContent(
     paddingValues: PaddingValues,
-    vm: AdminProductCreateViewModel = hiltViewModel()
+    vm: AdminSuggestionCreateViewModel = hiltViewModel()
 ) {
 
     val state = vm.state
@@ -193,7 +193,7 @@ fun AdminSuggestionCreateContent(
                 .padding(bottom = 15.dp),
                 text = "Crear Sugerencia",
                 onClick = {
-                    vm.createProduct()
+                    vm.createSuggestion()
                 }
             )
         }

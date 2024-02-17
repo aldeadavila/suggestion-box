@@ -33,7 +33,7 @@ import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.Clien
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
 
 @Composable
-fun ClientProductListItem(
+fun ClientSuggestionListItem(
     navHostController: NavHostController,
     suggestion: Suggestion,
     user: User?,

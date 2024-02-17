@@ -8,7 +8,7 @@ import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.navigation.graph.profile.ProfileNavGraph
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.category.list.ClientCategoryListScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientProductListScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileScreen
 
 @Composable
@@ -18,7 +18,7 @@ fun ClientNavGraph(navController: NavHostController) {
         startDestination = ClientScreen.SuggestionList.route
     ) {
         composable(route = ClientScreen.SuggestionList.route) {
-            ClientProductListScreen(navController)
+            ClientSuggestionListScreen(navController)
         }
 
         composable(route = ClientScreen.CategoryList.route) {

@@ -1,9 +1,7 @@
 package com.aldeadavila.suggestionbox.data.datasource.remote
 
 import com.aldeadavila.suggestionbox.domain.model.Comment
-import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import retrofit2.Response
-import java.io.File
 
 interface CommentsRemoteDataSource {
 

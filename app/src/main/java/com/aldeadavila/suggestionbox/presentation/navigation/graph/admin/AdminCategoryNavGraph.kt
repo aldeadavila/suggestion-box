@@ -8,11 +8,11 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminCategoryScreen
-import com.aldeadavila.suggestionbox.presentation.screens.admin.category.update.AdminCategoryUpdateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.category.create.AdminCategoryCreateScreen
+import com.aldeadavila.suggestionbox.presentation.screens.admin.category.update.AdminCategoryUpdateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.create.AdminSuggestionCreateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.list.AdminSuggestionListScreen
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.AdminProductUpdateScreen
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.AdminSuggestionUpdateScreen
 
 fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) {
     navigation(
@@ -64,7 +64,7 @@ fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) 
             })
         ) {
             it.arguments?.getString("suggestion")?.let {
-                AdminProductUpdateScreen(navHostController, it)
+                AdminSuggestionUpdateScreen(navHostController, it)
             }
         }
 

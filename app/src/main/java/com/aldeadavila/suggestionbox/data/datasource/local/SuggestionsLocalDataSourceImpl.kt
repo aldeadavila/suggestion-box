@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 class SuggestionsLocalDataSourceImpl(private val suggestionsDao: SuggestionsDao): SuggestionsLocalDataSource {
     override suspend fun create(suggestionEntity: SuggestionEntity) = suggestionsDao.insert(suggestionEntity)
 
-    override suspend fun insertAll(productsEntity: List<SuggestionEntity>) = suggestionsDao.insertAll(productsEntity)
+    override suspend fun insertAll(suggestionEntities: List<SuggestionEntity>) = suggestionsDao.insertAll(suggestionEntities)
 
     override fun getSuggestions(): Flow<List<SuggestionEntity>> = suggestionsDao.getSuggestions()
     override fun findByCategory(idCategory: String): Flow<List<SuggestionEntity>> = suggestionsDao.getByCategory(idCategory)

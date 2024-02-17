@@ -43,7 +43,7 @@ import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTextField
 import com.aldeadavila.suggestionbox.presentation.components.DialagoCapturePicture
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.ClientProductUpdateViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.ClientSuggestionUpdateViewModel
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
@@ -53,7 +53,7 @@ import com.aldeadavila.suggestionbox.ui.theme.poppins
 @Composable
 fun ClientSuggestionUpdateContent(
     paddingValues: PaddingValues,
-    vm: ClientProductUpdateViewModel = hiltViewModel()
+    vm: ClientSuggestionUpdateViewModel = hiltViewModel()
 ) {
 
     val state = vm.state

@@ -1,7 +1,5 @@
 package com.aldeadavila.suggestionbox.presentation.navigation.screen.client
 
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminCategoryScreen
-
 sealed class ClientCategoryScreen(val route: String) {
 
     object SuggestionList: ClientCategoryScreen("client/category/suggestions/list/{category}") {

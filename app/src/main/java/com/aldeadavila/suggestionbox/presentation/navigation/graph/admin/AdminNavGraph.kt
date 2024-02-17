@@ -17,8 +17,8 @@ fun AdminNavGraph(navController: NavHostController) {
         route = Graph.ADMIN,
         startDestination = AdminScreen.CategoryList.route
     ) {
-        /* composable(route = AdminScreen.ProductList.route) {
-             AdminProductListScreen()
+        /* composable(route = AdminScreen.SuggestionList.route) {
+             AdminSuggestionListScreen()
          }*/
 
         composable(route = AdminScreen.CategoryList.route) {

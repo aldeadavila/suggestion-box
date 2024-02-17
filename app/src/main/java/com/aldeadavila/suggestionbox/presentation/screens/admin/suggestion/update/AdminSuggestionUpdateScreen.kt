@@ -6,12 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.components.AdminProductUpdateContent
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.components.UpdateProduct
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.components.AdminSuggestionUpdateContent
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.components.UpdateSuggestion
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminProductUpdateScreen(navHostController: NavHostController, productParam: String) {
+fun AdminSuggestionUpdateScreen(navHostController: NavHostController, suggestionParam: String) {
 
     Scaffold(
         topBar = {
@@ -23,7 +23,7 @@ fun AdminProductUpdateScreen(navHostController: NavHostController, productParam:
         },
         containerColor = Color.Gray
     ) {
-        AdminProductUpdateContent(paddingValues = it)
+        AdminSuggestionUpdateContent(paddingValues = it)
     }
-    UpdateProduct()
+    UpdateSuggestion()
 }

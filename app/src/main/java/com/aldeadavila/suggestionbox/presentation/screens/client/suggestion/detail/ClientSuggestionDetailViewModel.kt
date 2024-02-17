@@ -1,5 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -29,7 +30,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
 
     var data = savedStateHandle.get<String>("suggestion")
     var suggestion = Suggestion.fromJson(data!!)
-    var listProductImage = listOf<String>(
+    var listSuggestionImage = listOf<String>(
         suggestion.image1 ?: "",
         suggestion.image2 ?: ""
     )
@@ -45,6 +46,8 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     var user by mutableStateOf<User?> (null)
         private set
 
+    var errorMessage by mutableStateOf("")
+
     init {
         getComments()
         getSessionDate()
@@ -52,10 +55,12 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     }
 
     fun createComment() = viewModelScope.launch {
-        commentResponse = Resource.Loading
-        val result = commentsUseCase.createCommentUseCase(state.toComment())
-        commentResponse = result
-        clearComment()
+        if (isValidateForm()) {
+            commentResponse = Resource.Loading
+            val result = commentsUseCase.createCommentUseCase(state.toComment())
+            commentResponse = result
+            clearComment()
+        }
     }
 
     fun updateComment() = viewModelScope.launch {
@@ -78,6 +83,15 @@ class ClientSuggestionDetailViewModel @Inject constructor(
 
     fun isFromMe(idUser: String): Boolean {
         return user?.id == idUser
+    }
+
+    fun isValidateForm(): Boolean {
+        Log.d("comentarios", state.toString())
+        if (state.content == "") {
+            errorMessage = "Los comentarios no pueden estar vacíos"
+            return false
+        }
+        return true
     }
 
     private fun clearComment() {
