@@ -12,7 +12,7 @@ import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
 
 @Composable
-fun ClientProductListContent(
+fun ClientSuggestionListContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
     suggestions: List<Suggestion>,
@@ -24,7 +24,7 @@ fun ClientProductListContent(
             .padding(paddingValues)
     ) {
         items(items = suggestions) {
-            ClientProductListItem(
+            ClientSuggestionListItem(
                 navHostController = navHostController,
                 suggestion = it,
                 user = user

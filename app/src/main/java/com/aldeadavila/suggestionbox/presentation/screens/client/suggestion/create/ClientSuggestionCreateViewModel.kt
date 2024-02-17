@@ -13,7 +13,7 @@ import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.mapper.toProduct
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.mapper.toSuggestion
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +26,7 @@ import javax.inject.Inject
 class ClientSuggestionCreateViewModel @Inject constructor(
     @ApplicationContext val context: Context,
     private val savedStateHandle: SavedStateHandle,
-    private val productUseCase: SuggestionsUseCase,
+    private val suggestionUseCase: SuggestionsUseCase,
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
 
@@ -60,8 +60,8 @@ class ClientSuggestionCreateViewModel @Inject constructor(
             )
             state = user?.id?.let { state.copy(idUser = it) }!!
             suggestionResponse = Resource.Loading
-            val result = productUseCase.createSuggestionUseCase(
-                state.toProduct(),
+            val result = suggestionUseCase.createSuggestionUseCase(
+                state.toSuggestion(),
                 files
             )
             suggestionResponse = result

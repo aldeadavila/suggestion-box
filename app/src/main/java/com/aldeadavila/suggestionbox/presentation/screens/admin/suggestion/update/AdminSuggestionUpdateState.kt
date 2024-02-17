@@ -1,6 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update
 
-data class AdminProductUpdateState(
+data class AdminSuggestionUpdateState(
 
     val id: String = "",
     val name: String = "",

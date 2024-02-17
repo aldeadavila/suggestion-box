@@ -26,7 +26,7 @@ class ClientSuggestionListByCategoryViewModel @Inject constructor(
     var suggestionResponse by mutableStateOf<Resource<List<Suggestion>>?>(null)
         private set
 
-    var productDeleteResponse by mutableStateOf<Resource<Unit>?>(null)
+    var suggestionDeleteResponse by mutableStateOf<Resource<Unit>?>(null)
         private set
 
     init {

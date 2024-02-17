@@ -24,7 +24,7 @@ fun GetSuggestionsByCategory(
 
         is Resource.Succes -> {
 
-            ClientProductListByCategoryContent(
+            ClientSuggestionListByCategoryContent(
                 navHostController,
                 paddingValues = paddingValues,
                 suggestions = response.data

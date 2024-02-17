@@ -38,12 +38,12 @@ import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.DefaultButton
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTextField
 import com.aldeadavila.suggestionbox.presentation.components.DialagoCapturePicture
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.AdminProductUpdateViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.AdminSuggestionUpdateViewModel
 
 @Composable
-fun AdminProductUpdateContent(
+fun AdminSuggestionUpdateContent(
     paddingValues: PaddingValues,
-    vm: AdminProductUpdateViewModel = hiltViewModel()
+    vm: AdminSuggestionUpdateViewModel = hiltViewModel()
 ) {
 
     val state = vm.state
@@ -192,7 +192,7 @@ fun AdminProductUpdateContent(
                 .padding(bottom = 15.dp),
                 text = "Actualizar Sugerencia",
                 onClick = {
-                    vm.updateProduct()
+                    vm.updateSuggestion()
                 }
             )
         }

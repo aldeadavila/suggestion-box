@@ -12,7 +12,7 @@ import com.aldeadavila.suggestionbox.domain.model.Suggestion
 
 
 @Composable
-fun ClientProductListByCategoryContent(
+fun ClientSuggestionListByCategoryContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
     suggestions: List<Suggestion>

@@ -8,7 +8,7 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ClientProductListScreen(navHostController: NavHostController) {
+fun ClientSuggestionListScreen(navHostController: NavHostController) {
     Scaffold {
         GetSuggestions(
             navHostController = navHostController,

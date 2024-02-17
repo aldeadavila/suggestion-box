@@ -3,7 +3,7 @@ package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.cre
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.ClientSuggestionCreateState
 
-fun ClientSuggestionCreateState.toProduct(): Suggestion {
+fun ClientSuggestionCreateState.toSuggestion(): Suggestion {
     return Suggestion(
         name = name,
         description = description,

@@ -20,7 +20,7 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientProductUpdateViewModel @Inject constructor(
+class ClientSuggestionUpdateViewModel @Inject constructor(
     @ApplicationContext val context: Context,
     private val savedStateHandle: SavedStateHandle,
     private val suggestionsUseCase: SuggestionsUseCase

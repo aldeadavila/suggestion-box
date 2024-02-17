@@ -12,7 +12,7 @@ import com.aldeadavila.suggestionbox.presentation.screens.admin.category.create.
 import com.aldeadavila.suggestionbox.presentation.screens.admin.category.update.AdminCategoryUpdateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.create.AdminSuggestionCreateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.list.AdminSuggestionListScreen
-import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.AdminProductUpdateScreen
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.update.AdminSuggestionUpdateScreen
 
 fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) {
     navigation(
@@ -64,7 +64,7 @@ fun NavGraphBuilder.AdminCategoryNavGraph(navHostController: NavHostController) 
             })
         ) {
             it.arguments?.getString("suggestion")?.let {
-                AdminProductUpdateScreen(navHostController, it)
+                AdminSuggestionUpdateScreen(navHostController, it)
             }
         }
 

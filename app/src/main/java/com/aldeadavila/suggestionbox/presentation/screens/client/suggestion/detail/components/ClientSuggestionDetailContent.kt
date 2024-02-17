@@ -70,11 +70,11 @@ fun ClientSuggestionDetailContent(
         ) {
             SliderView(
                 state = pageState,
-                images = vm.listProductImage
+                images = vm.listSuggestionImage
             )
             Spacer(modifier = Modifier.height(4.dp))
             DotsIndicator(
-                totalDots = vm.listProductImage.size,
+                totalDots = vm.listSuggestionImage.size,
                 selectedIndex = pageState.currentPage
             )
             Text(

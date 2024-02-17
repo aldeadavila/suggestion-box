@@ -30,7 +30,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
 
     var data = savedStateHandle.get<String>("suggestion")
     var suggestion = Suggestion.fromJson(data!!)
-    var listProductImage = listOf<String>(
+    var listSuggestionImage = listOf<String>(
         suggestion.image1 ?: "",
         suggestion.image2 ?: ""
     )
