@@ -3,7 +3,6 @@ package com.aldeadavila.suggestionbox.domain.repository
 import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import kotlinx.coroutines.flow.Flow
-import java.io.File
 
 interface CommentsRepository {
 

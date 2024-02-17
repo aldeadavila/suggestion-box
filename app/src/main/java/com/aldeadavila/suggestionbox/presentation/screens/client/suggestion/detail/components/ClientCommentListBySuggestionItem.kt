@@ -1,12 +1,9 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.components
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,7 +31,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCommentScreen
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientSuggestionScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailViewModel
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_dark_onTertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primaryContainer

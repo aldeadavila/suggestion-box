@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
-import com.aldeadavila.suggestionbox.presentation.screens.admin.category.update.components.AdminCategoryUpdateContent
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.components.ClientCommentUpdateContent
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.components.UpdateComment
 

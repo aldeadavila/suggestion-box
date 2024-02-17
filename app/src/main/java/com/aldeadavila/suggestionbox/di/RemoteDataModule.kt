@@ -1,14 +1,14 @@
 package com.aldeadavila.suggestionbox.di
 
 import com.aldeadavila.suggestionbox.data.datasource.remote.AuthRemoteDatasource
-import com.aldeadavila.suggestionbox.data.datasource.remote.CategoriesRemoteDatasource
-import com.aldeadavila.suggestionbox.data.datasource.remote.UsersRemoteDatasource
 import com.aldeadavila.suggestionbox.data.datasource.remote.AuthRemoteDatasourceImpl
+import com.aldeadavila.suggestionbox.data.datasource.remote.CategoriesRemoteDatasource
 import com.aldeadavila.suggestionbox.data.datasource.remote.CategoriesRemoteDatasourceImpl
 import com.aldeadavila.suggestionbox.data.datasource.remote.CommentsRemoteDataSource
 import com.aldeadavila.suggestionbox.data.datasource.remote.CommentsRemoteDataSourceImpl
 import com.aldeadavila.suggestionbox.data.datasource.remote.SuggestionsRemoteDataSource
 import com.aldeadavila.suggestionbox.data.datasource.remote.SuggestionsRemoteDataSourceImpl
+import com.aldeadavila.suggestionbox.data.datasource.remote.UsersRemoteDatasource
 import com.aldeadavila.suggestionbox.data.datasource.remote.UsersRemoteDatasourceImpl
 import com.aldeadavila.suggestionbox.data.datasource.remote.service.AuthService
 import com.aldeadavila.suggestionbox.data.datasource.remote.service.CategoryService

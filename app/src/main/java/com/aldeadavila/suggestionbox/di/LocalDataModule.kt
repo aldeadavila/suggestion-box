@@ -1,6 +1,5 @@
 package com.aldeadavila.suggestionbox.di
 
-import com.aldeadavila.suggestionbox.data.datasource.local.datastore.AuthDataStore
 import com.aldeadavila.suggestionbox.data.datasource.local.AuthLocalDataSource
 import com.aldeadavila.suggestionbox.data.datasource.local.AuthLocalDataSourceImpl
 import com.aldeadavila.suggestionbox.data.datasource.local.CategoriesLocalDataSource
@@ -12,6 +11,7 @@ import com.aldeadavila.suggestionbox.data.datasource.local.SuggestionsLocalDataS
 import com.aldeadavila.suggestionbox.data.datasource.local.dao.CategoriesDao
 import com.aldeadavila.suggestionbox.data.datasource.local.dao.CommentsDao
 import com.aldeadavila.suggestionbox.data.datasource.local.dao.SuggestionsDao
+import com.aldeadavila.suggestionbox.data.datasource.local.datastore.AuthDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
