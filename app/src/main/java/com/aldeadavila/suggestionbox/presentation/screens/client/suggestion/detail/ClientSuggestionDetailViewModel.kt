@@ -37,13 +37,8 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     var commentsResponse by mutableStateOf<Resource<List<Comment>>?>(null)
     var commentResponse by mutableStateOf<Resource<Comment>?>(null)
     var state by mutableStateOf(ClientCommentCreateState())
-    var stateUpdate by mutableStateOf(ClientCommentUpdateState())
-    var deleteCommentResponse by mutableStateOf<Resource<Unit>?>(null)
-        private set
-    var suggestionUpdateResponse by mutableStateOf<Resource<Comment>?>(null)
-        private set
 
-    var user by mutableStateOf<User?> (null)
+    var user by mutableStateOf<User?>(null)
         private set
 
     var errorMessage by mutableStateOf("")
@@ -63,30 +58,17 @@ class ClientSuggestionDetailViewModel @Inject constructor(
         }
     }
 
-    fun updateComment() = viewModelScope.launch {
-        suggestionUpdateResponse = Resource.Loading
-        val result = commentsUseCase.updateCommentUseCase(
-            user?.id ?: "",
-            stateUpdate.toComment()
-        )
-        suggestionUpdateResponse = result
-    }
-    fun deleteComment(id: String) = viewModelScope.launch {
-        deleteCommentResponse = Resource.Loading
-        val result = commentsUseCase.deleteCommentUseCase(id)
-        deleteCommentResponse = result
-    }
-
     fun onCommentContentInput(input: String) {
         state = state.copy(content = input)
     }
 
     fun isFromMe(idUser: String): Boolean {
+        val isMine = user?.id == idUser
+        Log.d("ISFROMME", isMine.toString())
         return user?.id == idUser
     }
 
     fun isValidateForm(): Boolean {
-        Log.d("comentarios", state.toString())
         if (state.content == "") {
             errorMessage = "Los comentarios no pueden estar vacíos"
             return false
@@ -101,15 +83,15 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     private fun getComments() = viewModelScope.launch {
         commentsResponse = Resource.Loading
         commentsUseCase.findBySuggestionUseCase(suggestion.id!!).collect {
-            commentsResponse =  it
+            commentsResponse = it
         }
     }
 
     private fun getSessionDate() = viewModelScope.launch {
-        authUseCase.getSessionData().collect() { data ->
+        authUseCase.getSessionData().collect { data ->
             user = data.user
             state = state.copy(idUser = user?.id!!)
-            state = state.copy(idSuggestion = suggestion?.id!!)
+            state = state.copy(idSuggestion = suggestion.id!!)
         }
     }
 
