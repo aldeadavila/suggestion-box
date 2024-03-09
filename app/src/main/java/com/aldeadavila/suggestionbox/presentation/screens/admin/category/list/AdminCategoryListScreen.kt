@@ -26,21 +26,15 @@ fun AdminCategoryListScreen(navHostController: NavHostController) {
                 modifier = Modifier.padding(bottom = 70.dp),
                 onClick = { navHostController.navigate(route = Graph.ADMIN_CATEGORY) },
                 containerColor = Color.DarkGray
-            )
-            {
+            ) {
                 Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "",
-                    tint = Color.White
+                    imageVector = Icons.Default.Add, contentDescription = "", tint = Color.White
                 )
             }
-        }
-    ) {
+        }) {
         GetCategories(
-            navHostController,
-            it
+            navHostController, it
         )
     }
     DeleteCategory()
-
 }
