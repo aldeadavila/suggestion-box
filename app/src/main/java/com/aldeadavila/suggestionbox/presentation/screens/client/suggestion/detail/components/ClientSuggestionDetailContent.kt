@@ -51,7 +51,9 @@ fun ClientSuggestionDetailContent(
     val context = LocalContext.current
 
     Box(
-        modifier = Modifier.padding(paddingValues)
+        modifier = Modifier
+            .padding(paddingValues)
+
     ) {
         Image(
             modifier = Modifier
@@ -60,6 +62,7 @@ fun ClientSuggestionDetailContent(
             painter = painterResource(id = R.drawable.bg_green),
             contentDescription = "",
             contentScale = ContentScale.Crop,
+
             alignment = Alignment.TopEnd
         )
         Column(

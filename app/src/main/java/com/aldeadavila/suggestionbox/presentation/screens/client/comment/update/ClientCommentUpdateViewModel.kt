@@ -1,6 +1,7 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.comment.update
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -49,9 +50,12 @@ class ClientCommentUpdateViewModel  @Inject constructor(
 
         commentResponse = Resource.Loading
         val result = commentsUseCase.updateCommentUseCase(
+
             comment.id ?: "",
+
             state.toComment()
         )
+        Log.d("ClientCommentUpdateViewModel", state.toComment().toString())
         commentResponse = result
     }
 }

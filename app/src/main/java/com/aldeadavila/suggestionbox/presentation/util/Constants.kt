@@ -5,6 +5,7 @@ object Constants {
     const val SIGN_UP_BUTTON = "Cree su cuenta"
     const val CREATE_CATEGORY = "Crear categoría"
     const val CREATE_COMMENT = "Añadir comentario"
+    const val UPDATE_COMMENT = "Actualizar comentario"
     const val CONFIRM_BUTTON = "Confirmar"
     const val UPDATE_INFO_BUTTON = "Actualizar información"
     const val SIGN_IN_BUTTON = "Iniciar sesión"
