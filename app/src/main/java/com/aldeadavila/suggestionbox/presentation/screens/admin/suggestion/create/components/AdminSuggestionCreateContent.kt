@@ -180,7 +180,7 @@ fun AdminSuggestionCreateContent(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.idUser,
                     onValueChange = { vm.onIdUserInput(it) },
-                    label = "Precio",
+                    label = "Usuario",
                     icon = Icons.Default.Info,
                     contentDescription = "",
                     keyboardType = KeyboardType.Number

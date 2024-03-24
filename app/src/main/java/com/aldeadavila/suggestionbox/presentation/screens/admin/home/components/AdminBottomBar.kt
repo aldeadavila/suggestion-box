@@ -11,7 +11,6 @@ import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminS
 fun AdminBottomBar(navHostController: NavHostController) {
 
     val screens = listOf(
-       // AdminScreen.SuggestionList,
         AdminScreen.CategoryList,
         AdminScreen.Profile
     )

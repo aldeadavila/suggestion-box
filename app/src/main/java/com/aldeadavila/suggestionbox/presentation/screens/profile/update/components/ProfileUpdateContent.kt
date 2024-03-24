@@ -119,14 +119,14 @@ fun ProfileUpdateContent(
 
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
                     vm.onUpdate()
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 40.dp),
+                    .padding(20.dp),
                 contentPadding = PaddingValues(),
                 colors = ButtonDefaults.buttonColors(Color.Transparent)
             ) {

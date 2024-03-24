@@ -72,7 +72,7 @@ fun ClientCommentListBySuggestionContent(
                     focusedBorderColor = md_theme_light_primary,
                     focusedLabelColor = md_theme_light_primary,
                     cursorColor = md_theme_light_primary,
-                    containerColor = md_theme_secondary99
+                    containerColor = Color.White
                 ),
             )
 

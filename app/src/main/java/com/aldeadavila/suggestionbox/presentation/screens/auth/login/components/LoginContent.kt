@@ -145,21 +145,6 @@ fun LoginContent(
                 imeAction = ImeAction.Done
             )
         )
-        Text(
-            text = FORGOT_PASSWORD,
-            color = md_theme_light_primary,
-            modifier = Modifier
-                .clickable {
-                    // navigateToForgotPasswordScreen()
-                }
-                .padding(top = 10.dp),
-            style = TextStyle(
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontStyle = FontStyle.Normal,
-                fontFamily = poppins
-            ),
-        )
 
         Button(
             onClick = {
@@ -221,7 +206,7 @@ fun LoginContent(
             )
 
             Image(
-                painter = painterResource(id = R.drawable.agrupacion_vecinal_ayc),
+                painter = painterResource(id = R.drawable.logo_avaldeadavilacorporario),
                 contentDescription = "Agrupación vecinal de Aldeadávila",
                 modifier = Modifier.size(500.dp)
             )
