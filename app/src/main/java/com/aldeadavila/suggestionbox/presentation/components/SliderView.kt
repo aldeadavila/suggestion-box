@@ -20,6 +20,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.aldeadavila.suggestionbox.R
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primaryContainer
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
