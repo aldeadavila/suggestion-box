@@ -19,7 +19,7 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(app: Application): SuggestionDB =
-        Room.databaseBuilder(app, SuggestionDB::class.java, "ecommerce_db").fallbackToDestructiveMigration().build()
+        Room.databaseBuilder(app, SuggestionDB::class.java, "suggestion_db").fallbackToDestructiveMigration().build()
 
     @Provides
     fun provideCategoriesDao(db: SuggestionDB): CategoriesDao = db.categoriesDAO()

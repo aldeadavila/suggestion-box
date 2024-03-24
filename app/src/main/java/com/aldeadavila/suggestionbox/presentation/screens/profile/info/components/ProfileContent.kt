@@ -116,7 +116,7 @@ fun ProfileContent(
                     modifier = Modifier.size(35.dp),
                     imageVector = Icons.Default.ExitToApp,
                     contentDescription = "",
-                    tint = Color.White
+                    tint = Color.Black
                 )
 
             }
@@ -191,14 +191,14 @@ fun ProfileContent(
                 }
 
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
                     navvHostController.navigate(route = "${Graph.PROFILE}/${vm.user?.toJson()}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 40.dp),
+                    .padding(20.dp),
                 contentPadding = PaddingValues(),
                 colors = ButtonDefaults.buttonColors(Color.Transparent)
             ) {
