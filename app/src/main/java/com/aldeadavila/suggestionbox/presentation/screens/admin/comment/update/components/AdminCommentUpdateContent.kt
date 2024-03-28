@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.components
+package com.aldeadavila.suggestionbox.presentation.screens.admin.comment.update.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,13 +13,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -33,9 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.presentation.components.DefaultButton
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTextField
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.ClientCommentUpdateViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.admin.comment.update.AdminCommentUpdateViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
@@ -43,9 +40,9 @@ import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.poppins
 
 @Composable
-fun ClientCommentUpdateContent(
+fun AdminCommentUpdateContent(
     paddingValues: PaddingValues,
-    vm: ClientCommentUpdateViewModel = hiltViewModel()
+    vm: AdminCommentUpdateViewModel = hiltViewModel()
 ) {
     val state = vm.state
     vm.resultingActivityHandler.handle()
@@ -82,7 +79,7 @@ fun ClientCommentUpdateContent(
                 value = state.content,
                 onValueChange = { vm.onContentInput(it) },
                 label = "Contenido del comentario",
-                icon = Icons.Default.List,
+                icon = Icons.AutoMirrored.Filled.List,
                 contentDescription = ""
             )
 

@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail
+package com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.detail
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -13,19 +13,18 @@ import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.ClientCommentCreateState
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.mapper.toComment
+import com.aldeadavila.suggestionbox.presentation.screens.admin.comment.create.AdminCommentCreateState
+import com.aldeadavila.suggestionbox.presentation.screens.admin.comment.create.mapper.toComment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientSuggestionDetailViewModel @Inject constructor(
+class AdminSuggestionDetailViewModel @Inject constructor(
     private val commentsUseCase: CommentsUseCase,
     private val savedStateHandle: SavedStateHandle,
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
-
     var data = savedStateHandle.get<String>("suggestion")
     var suggestion = Suggestion.fromJson(data!!)
     var listSuggestionImage = listOf<String>(
@@ -34,7 +33,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     )
     var commentsResponse by mutableStateOf<Resource<List<Comment>>?>(null)
     var commentResponse by mutableStateOf<Resource<Comment>?>(null)
-    var state by mutableStateOf(ClientCommentCreateState())
+    var state by mutableStateOf(AdminCommentCreateState())
 
     var user by mutableStateOf<User?>(null)
         private set
@@ -92,5 +91,4 @@ class ClientSuggestionDetailViewModel @Inject constructor(
             state = state.copy(idSuggestion = suggestion.id!!)
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.components
+package com.aldeadavila.suggestionbox.presentation.screens.admin.comment.detail.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,16 +27,14 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCommentScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.ClientCommentDetailViewModel
-import com.google.accompanist.pager.ExperimentalPagerApi
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminCommentScreen
+import com.aldeadavila.suggestionbox.presentation.screens.admin.comment.detail.AdminCommentDetailViewModel
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ClientCommentDetailContent(
+fun AdminCommentDetailContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
-    vm: ClientCommentDetailViewModel = hiltViewModel()
+    vm: AdminCommentDetailViewModel = hiltViewModel()
 ) {
 
     Box(
@@ -81,34 +78,34 @@ fun ClientCommentDetailContent(
                 )
 
             }
-            if (vm.getEditable(vm.comment.idUser)) {
-                Column {
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Image(
-                        modifier = Modifier
-                            .size(25.dp)
-                            .clickable {
-                                navHostController.navigate(
-                                    route = ClientCommentScreen.CommentUpdate.passComment(
-                                        vm.comment.toJson()
-                                    )
+
+            Column {
+                Spacer(modifier = Modifier.height(5.dp))
+                Image(
+                    modifier = Modifier
+                        .size(25.dp)
+                        .clickable {
+                            navHostController.navigate(
+                                route = AdminCommentScreen.CommentUpdate.passComment(
+                                    vm.comment.toJson()
                                 )
-                            },
-                        painter = painterResource(id = R.drawable.edit),
-                        contentDescription = "editar"
-                    )
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Image(
-                        modifier = Modifier
-                            .size(25.dp)
-                            .clickable {
-                                vm.deleteComment(vm.comment.id ?: "")
-                            },
-                        painter = painterResource(id = R.drawable.trash),
-                        contentDescription = "eliminar"
-                    )
-                }
+                            )
+                        },
+                    painter = painterResource(id = R.drawable.edit),
+                    contentDescription = "editar"
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+                Image(
+                    modifier = Modifier
+                        .size(25.dp)
+                        .clickable {
+                            vm.deleteComment(vm.comment.id ?: "")
+                        },
+                    painter = painterResource(id = R.drawable.trash),
+                    contentDescription = "eliminar"
+                )
             }
+
         }
     }
 }
