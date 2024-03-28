@@ -26,6 +26,8 @@ import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminCategoryScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.admin.AdminSuggestionScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientSuggestionScreen
 import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.list.AdminsuggestionListViewModel
 
 @Composable
@@ -44,18 +46,34 @@ fun AdminSuggestionListItem(
             )
             .height(90.dp)
 
+
     ) {
         Row {
             AsyncImage(
                 modifier = Modifier
                     .size(70.dp)
-                    .clip(RoundedCornerShape(10.dp)),
+                    .clip(RoundedCornerShape(10.dp))
+                    .clickable {
+                        navHostController.navigate(
+                            route = AdminSuggestionScreen.SuggestionDetail.passSuggestion(
+                                suggestion.toJson()
+                            )
+                        )
+                    },
                 model = suggestion.image1,
                 contentDescription = ""
             )
             Spacer(modifier = Modifier.width(10.dp))
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable {
+                        navHostController.navigate(
+                            route = AdminSuggestionScreen.SuggestionDetail.passSuggestion(
+                                suggestion.toJson()
+                            )
+                        )
+                    }
             ) {
                 Text(
                     text = suggestion.name,
@@ -64,16 +82,11 @@ fun AdminSuggestionListItem(
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = suggestion.description,
+                    text = suggestion.description.substring(0, 50) + "...",
                     color = Color.Gray,
                     fontSize = 14.sp
                 )
-                Spacer(modifier = Modifier.height(5.dp))
-                Text(
-                    text = suggestion.idUser.toString(),
-                    color = Color.Gray,
-                    fontSize = 14.sp
-                )
+
             }
             Spacer(modifier = Modifier.width(15.dp))
             Column(
@@ -84,7 +97,7 @@ fun AdminSuggestionListItem(
                         .size(25.dp)
                         .clickable {
                             navHostController.navigate(
-                                route = AdminCategoryScreen.SuggestionUpdate.passSuggestion(
+                                route = AdminSuggestionScreen.SuggestionUpdate.passSuggestion(
                                     suggestion.toJson()
                                 )
                             )

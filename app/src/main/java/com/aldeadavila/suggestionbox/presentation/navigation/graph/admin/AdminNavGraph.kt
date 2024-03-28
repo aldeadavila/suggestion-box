@@ -31,5 +31,7 @@ fun AdminNavGraph(navController: NavHostController) {
 
         ProfileNavGraph(navController)
         AdminCategoryNavGraph(navController)
+        AdminCommentNavGraph(navController)
+        AdminSuggestionNavGraph(navController)
     }
 }

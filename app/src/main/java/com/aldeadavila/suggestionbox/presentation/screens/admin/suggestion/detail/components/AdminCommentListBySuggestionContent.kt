@@ -1,96 +1,85 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.components
+package com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.detail.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.presentation.components.DefaultButton
-import com.aldeadavila.suggestionbox.presentation.components.DefaultTextField
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.ClientCommentUpdateViewModel
+import androidx.navigation.NavHostController
+import com.aldeadavila.suggestionbox.domain.model.Comment
+import com.aldeadavila.suggestionbox.presentation.screens.admin.suggestion.detail.AdminSuggestionDetailViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.poppins
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ClientCommentUpdateContent(
+fun AdminCommentListBySuggestionContent(
+    navHostController: NavHostController,
     paddingValues: PaddingValues,
-    vm: ClientCommentUpdateViewModel = hiltViewModel()
+    comments: List<Comment>,
+    vm: AdminSuggestionDetailViewModel = hiltViewModel()
 ) {
+
     val state = vm.state
-    vm.resultingActivityHandler.handle()
 
-    Box(
-        modifier = Modifier.padding(paddingValues)
+    LazyColumn(
+        modifier = Modifier
+            .padding(start = 10.dp)
+            .height(300.dp)
     ) {
-        Image(
-            modifier = Modifier
-                .padding(start = 50.dp)
-                .size(400.dp),
-            painter = painterResource(id = R.drawable.bg_green),
-            contentDescription = "",
-            contentScale = ContentScale.Crop,
-            alignment = Alignment.TopEnd
-        )
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                modifier = Modifier.padding(bottom = 20.dp),
-                text = "COMENTARIO",
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = Color.Black
-            )
+        items(items = comments) {
+            AdminCommentListBySuggestionItem(navHostController = navHostController, comment = it)
+            Spacer(modifier = Modifier.height(3.dp))
+        }
+        item {
 
-            DefaultTextField(
-                modifier = Modifier.fillMaxWidth(),
+            TextField(
                 value = state.content,
-                onValueChange = { vm.onContentInput(it) },
-                label = "Contenido del comentario",
-                icon = Icons.Default.List,
-                contentDescription = ""
+                onValueChange = { vm.onCommentContentInput(it) },
+                label = { Text("Añade tu comentario") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = md_theme_light_primary,
+                    focusedLabelColor = md_theme_light_primary,
+                    cursorColor = md_theme_light_primary,
+                    containerColor = Color.White
+                ),
             )
 
-            Spacer(modifier = Modifier.height(200.dp))
+            Spacer(modifier = Modifier.height(5.dp))
 
             Button(
                 onClick = {
-                    vm.updateComment()
+                    vm.createComment()
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -114,7 +103,7 @@ fun ClientCommentUpdateContent(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = Constants.UPDATE_COMMENT,
+                        text = Constants.CREATE_COMMENT,
                         style = TextStyle(
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
@@ -127,4 +116,5 @@ fun ClientCommentUpdateContent(
             }
         }
     }
+
 }
