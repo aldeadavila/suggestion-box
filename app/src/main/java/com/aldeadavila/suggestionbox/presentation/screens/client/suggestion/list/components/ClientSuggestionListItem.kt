@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -67,13 +68,7 @@ fun ClientSuggestionListItem(
                     color = Color.Black,
                     fontSize = 16.sp
                 )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                        textAlign = TextAlign.Right,
-                    text = "de " + user!!.nickname,
-                    color = Color.Gray,
-                    fontSize = 8.sp
-                )
+
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
                     text = suggestion.description,
@@ -82,14 +77,14 @@ fun ClientSuggestionListItem(
                 )
 
             }
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(5.dp))
 
 
             if (vm.getEditable(suggestion.idUser)) {
 
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     AsyncImage(
                         modifier = Modifier
@@ -98,29 +93,31 @@ fun ClientSuggestionListItem(
                         model = suggestion.image1,
                         contentDescription = ""
                     )
-                    Spacer(modifier = Modifier.width(15.dp))
-                    Image(
-                        modifier = Modifier
-                            .size(25.dp)
-                            .clickable {
-                                navHostController.navigate(
-                                    route = ClientCategoryScreen.SuggestionUpdate.passSuggestion(
-                                        suggestion.toJson()
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Column {
+                        Image(
+                            modifier = Modifier
+                                .size(20.dp)
+                                .clickable {
+                                    navHostController.navigate(
+                                        route = ClientCategoryScreen.SuggestionUpdate.passSuggestion(
+                                            suggestion.toJson()
+                                        )
                                     )
-                                )
-                            },
-                        painter = painterResource(id = R.drawable.edit),
-                        contentDescription = "editar")
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Image(
-                        modifier = Modifier
-                            .size(25.dp)
-                            .clickable {
-                                vm.deleteSuggestion(suggestion.id ?: "")
-                            },
-                        painter = painterResource(id = R.drawable.trash),
-                        contentDescription = "eliminar"
-                    )
+                                },
+                            painter = painterResource(id = R.drawable.edit),
+                            contentDescription = "editar")
+                        Spacer(modifier = Modifier.height(5.dp))
+                        Image(
+                            modifier = Modifier
+                                .size(20.dp)
+                                .clickable {
+                                    vm.deleteSuggestion(suggestion.id ?: "")
+                                },
+                            painter = painterResource(id = R.drawable.trash),
+                            contentDescription = "eliminar"
+                        )
+                    }
                 }
             } else {
                 AsyncImage(
@@ -133,7 +130,7 @@ fun ClientSuggestionListItem(
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Divider(
+        HorizontalDivider(
             modifier = Modifier.padding(end = 80.dp),
             color = Color.LightGray
         )

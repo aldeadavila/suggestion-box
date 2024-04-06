@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -50,6 +52,7 @@ fun ClientSuggestionDetailContent(
     var key by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
+
     Box(
         modifier = Modifier
             .padding(paddingValues)
@@ -69,7 +72,6 @@ fun ClientSuggestionDetailContent(
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxSize()
-            // .verticalScroll(rememberScrollState())
         ) {
             SliderView(
                 state = pageState,
@@ -85,19 +87,21 @@ fun ClientSuggestionDetailContent(
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp
             )
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.padding(vertical = 10.dp),
                 color = Color.Gray
             )
-            Text(
-                modifier = Modifier.padding(bottom = 7.dp),
-                text = "Descripción",
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
-            )
+
             Text(
                 text = vm.suggestion.description,
                 fontSize = 15.sp
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                textAlign = TextAlign.Right,
+                text = "de "+ vm.stateUser.nickname,
+                color = Color.Gray,
+                fontSize = 8.sp
             )
 
             Spacer(modifier = Modifier.weight(1f))

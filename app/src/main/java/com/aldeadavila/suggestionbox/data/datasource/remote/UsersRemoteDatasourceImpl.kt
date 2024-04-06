@@ -10,6 +10,8 @@ import retrofit2.Response
 import java.io.File
 
 class UsersRemoteDatasourceImpl(private val userService: UserService) : UsersRemoteDatasource {
+    override suspend fun getById(idUser: String): Response<User> = userService.findById(idUser)
+
     override suspend fun update(id: String, user: User): Response<User> = userService.update(
         id,
         user

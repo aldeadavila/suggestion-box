@@ -1,5 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.components
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
@@ -16,8 +17,7 @@ fun CreateClientSuggestion(vm: ClientSuggestionCreateViewModel = hiltViewModel()
             ProgressBar()
         }
 
-        is Resource.Succes -> {/*Log.d("UpdateUser", "Data: ${response.data}")
-            vm.categoryResponse(response.data)*/
+        is Resource.Succes -> {
             vm.clearForm()
             Toast.makeText(
                 LocalContext.current,
