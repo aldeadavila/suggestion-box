@@ -4,17 +4,22 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.ClientCommentCreateState
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.mapper.toComment
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.components.GetUserState
+import com.aldeadavila.suggestionbox.presentation.screens.profile.update.ProfileUpdateState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +28,8 @@ import javax.inject.Inject
 class ClientSuggestionDetailViewModel @Inject constructor(
     private val commentsUseCase: CommentsUseCase,
     private val savedStateHandle: SavedStateHandle,
-    private val authUseCase: AuthUseCase
+    private val authUseCase: AuthUseCase,
+    private val userUseCase: UsersUseCase
 ) : ViewModel() {
 
     var data = savedStateHandle.get<String>("suggestion")
@@ -35,6 +41,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     var commentsResponse by mutableStateOf<Resource<List<Comment>>?>(null)
     var commentResponse by mutableStateOf<Resource<Comment>?>(null)
     var state by mutableStateOf(ClientCommentCreateState())
+    var stateUser by mutableStateOf(GetUserState())
 
     var user by mutableStateOf<User?>(null)
         private set
@@ -44,6 +51,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     init {
         getComments()
         getSessionDate()
+        getOwnerData(suggestion.idUser)
 
     }
 
@@ -72,6 +80,25 @@ class ClientSuggestionDetailViewModel @Inject constructor(
             return false
         }
         return true
+    }
+
+    fun getOwnerData(id: String) = viewModelScope.launch {
+
+       when (val result = userUseCase.findUserUseCase(suggestion.idUser)) {
+            is Resource.Succes -> {
+                println("Success: ${result.data}")
+                stateUser = stateUser.copy(
+                    nickname = result.data.nickname,
+                    image =  result.data.image
+                )
+            }
+            is Resource.Failure-> {
+                println("Error: ${result.message}")
+            }
+
+            Resource.Loading -> TODO()
+        }
+
     }
 
     private fun clearComment() {

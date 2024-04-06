@@ -1,16 +1,23 @@
 package com.aldeadavila.suggestionbox.data.datasource.remote.service
 
+import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.domain.model.User
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface UserService {
+
+    @GET("users/{id_user}")
+    suspend fun findById(
+        @Path("id_user") idUser: String
+    ): Response<User>
 
     @PUT("users/{id}")
     suspend fun update(
