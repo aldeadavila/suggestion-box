@@ -1,5 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.components
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
@@ -18,8 +19,8 @@ fun UpdateSuggestion(vm: ClientSuggestionUpdateViewModel = hiltViewModel()) {
         }
 
         is Resource.Succes -> {
-            /*Log.d("UpdateUser", "Data: ${response.data}")
-            vm.categoryResponse(response.data)*/
+            Log.d("UpdateUser", "Data: ${response.data}")
+            //vm.categoryResponse(response.data)
 
             Toast.makeText(
                 LocalContext.current,

@@ -39,7 +39,6 @@ fun ClientCommentListBySuggestionItem(
     vm: ClientSuggestionDetailViewModel = hiltViewModel()
 ) {
 
-    var mDisplayMenu by remember { mutableStateOf(false) }
     val isFromMe = vm.isFromMe(comment.idUser)
 
     if (isFromMe) {

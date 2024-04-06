@@ -11,6 +11,9 @@ import java.io.File
 class UsersRepositoryImpl(
     private val usersRemoteDatasource: UsersRemoteDatasource
     ): UsersRepository {
+    override suspend fun findById(idUser: String): Resource<User> = ResponseToRequest.send(
+        usersRemoteDatasource.getById(idUser)
+    )
 
     override suspend fun update(id: String, user: User): Resource<User> = ResponseToRequest.send(
         usersRemoteDatasource.update(id, user)
