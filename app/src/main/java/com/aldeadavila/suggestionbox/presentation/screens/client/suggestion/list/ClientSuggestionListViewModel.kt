@@ -56,5 +56,13 @@ class ClientSuggestionListViewModel @Inject constructor(
         return idUser == user?.id
     }
 
+    fun printDescription(description:String): String {
+        if(description.length > 110) {
+            return description.substring(0,110) + "..."
+        } else {
+            return description
+        }
+    }
+
 
 }
