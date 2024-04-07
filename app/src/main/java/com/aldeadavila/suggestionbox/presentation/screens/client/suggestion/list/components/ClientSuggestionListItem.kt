@@ -46,9 +46,9 @@ fun ClientSuggestionListItem(
             .padding(
                 start = 20.dp,
                 end = 10.dp,
-                top = 15.dp
+                top = 5.dp
             )
-            .height(200.dp)
+            .height(110.dp)
             .clickable {
                 navHostController.navigate(
                     route = ClientSuggestionScreen.SuggestionDetail.passSuggestion(
@@ -71,10 +71,11 @@ fun ClientSuggestionListItem(
 
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = suggestion.description,
+                    text = vm.printDescription(suggestion.description),
                     color = Color.Gray,
                     fontSize = 12.sp
                 )
+
 
             }
             Spacer(modifier = Modifier.width(5.dp))
@@ -129,7 +130,7 @@ fun ClientSuggestionListItem(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         HorizontalDivider(
             modifier = Modifier.padding(end = 80.dp),
             color = Color.LightGray
