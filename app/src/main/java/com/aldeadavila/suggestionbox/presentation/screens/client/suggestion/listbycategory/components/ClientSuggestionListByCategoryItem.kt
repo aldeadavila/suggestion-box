@@ -38,7 +38,7 @@ fun ClientSuggestionListByCategoryItem(
             end = 20.dp,
             top = 15.dp
         )
-        .height(90.dp)
+        .height(120.dp)
         .clickable {
             navHostController.navigate(route = ClientSuggestionScreen.SuggestionDetail.passSuggestion(suggestion.toJson()))
         }
@@ -60,12 +60,7 @@ fun ClientSuggestionListByCategoryItem(
                     color = Color.Gray,
                     fontSize = 12.sp
                 )
-                Spacer(modifier = Modifier.height(5.dp))
-                Text(
-                    text = suggestion.idUser.toString(),
-                    color = Color.Gray,
-                    fontSize = 14.sp
-                )
+
             }
             Spacer(modifier = Modifier.width(10.dp))
             AsyncImage(

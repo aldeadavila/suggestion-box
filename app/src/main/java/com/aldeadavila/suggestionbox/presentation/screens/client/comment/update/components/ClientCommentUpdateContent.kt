@@ -2,6 +2,7 @@ package com.aldeadavila.suggestionbox.presentation.screens.client.comment.update
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -49,9 +51,12 @@ fun ClientCommentUpdateContent(
 ) {
     val state = vm.state
     vm.resultingActivityHandler.handle()
+    val keyboard = LocalSoftwareKeyboardController.current
 
     Box(
-        modifier = Modifier.padding(paddingValues)
+        modifier = Modifier
+            .padding(paddingValues)
+            .clickable{keyboard?.hide()},
     ) {
         Image(
             modifier = Modifier

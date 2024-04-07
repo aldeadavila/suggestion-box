@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -60,6 +61,7 @@ fun ClientSuggestionUpdateContent(
     vm.resultingActivityHandler.handle()
     val stateDialog = remember { mutableStateOf(false) }
     val stateDialogImageNumber = remember { mutableStateOf(1) }
+    val keyboard = LocalSoftwareKeyboardController.current
 
     DialagoCapturePicture(
         state = stateDialog,
@@ -72,6 +74,7 @@ fun ClientSuggestionUpdateContent(
                 paddingValues = paddingValues
             )
             .fillMaxSize()
+            .clickable{keyboard?.hide()},
     ) {
         Image(
             modifier = Modifier

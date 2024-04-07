@@ -99,7 +99,8 @@ fun LoginContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 40.dp),
+            .padding(horizontal = 40.dp)
+            .clickable{keyboard?.hide()},
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TitleTextComponent(value = stringResource(id = R.string.do_login))
@@ -113,7 +114,7 @@ fun LoginContent(
             errorMsg = "*Enter valid email address",
             trailingIcon = {
                 if (state.email.isNotBlank()) {
-                    IconButton(onClick = { state.email = "" }) {
+                    IconButton(onClick = { vm.onEmailInput("") }) {
                         Icon(
                             imageVector = Icons.Default.Clear,
                             contentDescription = "Clear Text"
