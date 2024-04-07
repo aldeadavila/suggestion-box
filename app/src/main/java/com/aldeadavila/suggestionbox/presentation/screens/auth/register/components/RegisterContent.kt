@@ -3,6 +3,7 @@ package com.aldeadavila.suggestionbox.presentation.screens.auth.register.compone
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -84,6 +85,7 @@ fun RegisterContent(
                 paddingValues = paddingValues
             )
             .fillMaxSize()
+            .clickable{keyboard?.hide()},
     ) {
 
         Image(

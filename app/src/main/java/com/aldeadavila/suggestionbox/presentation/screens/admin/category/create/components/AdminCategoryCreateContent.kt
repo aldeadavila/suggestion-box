@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -60,6 +61,7 @@ fun AdminCategoryCreateContent(
     vm.resultingActivityHandler.handle()
     val stateDialog = remember { mutableStateOf(false) }
     val scrollState = rememberScrollState(0)
+    val keyboard = LocalSoftwareKeyboardController.current
 
     DialagoCapturePicture(state = stateDialog,
         takePhoto = { vm.takePhoto() },
@@ -68,6 +70,7 @@ fun AdminCategoryCreateContent(
     Box(
         modifier = Modifier
             .padding(paddingValues = paddingValues)
+            .clickable{keyboard?.hide()},
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),

@@ -2,6 +2,7 @@ package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.det
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -51,11 +52,12 @@ fun ClientSuggestionDetailContent(
     val pageState = rememberPagerState()
     var key by remember { mutableStateOf(false) }
     val context = LocalContext.current
-
+    val keyboard = LocalSoftwareKeyboardController.current
 
     Box(
         modifier = Modifier
             .padding(paddingValues)
+            .clickable{keyboard?.hide()},
 
     ) {
         Image(

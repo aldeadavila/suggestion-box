@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -56,17 +57,19 @@ import com.aldeadavila.suggestionbox.ui.theme.poppins
 fun ProfileUpdateContent(
     paddingValues: PaddingValues, vm: ProfileUpdateViewModel = hiltViewModel()
 ) {
-    val activity = LocalContext.current as? Activity
     val state = vm.state
     val stateDialog = remember { mutableStateOf(false) }
     vm.resultingActivityHandler.handle()
+    val keyboard = LocalSoftwareKeyboardController.current
 
     DialagoCapturePicture(state = stateDialog,
         takePhoto = { vm.takePhoto() },
         pickImage = { vm.pickImage() })
 
     Box(
-        modifier = Modifier.padding(paddingValues = paddingValues)
+        modifier = Modifier
+            .padding(paddingValues = paddingValues)
+            .clickable{keyboard?.hide()},
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
