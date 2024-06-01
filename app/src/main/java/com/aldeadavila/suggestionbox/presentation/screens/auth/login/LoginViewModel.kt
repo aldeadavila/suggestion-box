@@ -8,9 +8,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.AuthResponse
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,6 +30,8 @@ class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase): 
     var loginResource by mutableStateOf<Resource<AuthResponse>?>(null)
         private set
 
+    private var _loginFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
+    val loginFlow: StateFlow<Response<FirebaseUser>?> = _loginFlow
     init {
         getSessionData()
     }
@@ -41,11 +47,11 @@ class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase): 
     }
     fun login() = viewModelScope.launch {
         if (isValidateForm()) {
-            loginResource = Resource.Loading //esperando respuesta
+            _loginFlow.value = Response.Loading
             val result = authUseCase.login(state.email, state.password) // devuelve la respuesta
 
-            loginResource = result // respuesta exitosa o errónea
-            Log.d("LoginViewModel", "Response guay: ${loginResource}")
+            _loginFlow.value = result
+            Log.d("LoginViewModel", "Response guay: ${_loginFlow.value}")
         }
     }
 

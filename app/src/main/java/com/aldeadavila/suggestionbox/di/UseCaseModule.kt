@@ -46,16 +46,6 @@ import dagger.hilt.components.SingletonComponent
 object UseCaseModule {
 
     @Provides
-    fun provideAuthUseCase(authRepository: AuthRepository) = AuthUseCase(
-        login = LoginUseCase(authRepository),
-        register = RegisterUseCase(authRepository),
-        saveSession = SaveSessionUseCase(authRepository),
-        getSessionData = GetSessionDataUseCase(authRepository),
-        logout = LogoutUseCase(authRepository),
-        updateSession = UpdateSessionUseCase(authRepository)
-    )
-
-    @Provides
     fun provideUsersUseCase(usersRepository: UsersRepository) = UsersUseCase(
         updateUser = UpdateUserUseCase(usersRepository),
         updateUserWithImageUseCase = UpdateUserWithImageUseCase(usersRepository),

@@ -26,6 +26,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,10 +48,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.presentation.components.AuthenticationField
 import com.aldeadavila.suggestionbox.presentation.components.NormalTextComponent
+import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
 import com.aldeadavila.suggestionbox.presentation.components.TitleTextComponent
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.auth.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginViewModel
@@ -73,6 +77,7 @@ fun LoginContent(
     vm: LoginViewModel = hiltViewModel()
 ) {
 
+    val loginFlow = vm.loginFlow.collectAsState()
     val state = vm.state
     val context = LocalContext.current
     var passwordVisibility by remember { mutableStateOf(false) }
@@ -100,7 +105,7 @@ fun LoginContent(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 40.dp)
-            .clickable{keyboard?.hide()},
+            .clickable { keyboard?.hide() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TitleTextComponent(value = stringResource(id = R.string.do_login))
@@ -212,6 +217,23 @@ fun LoginContent(
                 modifier = Modifier.size(500.dp)
             )
 
+        }
+
+    }
+
+    loginFlow.value.let { state ->
+        when(state) {
+            Response.Loading -> {
+                ProgressBar()
+            }
+            is Response.Success -> {
+                Toast.makeText(LocalContext.current, "Usuario logeado", Toast.LENGTH_LONG).show()
+            }
+            is Response.Failure -> {
+                Toast.makeText(LocalContext.current, state.exception?.message ?: "Error desconocido", Toast.LENGTH_LONG).show()
+            }
+
+            else -> {}
         }
 
     }
