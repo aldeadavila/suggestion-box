@@ -7,15 +7,24 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.AuthResponse
+import com.aldeadavila.suggestionbox.domain.model.Response
+import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.screens.auth.register.mapper.toUser
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase) : ViewModel() {
+class RegisterViewModel @Inject constructor(
+    private val authUseCase: AuthUseCase,
+    private val usersUseCase: UsersUseCase
+    ) : ViewModel() {
 
     var state by mutableStateOf(RegisterState())
         private set
@@ -25,16 +34,31 @@ class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase
     var registerResponse by mutableStateOf<Resource<AuthResponse>?>(null)
         private set
 
+    var user = User()
+
+    private val _signUpFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
+    val signUpFlow: StateFlow<Response<FirebaseUser>?> = _signUpFlow
     fun saveSession(authResponse: AuthResponse) = viewModelScope.launch {
         authUseCase.saveSession(authResponse)
     }
 
-    fun register() = viewModelScope.launch {
+    fun createUser() = viewModelScope.launch {
+        user.id = authUseCase.getCurrentUser()!!.uid
+        usersUseCase.createUser(user)
+    }
+    fun signUp(user: User) = viewModelScope.launch {
         if (isValidateForm()) {
-            registerResponse = Resource.Loading
-            val result = authUseCase.register(state.toUser())
-            registerResponse = result
+            _signUpFlow.value = Response.Loading
+            val result = authUseCase.signUp(user)
+            _signUpFlow.value = result
         }
+    }
+
+    fun onSignUp() {
+        user.nickname = state.nickname
+        user.email = state.email
+        user.password = state.password
+        signUp(user)
     }
 
     fun onNicknameInput(input: String) {

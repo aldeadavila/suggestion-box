@@ -4,5 +4,6 @@ data class UsersUseCase(
 
     val findUserUseCase: FindUserUseCase,
     val updateUser: UpdateUserUseCase,
-    val updateUserWithImageUseCase: UpdateUserWithImageUseCase
+    val updateUserWithImageUseCase: UpdateUserWithImageUseCase,
+    val createUser: CreateUserUseCase,
 )

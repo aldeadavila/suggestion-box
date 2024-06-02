@@ -1,17 +1,9 @@
 package com.aldeadavila.suggestionbox.di
 
-import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
 import com.aldeadavila.suggestionbox.domain.repository.CategoriesRepository
 import com.aldeadavila.suggestionbox.domain.repository.CommentsRepository
 import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.aldeadavila.suggestionbox.domain.repository.UsersRepository
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.auth.GetSessionDataUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.auth.LoginUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.auth.LogoutUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.auth.RegisterUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.auth.SaveSessionUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.auth.UpdateSessionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.categories.CategoriesUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.categories.CreateCategoryUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.categories.DeleteCategoryUseCase
@@ -32,6 +24,7 @@ import com.aldeadavila.suggestionbox.domain.usecase.suggestions.FindByCategoryUs
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestionWithImageUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.users.CreateUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.FindUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UpdateUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UpdateUserWithImageUseCase
@@ -49,7 +42,8 @@ object UseCaseModule {
     fun provideUsersUseCase(usersRepository: UsersRepository) = UsersUseCase(
         updateUser = UpdateUserUseCase(usersRepository),
         updateUserWithImageUseCase = UpdateUserWithImageUseCase(usersRepository),
-        findUserUseCase = FindUserUseCase(usersRepository)
+        findUserUseCase = FindUserUseCase(usersRepository),
+        createUser = CreateUserUseCase(usersRepository),
     )
 
     @Provides

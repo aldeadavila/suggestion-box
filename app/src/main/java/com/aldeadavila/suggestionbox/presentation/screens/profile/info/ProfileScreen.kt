@@ -10,6 +10,6 @@ import com.aldeadavila.suggestionbox.presentation.screens.profile.info.component
 @Composable
 fun ProfileScreen(navHostController: NavHostController) {
     Scaffold {
-        ProfileContent(paddingValues = it, navvHostController = navHostController)
+        ProfileContent(paddingValues = it, navHostController = navHostController)
     }
 }

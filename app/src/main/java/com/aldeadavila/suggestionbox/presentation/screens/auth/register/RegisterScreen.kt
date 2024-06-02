@@ -8,7 +8,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
-import com.aldeadavila.suggestionbox.presentation.screens.auth.register.components.Register
 import com.aldeadavila.suggestionbox.presentation.screens.auth.register.components.RegisterContent
 import com.aldeadavila.suggestionbox.ui.theme.SuggestionBoxTheme
 
@@ -24,9 +23,8 @@ fun RegisterScreen(navController: NavHostController) {
             )
         }
     ) { paddingValues ->
-        RegisterContent(paddingValues = paddingValues)
+        RegisterContent(paddingValues = paddingValues, navHostController = navController)
     }
-    Register(navController)
 }
 
 @Preview(showBackground = true, showSystemUi = true)

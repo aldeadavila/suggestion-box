@@ -56,6 +56,7 @@ import com.aldeadavila.suggestionbox.presentation.components.AuthenticationField
 import com.aldeadavila.suggestionbox.presentation.components.NormalTextComponent
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
 import com.aldeadavila.suggestionbox.presentation.components.TitleTextComponent
+import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.auth.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants.FORGOT_PASSWORD
@@ -227,6 +228,11 @@ fun LoginContent(
                 ProgressBar()
             }
             is Response.Success -> {
+                LaunchedEffect(Unit) {
+                    navController.navigate(route = Graph.CLIENT) {
+                        popUpTo(Graph.AUTH) { inclusive = true }
+                    }
+                }
                 Toast.makeText(LocalContext.current, "Usuario logeado", Toast.LENGTH_LONG).show()
             }
             is Response.Failure -> {

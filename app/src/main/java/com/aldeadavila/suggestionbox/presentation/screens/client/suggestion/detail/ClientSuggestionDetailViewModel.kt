@@ -4,10 +4,8 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
@@ -19,7 +17,6 @@ import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.ClientCommentCreateState
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.mapper.toComment
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.components.GetUserState
-import com.aldeadavila.suggestionbox.presentation.screens.profile.update.ProfileUpdateState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -89,7 +86,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
                 println("Success: ${result.data}")
                 stateUser = stateUser.copy(
                     nickname = result.data.nickname,
-                    image =  result.data.image
+                    image =  result.data.profileImagePathUrl
                 )
             }
             is Resource.Failure-> {

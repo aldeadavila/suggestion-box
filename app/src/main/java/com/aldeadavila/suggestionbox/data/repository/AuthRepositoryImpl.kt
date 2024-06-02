@@ -31,14 +31,20 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun register(user: User): Resource<AuthResponse> = ResponseToRequest.send(
-        authRemoteDatasource.register(user)
-    )
+    override suspend fun signUp(user: User): Response<FirebaseUser> {
+        return try {
+            val result = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
+            Response.Success(result.user!!)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
 
     override suspend fun saveSession(authResponse: AuthResponse) = authLocalDataSource.saveSession(authResponse)
     override suspend fun updateSession(user: User) = authLocalDataSource.updateSession(user)
 
-    override suspend fun logout() = authLocalDataSource.logout()
+    override fun logout() = firebaseAuth.signOut()
 
     override fun getSessionData(): Flow<AuthResponse> = authLocalDataSource.getSessionData()
 }

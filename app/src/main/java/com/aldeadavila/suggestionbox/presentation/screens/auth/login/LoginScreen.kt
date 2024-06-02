@@ -14,5 +14,4 @@ fun LoginScreen(navController: NavHostController) {
     Scaffold() { paddingValues ->
             LoginContent(navController = navController, paddingValues)
     }
-    Login(navController = navController)
 }

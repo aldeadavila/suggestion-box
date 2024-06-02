@@ -29,11 +29,6 @@ import dagger.hilt.components.SingletonComponent
 object RepositoryModule {
 
     @Provides
-    fun provideUserRepository(
-        usersRemoteDatasource: UsersRemoteDatasource
-    ): UsersRepository = UsersRepositoryImpl(usersRemoteDatasource)
-
-    @Provides
     fun provideCategoryRepository(
         categoriesRemoteDatasource: CategoriesRemoteDatasource,
         categoriesLocalDataSource: CategoriesLocalDataSource

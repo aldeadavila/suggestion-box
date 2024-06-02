@@ -29,8 +29,8 @@ class AuthDataStore constructor(private val dataStore: DataStore<Preferences>) {
         }
 
         authResponse.user?.nickname = user.nickname
-        if (!user.image.isNullOrBlank()){
-            authResponse.user?.image = user.image
+        if (!user.profileImagePathUrl.isNullOrBlank()){
+            authResponse.user?.profileImagePathUrl = user.profileImagePathUrl
         }
 
         dataStore.edit { pref ->

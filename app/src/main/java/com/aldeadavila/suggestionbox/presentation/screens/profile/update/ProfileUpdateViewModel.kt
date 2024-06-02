@@ -44,7 +44,7 @@ class ProfileUpdateViewModel @Inject constructor(
     init {
         state = state.copy(
             nickname = user.nickname,
-            image = user.image
+            image = user.profileImagePathUrl
         )
     }
 

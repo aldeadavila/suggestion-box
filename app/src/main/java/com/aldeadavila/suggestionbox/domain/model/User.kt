@@ -1,29 +1,36 @@
 package com.aldeadavila.suggestionbox.domain.model
 
+import com.google.firebase.firestore.PropertyName
+import com.google.firebase.firestore.ServerTimestamp
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import java.util.Date
 
 data class User(
-    @SerializedName("id") val id: String? = null,
-    @SerializedName("nickname") var nickname: String,
-    @SerializedName("email") val email: String? = null,
-    @SerializedName("password") val password: String? = null,
-    @SerializedName("image") var image: String? = null,
-    @SerializedName("notification_token") val notificationToken: String? = null,
-    @SerializedName("roles") val roles: List<Rol>? = null,
+    @PropertyName("id") var id: String = "",
+    @PropertyName("nickname") var nickname: String =  "",
+    @PropertyName("email") var email: String = "",
+    @PropertyName("password") var password: String = "",
+    @PropertyName("profile_image_path_url") var profileImagePathUrl: String? = null,
+    @PropertyName("profile_image_path") var profileImagePath: String? = null,
+    @PropertyName("roles") var roles: List<String>? = emptyList(),
+    @PropertyName("preferences") var preferences: List<String>? = emptyList(),
+    @PropertyName("is_premium") var isPremium: Boolean = false,
+    @PropertyName("date_created") @ServerTimestamp var dateCreated: Date? = null,
 ) {
     fun toJson(): String = Gson().toJson(User(
         id,
         nickname,
         email,
         password,
-        if(!image.isNullOrBlank()) URLEncoder.encode(image, StandardCharsets.UTF_8.toString()) else  "",
-        notificationToken,
-        roles?.map { rol ->
-            Rol.fromJson(rol.toJson())
-        }
+        if(!profileImagePathUrl.isNullOrBlank()) URLEncoder.encode(profileImagePathUrl, StandardCharsets.UTF_8.toString()) else  "",
+        profileImagePath,
+        roles,
+        preferences,
+        isPremium,
+        dateCreated
     ))
 
     companion object {

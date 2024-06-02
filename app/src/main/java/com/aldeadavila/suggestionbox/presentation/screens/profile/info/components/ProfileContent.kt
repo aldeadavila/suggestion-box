@@ -1,7 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.profile.info.components
 
 import android.app.Activity
-import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,7 +17,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -43,9 +40,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.aldeadavila.suggestionbox.MainActivity
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.auth.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
@@ -56,7 +53,7 @@ import com.aldeadavila.suggestionbox.ui.theme.poppins
 @Composable
 fun ProfileContent(
     paddingValues: PaddingValues,
-    navvHostController: NavHostController,
+    navHostController: NavHostController,
     vm: ProfileViewModel = hiltViewModel()
 ) {
     val activity = LocalContext.current as? Activity
@@ -82,13 +79,9 @@ fun ProfileContent(
                 ),
                 onClick = {
                     vm.logout()
-                    activity?.finish()
-                    activity?.startActivity(
-                        Intent(
-                            activity,
-                            MainActivity::class.java
-                        )
-                    )
+                    navHostController.navigate(route = AuthScreen.Login.route) {
+                       popUpTo(Graph.AUTH) { inclusive = true }
+                    }
                 }) {
                 Image(
                     modifier = Modifier.size(35.dp),
@@ -97,36 +90,14 @@ fun ProfileContent(
                 )
 
             }
-            IconButton(modifier = Modifier
-                .align(Alignment.End)
-                .padding(
-                    end = 15.dp,
-                    top = 15.dp
-                ),
-                onClick = {
-                    activity?.finish()
-                    activity?.startActivity(
-                        Intent(
-                            activity,
-                            MainActivity::class.java
-                        )
-                    )
-                }) {
-                Icon(
-                    modifier = Modifier.size(35.dp),
-                    imageVector = Icons.Default.ExitToApp,
-                    contentDescription = "",
-                    tint = Color.Black
-                )
 
-            }
-            if (!vm.user?.image.isNullOrBlank()) {
+            if (!vm.user?.profileImagePathUrl.isNullOrBlank()) {
                 AsyncImage(
                     modifier = Modifier
                         .size(150.dp)
                         .clip(CircleShape)
                         .align(Alignment.CenterHorizontally),
-                    model = vm.user?.image,
+                    model = vm.user?.profileImagePathUrl,
                     contentDescription = "",
                     contentScale = ContentScale.Crop
                 )
@@ -194,7 +165,7 @@ fun ProfileContent(
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
-                    navvHostController.navigate(route = "${Graph.PROFILE}/${vm.user?.toJson()}")
+                    navHostController.navigate(route = "${Graph.PROFILE}/${vm.user?.toJson()}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()

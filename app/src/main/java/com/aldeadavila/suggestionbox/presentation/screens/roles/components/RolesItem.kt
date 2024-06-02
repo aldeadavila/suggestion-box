@@ -22,9 +22,9 @@ import com.aldeadavila.suggestionbox.domain.model.Rol
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 
 @Composable
-fun RolesItem(rol: Rol, navHostController: NavHostController) {
+fun RolesItem(rol: String, navHostController: NavHostController) {
 
-    Column(
+  /*  Column(
         modifier = Modifier.clickable {
             navHostController.navigate(route = rol.route) {
                 popUpTo(route = Graph.ROLES) { inclusive = true }
@@ -43,5 +43,5 @@ fun RolesItem(rol: Rol, navHostController: NavHostController) {
         Text(text = rol.name.uppercase(),
             fontWeight = FontWeight.Bold,
             fontSize = 17.sp)
-    }
+    } */
 }

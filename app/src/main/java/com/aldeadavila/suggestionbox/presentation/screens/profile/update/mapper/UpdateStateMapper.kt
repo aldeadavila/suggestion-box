@@ -6,6 +6,6 @@ import com.aldeadavila.suggestionbox.presentation.screens.profile.update.Profile
 fun ProfileUpdateState.toUser(): User {
     return User(
         nickname = nickname,
-        image = image
+        profileImagePathUrl = image
     )
 }

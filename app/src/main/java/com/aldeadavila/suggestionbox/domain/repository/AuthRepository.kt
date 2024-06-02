@@ -13,12 +13,12 @@ interface AuthRepository {
 
     suspend fun login(email:String, password:String): Response<FirebaseUser>
 
-    suspend fun register(user: User): Resource<AuthResponse>
+    suspend fun signUp(user: User): Response<FirebaseUser>
 
     suspend fun saveSession(authResponse: AuthResponse)
 
     suspend fun updateSession(user: User)
-    suspend fun logout()
+    fun logout()
     fun getSessionData(): Flow<AuthResponse>
 
 }

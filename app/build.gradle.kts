@@ -54,8 +54,15 @@ android {
 }
 
 dependencies {
-    implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.0")
-    implementation("com.google.firebase:firebase-auth:23.0.0")
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    implementation("com.google.firebase:firebase-analytics-ktx")
+
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
     val nav_version = "2.7.7"
     val room_version = "2.6.1"
 
