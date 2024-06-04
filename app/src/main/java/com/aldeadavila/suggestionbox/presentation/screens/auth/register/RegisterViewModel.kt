@@ -6,17 +6,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aldeadavila.suggestionbox.domain.model.AuthResponse
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
-import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.auth.register.mapper.toUser
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,16 +26,10 @@ class RegisterViewModel @Inject constructor(
 
     var errorMessage by mutableStateOf("")
 
-    var registerResponse by mutableStateOf<Resource<AuthResponse>?>(null)
+    var registerResponse by mutableStateOf<Response<FirebaseUser>?>(null)
         private set
 
     var user = User()
-
-    private val _signUpFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
-    val signUpFlow: StateFlow<Response<FirebaseUser>?> = _signUpFlow
-    fun saveSession(authResponse: AuthResponse) = viewModelScope.launch {
-        authUseCase.saveSession(authResponse)
-    }
 
     fun createUser() = viewModelScope.launch {
         user.id = authUseCase.getCurrentUser()!!.uid
@@ -48,9 +37,9 @@ class RegisterViewModel @Inject constructor(
     }
     fun signUp(user: User) = viewModelScope.launch {
         if (isValidateForm()) {
-            _signUpFlow.value = Response.Loading
+            registerResponse = Response.Loading
             val result = authUseCase.signUp(user)
-            _signUpFlow.value = result
+            registerResponse = result
         }
     }
 
@@ -61,20 +50,20 @@ class RegisterViewModel @Inject constructor(
         signUp(user)
     }
 
-    fun onNicknameInput(input: String) {
-        state = state.copy(nickname = input)
+    fun onNicknameInput(nickname: String) {
+        state = state.copy(nickname = nickname)
     }
 
-    fun onEmailInput(input: String) {
-        state = state.copy(email = input)
+    fun onEmailInput(email: String) {
+        state = state.copy(email = email)
     }
 
-    fun onPasswordInput(input: String) {
-        state = state.copy(password = input)
+    fun onPasswordInput(password: String) {
+        state = state.copy(password = password)
     }
 
-    fun onConfirmPasswordInput(input: String) {
-        state = state.copy(confirmPassword = input)
+    fun onConfirmPasswordInput(password: String) {
+        state = state.copy(confirmPassword = password)
     }
 
     fun isValidateForm(): Boolean {

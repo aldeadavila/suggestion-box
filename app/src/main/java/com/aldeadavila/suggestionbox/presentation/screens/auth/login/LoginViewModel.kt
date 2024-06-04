@@ -26,36 +26,25 @@ class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase): 
 
     var errorMessage by mutableStateOf("")
 
-    // LOGIN RESPONSE
-    var loginResource by mutableStateOf<Resource<AuthResponse>?>(null)
-        private set
-
-    private var _loginFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
-    val loginFlow: StateFlow<Response<FirebaseUser>?> = _loginFlow
+   var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null)
 
     val currentUser = authUseCase.getCurrentUser()
     init {
         if(currentUser != null) {
-            _loginFlow.value = Response.Success(currentUser!!)
+            loginResponse = Response.Success(currentUser!!)
         }
     }
-    fun getSessionData() = viewModelScope.launch {
-        authUseCase.getSessionData().collect() { data ->
-            if (!data.token.isNullOrBlank()) {
-                loginResource = Resource.Succes(data)
-            }
-        }
-    }
+
     fun saveSession(authResponse: AuthResponse) = viewModelScope.launch {
         authUseCase.saveSession(authResponse)
     }
     fun login() = viewModelScope.launch {
         if (isValidateForm()) {
-            _loginFlow.value = Response.Loading
+            loginResponse = Response.Loading
             val result = authUseCase.login(state.email, state.password) // devuelve la respuesta
 
-            _loginFlow.value = result
-            Log.d("LoginViewModel", "Response guay: ${_loginFlow.value}")
+            loginResponse = result
+            Log.d("LoginViewModel", "Response guay: ${loginResponse}")
         }
     }
 

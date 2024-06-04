@@ -25,7 +25,7 @@ import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCa
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestionWithImageUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.CreateUserUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.users.FindUserUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.users.GetUserByIdUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UpdateUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UpdateUserWithImageUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
@@ -42,7 +42,7 @@ object UseCaseModule {
     fun provideUsersUseCase(usersRepository: UsersRepository) = UsersUseCase(
         updateUser = UpdateUserUseCase(usersRepository),
         updateUserWithImageUseCase = UpdateUserWithImageUseCase(usersRepository),
-        findUserUseCase = FindUserUseCase(usersRepository),
+        getUserByIdUseCase = GetUserByIdUseCase(usersRepository),
         createUser = CreateUserUseCase(usersRepository),
     )
 

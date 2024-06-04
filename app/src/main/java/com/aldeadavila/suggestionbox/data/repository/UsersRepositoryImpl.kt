@@ -7,6 +7,9 @@ import com.aldeadavila.suggestionbox.domain.repository.UsersRepository
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.domain.util.ResponseToRequest
 import com.google.firebase.firestore.CollectionReference
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import java.io.File
 import javax.inject.Inject
@@ -27,9 +30,16 @@ class UsersRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun findById(idUser: String): Resource<User> = ResponseToRequest.send(
-        usersRemoteDatasource.getById(idUser)
-    )
+    override fun getUserById(idUser: String): Flow<User> = callbackFlow{
+        val snapshotListener = usersRef.document(idUser).addSnapshotListener { snapshot, e ->
+
+            val user = snapshot?.toObject(User::class.java) ?: User()
+            trySend(user)
+        }
+        awaitClose {
+            snapshotListener.remove()
+        }
+    }
 
     override suspend fun update(id: String, user: User): Resource<User> = ResponseToRequest.send(
         usersRemoteDatasource.update(id, user)

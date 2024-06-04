@@ -78,7 +78,6 @@ fun LoginContent(
     vm: LoginViewModel = hiltViewModel()
 ) {
 
-    val loginFlow = vm.loginFlow.collectAsState()
     val state = vm.state
     val context = LocalContext.current
     var passwordVisibility by remember { mutableStateOf(false) }
@@ -222,26 +221,5 @@ fun LoginContent(
 
     }
 
-    loginFlow.value.let { state ->
-        when(state) {
-            Response.Loading -> {
-                ProgressBar()
-            }
-            is Response.Success -> {
-                LaunchedEffect(Unit) {
-                    navController.navigate(route = Graph.CLIENT) {
-                        popUpTo(Graph.AUTH) { inclusive = true }
-                    }
-                }
-                Toast.makeText(LocalContext.current, "Usuario logeado", Toast.LENGTH_LONG).show()
-            }
-            is Response.Failure -> {
-                Toast.makeText(LocalContext.current, state.exception?.message ?: "Error desconocido", Toast.LENGTH_LONG).show()
-            }
-
-            else -> {}
-        }
-
-    }
 
 }

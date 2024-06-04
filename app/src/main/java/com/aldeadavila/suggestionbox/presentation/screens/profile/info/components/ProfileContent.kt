@@ -91,13 +91,13 @@ fun ProfileContent(
 
             }
 
-            if (!vm.user?.profileImagePathUrl.isNullOrBlank()) {
+            if (!vm.userData?.profileImagePathUrl.isNullOrBlank()) {
                 AsyncImage(
                     modifier = Modifier
                         .size(150.dp)
                         .clip(CircleShape)
                         .align(Alignment.CenterHorizontally),
-                    model = vm.user?.profileImagePathUrl,
+                    model = vm.userData?.profileImagePathUrl,
                     contentDescription = "",
                     contentScale = ContentScale.Crop
                 )
@@ -129,7 +129,7 @@ fun ProfileContent(
                     Column(
                         modifier = Modifier.padding(horizontal = 5.dp)
                     ) {
-                        Text(text = "${vm.user?.nickname}" )
+                        Text(text = vm.userData.nickname )
                         Text(
                             text = "Usuario",
                             fontSize = 12.sp,
@@ -152,7 +152,7 @@ fun ProfileContent(
                     Column(
                         modifier = Modifier.padding(horizontal = 5.dp)
                     ) {
-                        Text(text = vm.user?.email ?: "")
+                        Text(text = vm.userData.email)
                         Text(
                             text = "Correo electrónico",
                             fontSize = 12.sp,
@@ -165,7 +165,7 @@ fun ProfileContent(
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
-                    navHostController.navigate(route = "${Graph.PROFILE}/${vm.user?.toJson()}")
+                    navHostController.navigate(route = "${Graph.PROFILE}/${vm.userData?.toJson()}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()

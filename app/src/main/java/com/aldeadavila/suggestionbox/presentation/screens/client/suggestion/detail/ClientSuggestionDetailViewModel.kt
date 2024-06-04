@@ -48,7 +48,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
     init {
         getComments()
         getSessionDate()
-        getOwnerData(suggestion.idUser)
+        //getOwnerData(suggestion.idUser)
 
     }
 
@@ -79,9 +79,9 @@ class ClientSuggestionDetailViewModel @Inject constructor(
         return true
     }
 
-    fun getOwnerData(id: String) = viewModelScope.launch {
+    /*fun getOwnerData(id: String) = viewModelScope.launch {
 
-       when (val result = userUseCase.findUserUseCase(suggestion.idUser)) {
+       when (val result = userUseCase.getUserByIdUseCase(suggestion.idUser)) {
             is Resource.Succes -> {
                 println("Success: ${result.data}")
                 stateUser = stateUser.copy(
@@ -96,7 +96,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
             Resource.Loading -> TODO()
         }
 
-    }
+    }*/
 
     private fun clearComment() {
         state = state.copy(content = "")
