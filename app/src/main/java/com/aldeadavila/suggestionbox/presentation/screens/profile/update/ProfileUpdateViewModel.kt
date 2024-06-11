@@ -7,11 +7,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
-import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.profile.update.mapper.toUser
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,45 +37,33 @@ class ProfileUpdateViewModel @Inject constructor(
     var file: File? = null
     val resultingActivityHandler = ResultingActivityHandler()
 
-    var updateResponse by mutableStateOf<Resource<User>?>(null)
+    var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
     init {
         state = state.copy(
             nickname = user.nickname,
-            image = user.profileImagePathUrl
+            profileImagePathUrl = ""
         )
-    }
-
-    fun updateUsersWithImage() = viewModelScope.launch {
-        updateResponse = Resource.Loading
-        val result = usersUseCase.updateUserWithImageUseCase(
-            user.id ?: "",
-            state.toUser(),
-            file!!
-        )
-        updateResponse = result
     }
 
     fun onUpdate() {
-        if (file != null) {
-            updateUsersWithImage()
-        } else {
-            update()
-        }
+        val myUser = User (
+            id = user.id,
+            nickname = state.nickname,
+            profileImagePath = ""
+        )
+        update(myUser)
     }
 
     fun updateUserSession(userResponse: User) = viewModelScope.launch {
         authUseCase.updateSession(userResponse)
     }
 
-    fun update() = viewModelScope.launch {
+    fun update(user: User) = viewModelScope.launch {
 
-        updateResponse = Resource.Loading
-        val result = usersUseCase.updateUser(
-            user.id ?: "",
-            state.toUser()
-        )
+        updateResponse = Response.Loading
+        val result = usersUseCase.updateUser(user)
         updateResponse = result
     }
 
@@ -87,7 +74,7 @@ class ProfileUpdateViewModel @Inject constructor(
                 context,
                 result
             )
-            state = state.copy(image = result.toString())
+            state = state.copy(profileImagePathUrl = result.toString())
         }
     }
 
@@ -95,12 +82,12 @@ class ProfileUpdateViewModel @Inject constructor(
         val result = resultingActivityHandler.takePicturePreview()
         if (result != null) {
             state = state.copy(
-                image = ComposeFileProvider.getPathFromBitmap(
+                profileImagePathUrl = ComposeFileProvider.getPathFromBitmap(
                     context,
                     result
                 )
             )
-            file = File(state.image)
+            file = File(state.profileImagePathUrl)
         }
     }
 
@@ -109,7 +96,7 @@ class ProfileUpdateViewModel @Inject constructor(
     }
 
     fun onImageInput(input: String) {
-        state = state.copy(image = input)
+        state = state.copy(profileImagePathUrl = input)
     }
 
 }

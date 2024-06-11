@@ -10,6 +10,6 @@ interface UsersRepository {
 
     suspend fun createUser(user: User): Response<Boolean>
     fun getUserById(idUser: String): Flow<User>
-    suspend fun update(id: String, user: User): Resource<User>
+    suspend fun update(user: User): Response<Boolean>
     suspend fun updateWithImage(id: String, user: User, file: File): Resource<User>
 }

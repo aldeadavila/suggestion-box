@@ -2,5 +2,5 @@ package com.aldeadavila.suggestionbox.presentation.screens.profile.update
 
 data class ProfileUpdateState(
     val nickname: String = "",
-    val image:String? = null
+    val profileImagePathUrl:String = ""
 )

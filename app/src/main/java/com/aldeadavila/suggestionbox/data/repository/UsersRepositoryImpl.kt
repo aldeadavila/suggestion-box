@@ -41,9 +41,19 @@ class UsersRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun update(id: String, user: User): Resource<User> = ResponseToRequest.send(
-        usersRemoteDatasource.update(id, user)
-    )
+    override suspend fun update(user: User): Response<Boolean> {
+        return try {
+            val map: MutableMap<String, Any> = HashMap()
+            map["nickname"] = user.nickname
+            map["image"] = ""
+            usersRef.document(user.id).update(map).await()
+            Response.Success(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
+
 
     override suspend fun updateWithImage(id: String, user: User, file: File): Resource<User> = ResponseToRequest.send(
         usersRemoteDatasource.updateWithImage(id, user, file)

@@ -82,16 +82,16 @@ fun ProfileUpdateContent(
             Spacer(modifier = Modifier.padding(40.dp))
             Log.d(
                 "ProfileUpdateContent",
-                "Image: ${state.image}"
+                "Image: ${state.profileImagePathUrl}"
             )
-            if (!state.image.isNullOrBlank()) {
+            if (!state.profileImagePathUrl.isNullOrBlank()) {
                 AsyncImage(
                     modifier = Modifier
                         .size(150.dp)
                         .clip(CircleShape)
                         .align(Alignment.CenterHorizontally)
                         .clickable { stateDialog.value = true },
-                    model = state.image,
+                    model = state.profileImagePathUrl,
                     contentDescription = "",
                     contentScale = ContentScale.Crop
                 )
