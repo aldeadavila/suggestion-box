@@ -1,6 +1,7 @@
 package com.aldeadavila.suggestionbox.presentation.screens.profile.update
 
 import android.content.Context
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -21,7 +22,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileUpdateViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase,
     private val usersUseCase: UsersUseCase,
     private val savedStateHandle: SavedStateHandle,
     @ApplicationContext private val context: Context
@@ -33,35 +33,41 @@ class ProfileUpdateViewModel @Inject constructor(
     val data = savedStateHandle.get<String>("user")
     var user = User.fromJson(data!!)
 
-    //imagenes
+
     var file: File? = null
     val resultingActivityHandler = ResultingActivityHandler()
 
     var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
+    var saveImageResponse by mutableStateOf<Response<String>?>(null)
+        private set
+
     init {
         state = state.copy(
             nickname = user.nickname,
-            profileImagePathUrl = ""
+            profileImagePathUrl = user.profileImagePathUrl
         )
     }
 
-    fun onUpdate() {
+    fun onUpdate(url: String) {
         val myUser = User (
             id = user.id,
             nickname = state.nickname,
-            profileImagePath = ""
+            profileImagePathUrl = url
         )
         update(myUser)
     }
 
-    fun updateUserSession(userResponse: User) = viewModelScope.launch {
-        authUseCase.updateSession(userResponse)
+    fun saveImage() = viewModelScope.launch {
+        if (file != null) {
+            saveImageResponse = Response.Loading
+            val result = usersUseCase.saveImage(file!!, user.id)
+            saveImageResponse = result
+        }
     }
 
     fun update(user: User) = viewModelScope.launch {
-
         updateResponse = Response.Loading
         val result = usersUseCase.updateUser(user)
         updateResponse = result
@@ -69,6 +75,7 @@ class ProfileUpdateViewModel @Inject constructor(
 
     fun pickImage() = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("image/*")
+
         if (result != null) {
             file = ComposeFileProvider.createFileFromUri(
                 context,
@@ -95,8 +102,5 @@ class ProfileUpdateViewModel @Inject constructor(
         state = state.copy(nickname = input)
     }
 
-    fun onImageInput(input: String) {
-        state = state.copy(profileImagePathUrl = input)
-    }
 
 }

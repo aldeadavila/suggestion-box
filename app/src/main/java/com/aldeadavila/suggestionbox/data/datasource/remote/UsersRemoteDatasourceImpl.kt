@@ -17,25 +17,5 @@ class UsersRemoteDatasourceImpl(private val userService: UserService) : UsersRem
         user
     )
 
-    override suspend fun updateWithImage(id: String, user: User, file: File): Response<User> {
-
-        val connection = file.toURI().toURL().openConnection()
-        val mimeType = connection.contentType // para saber el tipo del archivo
-        val contentType = "text/plain"
-        val requestFile = file.asRequestBody(mimeType.toMediaTypeOrNull())
-        val fileFormData = MultipartBody.Part.createFormData(
-            "file",
-            file.name,
-            requestFile
-        )
-        val nicknameData = user.nickname.toRequestBody(contentType.toMediaTypeOrNull())
-
-        return userService.updateWithImage(
-            fileFormData,
-            id,
-            nicknameData,
-        )
-    }
-
 
 }

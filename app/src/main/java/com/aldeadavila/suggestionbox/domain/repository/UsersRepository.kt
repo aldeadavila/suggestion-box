@@ -11,5 +11,5 @@ interface UsersRepository {
     suspend fun createUser(user: User): Response<Boolean>
     fun getUserById(idUser: String): Flow<User>
     suspend fun update(user: User): Response<Boolean>
-    suspend fun updateWithImage(id: String, user: User, file: File): Resource<User>
+    suspend fun  saveImage(file: File, userId: String): Response<String>
 }

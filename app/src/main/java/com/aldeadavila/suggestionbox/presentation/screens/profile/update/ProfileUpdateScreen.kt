@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
 import com.aldeadavila.suggestionbox.presentation.screens.profile.update.components.ProfileUpdateContent
+import com.aldeadavila.suggestionbox.presentation.screens.profile.update.components.SaveImage
 import com.aldeadavila.suggestionbox.presentation.screens.profile.update.components.UpdateUser
 
 
@@ -26,5 +27,6 @@ fun  ProfileUpdateScreen(navController: NavHostController, userParam: String) {
     ) {
         ProfileUpdateContent(paddingValues = it)
     }
+    SaveImage()
     UpdateUser()
 }

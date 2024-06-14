@@ -12,7 +12,7 @@ data class User(
     @PropertyName("nickname") var nickname: String =  "",
     @PropertyName("email") var email: String = "",
     @PropertyName("password") var password: String = "",
-    @PropertyName("profile_image_path_url") var profileImagePathUrl: String? = "",
+    @PropertyName("profile_image_path_url") var profileImagePathUrl: String = "",
     @PropertyName("profile_image_path") var profileImagePath: String? = "",
     @PropertyName("roles") var roles: List<String>? = emptyList(),
     @PropertyName("preferences") var preferences: List<String>? = emptyList(),

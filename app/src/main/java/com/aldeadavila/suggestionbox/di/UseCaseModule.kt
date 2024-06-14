@@ -26,8 +26,8 @@ import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestion
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestionWithImageUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.CreateUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.GetUserByIdUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.users.SaveImageUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UpdateUserUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.users.UpdateUserWithImageUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
 import dagger.Module
 import dagger.Provides
@@ -41,10 +41,11 @@ object UseCaseModule {
     @Provides
     fun provideUsersUseCase(usersRepository: UsersRepository) = UsersUseCase(
         updateUser = UpdateUserUseCase(usersRepository),
-        updateUserWithImageUseCase = UpdateUserWithImageUseCase(usersRepository),
         getUserByIdUseCase = GetUserByIdUseCase(usersRepository),
         createUser = CreateUserUseCase(usersRepository),
+        saveImage = SaveImageUseCase(usersRepository)
     )
+
 
     @Provides
     fun provideCategoriesUseCase(categoriesRepository: CategoriesRepository) = CategoriesUseCase(
