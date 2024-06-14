@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
@@ -21,7 +20,7 @@ fun Login(navHostController: NavHostController,viewModel: LoginViewModel =  hilt
         }
         is Response.Success -> {
             LaunchedEffect(Unit) {
-                navHostController.navigate(route = Graph.CLIENT) {
+                navHostController.navigate(route = Graph.HOME) {
                     popUpTo(Graph.AUTH) { inclusive = true }
                 }
             }

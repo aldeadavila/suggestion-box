@@ -11,10 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,9 +23,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Comment
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCommentScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCommentScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailViewModel
-import com.aldeadavila.suggestionbox.ui.theme.md_theme_dark_onTertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primaryContainer
 
 @Composable

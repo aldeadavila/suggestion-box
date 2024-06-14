@@ -26,7 +26,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,18 +47,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.presentation.components.AuthenticationField
 import com.aldeadavila.suggestionbox.presentation.components.NormalTextComponent
-import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
 import com.aldeadavila.suggestionbox.presentation.components.TitleTextComponent
-import com.aldeadavila.suggestionbox.presentation.navigation.Graph
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.auth.AuthScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.graph.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginViewModel
-import com.aldeadavila.suggestionbox.presentation.util.Constants.FORGOT_PASSWORD
 import com.aldeadavila.suggestionbox.presentation.util.Constants.NO_ACCOUNT
 import com.aldeadavila.suggestionbox.presentation.util.Constants.SIGN_IN_BUTTON
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary

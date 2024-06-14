@@ -25,7 +25,7 @@ fun Register(navHostController: NavHostController, vm: RegisterViewModel = hiltV
             LaunchedEffect(Unit) {
                 vm.createUser()
                 navHostController.popBackStack(Graph.AUTH, inclusive = true)
-                navHostController.navigate(route = Graph.CLIENT)
+                navHostController.navigate(route = Graph.HOME)
             }
         }
         else -> {}

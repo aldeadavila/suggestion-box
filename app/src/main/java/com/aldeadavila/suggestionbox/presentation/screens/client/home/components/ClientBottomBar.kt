@@ -5,15 +5,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.graph.HomeBottomBarScreen
 
 @Composable
 fun ClientBottomBar(navHostController: NavHostController) {
 
     val screens = listOf(
-        ClientScreen.SuggestionList,
-        ClientScreen.CategoryList,
-        ClientScreen.Profile
+        HomeBottomBarScreen.SuggestionList,
+        HomeBottomBarScreen.CategoryList,
+        HomeBottomBarScreen.Profile
     )
 
     val navBackEntry by navHostController.currentBackStackEntryAsState()

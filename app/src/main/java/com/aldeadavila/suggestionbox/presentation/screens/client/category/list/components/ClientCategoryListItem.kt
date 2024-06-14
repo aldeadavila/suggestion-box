@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.domain.model.Category
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCategoryScreen
 
 @Composable
 fun ClientCategoryListItem(navHostController: NavHostController, category: Category) {

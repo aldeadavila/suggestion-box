@@ -1,6 +1,7 @@
 package com.aldeadavila.suggestionbox.presentation.screens.profile.info.components
 
 import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -40,17 +41,17 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.aldeadavila.suggestionbox.MainActivity
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.auth.AuthScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.graph.AuthScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.graph.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.poppins
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 @Composable
 fun ProfileContent(
@@ -81,9 +82,8 @@ fun ProfileContent(
                 ),
                 onClick = {
                     vm.logout()
-                    navHostController.navigate(route = AuthScreen.Login.route) {
-                       popUpTo(Graph.AUTH) { inclusive = true }
-                    }
+                    activity?.finish()
+                    activity?.startActivity(Intent(activity, MainActivity::class.java))
                 }) {
                 Image(
                     modifier = Modifier.size(35.dp),
@@ -167,7 +167,9 @@ fun ProfileContent(
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
-                    navHostController.navigate(route = "${Graph.PROFILE}/${vm.userData?.toJson()}")
+                    navHostController.navigate(
+                        route = DetailsScreen.ProfileUpdate.passUser(vm.userData.toJson())
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()

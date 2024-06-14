@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCommentScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCommentScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.ClientCommentDetailViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 

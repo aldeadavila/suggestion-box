@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Category
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.client.ClientCategoryScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.components.GetSuggestionsByCategory
 
 @OptIn(ExperimentalMaterial3Api::class)
