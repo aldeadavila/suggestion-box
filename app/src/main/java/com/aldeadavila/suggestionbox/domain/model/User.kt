@@ -24,7 +24,7 @@ data class User(
         nickname,
         email,
         password,
-        profileImagePathUrl,
+        if (profileImagePathUrl != "") URLEncoder.encode(profileImagePathUrl, StandardCharsets.UTF_8.toString()) else "",
         profileImagePath,
         roles,
         preferences,
