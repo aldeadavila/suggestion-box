@@ -12,10 +12,7 @@ import com.aldeadavila.suggestionbox.presentation.screens.profile.update.compone
 
 @Composable
 fun  ProfileUpdateScreen(navController: NavHostController, userParam: String) {
-    Log.d(
-        "ProfileUpdateScreen",
-        "User: $userParam"
-    )
+
     Scaffold(
         topBar = {
             DefaultTopBar(

@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCommentScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.ClientCommentScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.ClientCommentDetailViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 

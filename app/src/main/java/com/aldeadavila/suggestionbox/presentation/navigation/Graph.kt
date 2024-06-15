@@ -6,9 +6,6 @@ object Graph {
     const val AUTH = "auth_graph"
     const val HOME  = "home_graph"
     const val DETAILS = "details_graph"
-    const val CLIENT = "client_graph"
-    const val CLIENT_CATEGORY = "client_category_graph"
-    const val CLIENT_SUGGESTION = "client_suggestion_graph"
-    const val CLIENT_COMMENT = "client_comment_graph"
-    const val PROFILE = "profile_graph"
+    const val COMMENT = "comment_graph"
+
 }

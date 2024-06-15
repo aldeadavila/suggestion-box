@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,7 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientSuggestionScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientSuggestionListByCategoryViewModel
 
 @Composable
@@ -40,7 +40,11 @@ fun ClientSuggestionListByCategoryItem(
         )
         .height(120.dp)
         .clickable {
-            navHostController.navigate(route = ClientSuggestionScreen.SuggestionDetail.passSuggestion(suggestion.toJson()))
+            navHostController.navigate(
+                route = DetailsScreen.DetailSuggestion.passSuggestion(
+                    suggestion.toJson()
+                )
+            )
         }
 
     ) {
@@ -74,7 +78,7 @@ fun ClientSuggestionListByCategoryItem(
 
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Divider(
+        HorizontalDivider(
             modifier = Modifier.padding(80.dp),
             color = Color.LightGray
         )

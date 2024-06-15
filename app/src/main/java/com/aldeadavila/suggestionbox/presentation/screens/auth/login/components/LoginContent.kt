@@ -52,7 +52,7 @@ import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.AuthenticationField
 import com.aldeadavila.suggestionbox.presentation.components.NormalTextComponent
 import com.aldeadavila.suggestionbox.presentation.components.TitleTextComponent
-import com.aldeadavila.suggestionbox.presentation.navigation.graph.AuthScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants.NO_ACCOUNT
 import com.aldeadavila.suggestionbox.presentation.util.Constants.SIGN_IN_BUTTON

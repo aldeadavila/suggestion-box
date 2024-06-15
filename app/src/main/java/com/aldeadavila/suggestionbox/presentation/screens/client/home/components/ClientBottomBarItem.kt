@@ -9,7 +9,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.aldeadavila.suggestionbox.presentation.navigation.graph.HomeBottomBarScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.HomeBottomBarScreen
 
 @Composable
 fun RowScope.ClientBottomBarItem(

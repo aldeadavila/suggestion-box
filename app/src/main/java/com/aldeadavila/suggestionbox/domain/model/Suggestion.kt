@@ -8,6 +8,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.type.Date
 import java.io.Serializable
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import java.time.Instant
 
 data class Suggestion(
@@ -17,7 +19,7 @@ data class Suggestion(
     @PropertyName("category") val category: String = "",
     @PropertyName("images") var images: MutableList<String> = mutableListOf(),
     @PropertyName("created_at") var created_at: Timestamp = Timestamp.now(),
-    @PropertyName("user") var user: User = User(),
+    @PropertyName("user") var user: User? = null,
 
 
 ): Serializable {
@@ -28,10 +30,16 @@ data class Suggestion(
             description,
             user_id,
             category,
-            images,
+            toEncode(images),
             created_at
         )
     )
+
+    fun toEncode(images: MutableList<String>): MutableList<String> {
+        if (images[0] != "") images[0] = URLEncoder.encode(images[0], StandardCharsets.UTF_8.toString())
+        if (images[1] != "") images[1] = URLEncoder.encode(images[1], StandardCharsets.UTF_8.toString())
+        return mutableListOf(images[0], images[1])
+    }
 
     companion object {
         fun fromJson(data: String): Suggestion = Gson().fromJson(data, Suggestion::class.java)

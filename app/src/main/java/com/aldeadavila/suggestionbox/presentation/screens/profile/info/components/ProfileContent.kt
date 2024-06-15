@@ -43,9 +43,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.MainActivity
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.presentation.navigation.Graph
-import com.aldeadavila.suggestionbox.presentation.navigation.graph.AuthScreen
-import com.aldeadavila.suggestionbox.presentation.navigation.graph.DetailsScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary

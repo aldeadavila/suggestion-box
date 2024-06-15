@@ -41,9 +41,8 @@ import com.aldeadavila.suggestionbox.ui.theme.poppins
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ClientCommentListBySuggestionContent(
+fun CommentListBySuggestionContent(
     navHostController: NavHostController,
-    paddingValues: PaddingValues,
     comments: List<Comment>,
     vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
@@ -57,7 +56,7 @@ fun ClientCommentListBySuggestionContent(
     ) {
 
         items(items = comments) {
-            ClientCommentListBySuggestionItem(navHostController = navHostController, comment = it)
+            CommentListBySuggestionItem(navHostController = navHostController, comment = it)
             Spacer(modifier = Modifier.height(3.dp))
         }
         item {

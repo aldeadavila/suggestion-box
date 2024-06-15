@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.aldeadavila.suggestionbox.presentation.navigation.graph.HomeBottomBarScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.HomeBottomBarScreen
 
 @Composable
 fun ClientBottomBar(navHostController: NavHostController) {

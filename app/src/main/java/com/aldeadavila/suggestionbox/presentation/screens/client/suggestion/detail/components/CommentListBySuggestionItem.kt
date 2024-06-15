@@ -23,12 +23,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Comment
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCommentScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.ClientCommentScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.SuggestionDetailViewModel
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primaryContainer
 
 @Composable
-fun ClientCommentListBySuggestionItem(
+fun CommentListBySuggestionItem(
     navHostController: NavHostController,
     comment: Comment,
     vm: SuggestionDetailViewModel = hiltViewModel()

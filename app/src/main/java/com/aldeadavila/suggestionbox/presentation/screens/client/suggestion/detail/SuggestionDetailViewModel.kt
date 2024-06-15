@@ -24,15 +24,14 @@ import javax.inject.Inject
 @HiltViewModel
 class SuggestionDetailViewModel @Inject constructor(
     private val commentsUseCases: CommentsUseCases,
-    private val savedStateHandle: SavedStateHandle,
-    private val authUseCases: AuthUseCases,
-    private val userUseCase: UsersUseCases
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     var data = savedStateHandle.get<String>("suggestion")
     var suggestion = Suggestion.fromJson(data!!)
     var listSuggestionImage = listOf<String>(
-
+        suggestion.images[0],
+        suggestion.images[1]
     )
     var commentsResponse by mutableStateOf<Resource<List<Comment>>?>(null)
     var commentResponse by mutableStateOf<Resource<Comment>?>(null)
@@ -45,7 +44,7 @@ class SuggestionDetailViewModel @Inject constructor(
     var errorMessage by mutableStateOf("")
 
     init {
-        getComments()
+       // getComments()
 
     }
 

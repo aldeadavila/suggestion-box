@@ -15,9 +15,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.aldeadavila.suggestionbox.presentation.navigation.graph.HomeBottomBarNavGraph
-import com.aldeadavila.suggestionbox.presentation.navigation.graph.HomeBottomBarScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.home.components.ClientBottomBar
+import com.aldeadavila.suggestionbox.presentation.navigation.HomeBottomBarNavGraph
+import com.aldeadavila.suggestionbox.presentation.navigation.HomeBottomBarScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

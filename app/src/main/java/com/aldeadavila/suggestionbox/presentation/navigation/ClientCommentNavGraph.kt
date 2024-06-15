@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.navigation.graph
+package com.aldeadavila.suggestionbox.presentation.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -6,14 +6,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.aldeadavila.suggestionbox.presentation.navigation.Graph
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCommentScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.ClientCommentDetailScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.ClientCommentUpdateScreen
 
 fun NavGraphBuilder.ClientCommentNavGraph(navHostController: NavHostController) {
     navigation(
-        route = Graph.CLIENT_COMMENT,
+        route = Graph.COMMENT,
         startDestination = ClientCommentScreen.CommentDetail.route
     ) {
         composable(
@@ -46,3 +44,14 @@ fun NavGraphBuilder.ClientCommentNavGraph(navHostController: NavHostController) 
 
     }
 }
+
+sealed class ClientCommentScreen(val route: String) {
+    object CommentDetail: ClientCommentScreen("client/comment/detail/{comment}") {
+        fun passComment(comment: String) = "client/comment/detail/$comment"
+    }
+
+    object CommentUpdate: ClientCommentScreen("client/comment/update/{comment}") {
+        fun passComment(comment: String) = "client/comment/update/$comment"
+    }
+}
+

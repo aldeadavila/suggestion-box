@@ -13,7 +13,6 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.deta
 @Composable
 fun GetCommentsBySuggestion(
     navHostController: NavHostController,
-    paddingValues: PaddingValues,
     vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
     when (val response = vm.commentsResponse) {
@@ -22,9 +21,8 @@ fun GetCommentsBySuggestion(
         }
 
         is Resource.Succes -> {
-            ClientCommentListBySuggestionContent(
+            CommentListBySuggestionContent(
                 navHostController,
-                paddingValues = paddingValues,
                 comments = response.data
             )
         }

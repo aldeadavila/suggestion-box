@@ -27,7 +27,7 @@ import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientSuggestionScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.SuggestionListViewModel
 
 @Composable
@@ -48,7 +48,7 @@ fun SuggestionListItem(
             .height(110.dp)
             .clickable {
                 navHostController.navigate(
-                    route = ClientSuggestionScreen.SuggestionDetail.passSuggestion(
+                    route = DetailsScreen.DetailSuggestion.passSuggestion(
                         suggestion.toJson()
                     )
                 )
@@ -75,7 +75,7 @@ fun SuggestionListItem(
 
                 Spacer(modifier = Modifier.height(3.dp))
                 Text(
-                    text = "Autor: " + suggestion.user.nickname,
+                    text = "Autor: " + suggestion.user?.nickname,
                     color = Color.Black,
                     fontSize = 8.sp
                 )
@@ -104,20 +104,21 @@ fun SuggestionListItem(
                             modifier = Modifier
                                 .size(20.dp)
                                 .clickable {
-                                   /* navHostController.navigate(
-                                        route = ClientCategoryScreen.SuggestionUpdate.passSuggestion(
+                                    navHostController.navigate(
+                                        route = DetailsScreen.DetailSuggestion.passSuggestion(
                                             suggestion.toJson()
                                         )
-                                    )*/
+                                    )
                                 },
                             painter = painterResource(id = R.drawable.edit),
-                            contentDescription = "editar")
+                            contentDescription = "editar"
+                        )
                         Spacer(modifier = Modifier.height(5.dp))
                         Image(
                             modifier = Modifier
                                 .size(20.dp)
                                 .clickable {
-                                   // vm.deleteSuggestion(suggestion.id ?: "")
+                                    // vm.deleteSuggestion(suggestion.id ?: "")
                                 },
                             painter = painterResource(id = R.drawable.trash),
                             contentDescription = "eliminar"
@@ -129,7 +130,7 @@ fun SuggestionListItem(
                     modifier = Modifier
                         .size(70.dp)
                         .clip(RoundedCornerShape(10.dp)),
-                    model = suggestion.images[0] ,
+                    model = suggestion.images[0],
                     contentDescription = ""
                 )
             }

@@ -2,19 +2,13 @@ package com.aldeadavila.suggestionbox.data.repository
 
 
 import android.net.Uri
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.aldeadavila.suggestionbox.core.Config.SUGGESTIONS
 import com.aldeadavila.suggestionbox.core.Config.USERS
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
-import com.google.android.play.integrity.internal.c
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.toObject
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -25,8 +19,6 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.File
-import java.time.Instant
-import java.util.Date
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -67,12 +59,24 @@ class SuggestionRepositoryImpl @Inject constructor(
         val snapshopListener = suggestionsRef.addSnapshotListener { snapshot, e ->
 
             GlobalScope.launch(Dispatchers.IO) {
-                val suggestionResponse = if(snapshot != null) {
+                val suggestionResponse = if (snapshot != null) {
                     val suggestions = snapshot.toObjects(Suggestion::class.java)
-                    suggestions.map { suggestion ->
+                    val idUserArray = ArrayList<String>()
+                    suggestions.forEach { suggestion ->
+                        idUserArray.add(suggestion.user_id)
+                    }
+
+                    val idUserList = idUserArray.toSet().toList()
+                    idUserList.map { id ->
                         async {
-                            suggestion.user = usersRef.document(suggestion.user_id).get().await().toObject(
-                                User::class.java)!!
+                            val user = usersRef.document(id).get().await().toObject(
+                                User::class.java
+                            )!!
+                            suggestions.forEach { suggestion ->
+                                if (suggestion.user_id == id) {
+                                    suggestion.user = user
+                                }
+                            }
                         }
                     }.forEach {
                         it.await()

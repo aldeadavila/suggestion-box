@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -43,9 +42,8 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ClientSuggestionDetailContent(
+fun SuggestionDetailContent(
     navHostController: NavHostController,
-    paddingValues: PaddingValues,
     vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
 
@@ -56,10 +54,9 @@ fun ClientSuggestionDetailContent(
 
     Box(
         modifier = Modifier
-            .padding(paddingValues)
-            .clickable{keyboard?.hide()},
+            .clickable { keyboard?.hide() },
 
-    ) {
+        ) {
         Image(
             modifier = Modifier
                 .padding(start = 50.dp)
@@ -101,7 +98,7 @@ fun ClientSuggestionDetailContent(
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 textAlign = TextAlign.Right,
-                text = "de "+ vm.stateUser.nickname,
+                text = "de " + vm.suggestion.user?.nickname,
                 color = Color.Gray,
                 fontSize = 8.sp
             )
@@ -110,8 +107,7 @@ fun ClientSuggestionDetailContent(
 
 
             GetCommentsBySuggestion(
-                navHostController = navHostController,
-                paddingValues = paddingValues
+                navHostController = navHostController
             )
 
         }

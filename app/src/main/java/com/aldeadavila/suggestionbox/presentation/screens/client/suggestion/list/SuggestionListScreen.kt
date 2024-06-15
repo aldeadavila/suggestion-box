@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.aldeadavila.suggestionbox.presentation.navigation.graph.DetailsScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components.GetSuggestions
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
