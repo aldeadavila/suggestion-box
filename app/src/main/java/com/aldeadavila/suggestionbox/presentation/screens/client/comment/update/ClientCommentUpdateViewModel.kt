@@ -9,7 +9,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Comment
-import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCases
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.mapper.toComment
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ClientCommentUpdateViewModel  @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val commentsUseCase: CommentsUseCase,
+    private val commentsUseCases: CommentsUseCases,
     @ApplicationContext private val context: Context
 ) : ViewModel(){
 
@@ -49,7 +49,7 @@ class ClientCommentUpdateViewModel  @Inject constructor(
     fun updateComment() = viewModelScope.launch {
 
         commentResponse = Resource.Loading
-        val result = commentsUseCase.updateCommentUseCase(
+        val result = commentsUseCases.updateCommentUseCase(
 
             comment.id ?: "",
 

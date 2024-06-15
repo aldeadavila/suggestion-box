@@ -27,7 +27,6 @@ import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientSuggestionScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
 
@@ -62,7 +61,7 @@ fun ClientSuggestionListItem(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = suggestion.name,
+                    text = suggestion.title,
                     color = Color.Black,
                     fontSize = 16.sp
                 )
@@ -79,7 +78,7 @@ fun ClientSuggestionListItem(
             Spacer(modifier = Modifier.width(5.dp))
 
 
-            if (vm.getEditable(suggestion.idUser)) {
+            if (vm.getEditable(suggestion.user_id)) {
 
                 Row(
                     horizontalArrangement = Arrangement.Center,
@@ -89,7 +88,7 @@ fun ClientSuggestionListItem(
                         modifier = Modifier
                             .size(70.dp)
                             .clip(RoundedCornerShape(10.dp)),
-                        model = suggestion.image1,
+                        model = suggestion.images.get(0),
                         contentDescription = ""
                     )
                     Spacer(modifier = Modifier.width(5.dp))
@@ -98,11 +97,11 @@ fun ClientSuggestionListItem(
                             modifier = Modifier
                                 .size(20.dp)
                                 .clickable {
-                                    navHostController.navigate(
+                                   /* navHostController.navigate(
                                         route = ClientCategoryScreen.SuggestionUpdate.passSuggestion(
                                             suggestion.toJson()
                                         )
-                                    )
+                                    )*/
                                 },
                             painter = painterResource(id = R.drawable.edit),
                             contentDescription = "editar")
@@ -111,7 +110,7 @@ fun ClientSuggestionListItem(
                             modifier = Modifier
                                 .size(20.dp)
                                 .clickable {
-                                    vm.deleteSuggestion(suggestion.id ?: "")
+                                   // vm.deleteSuggestion(suggestion.id ?: "")
                                 },
                             painter = painterResource(id = R.drawable.trash),
                             contentDescription = "eliminar"
@@ -123,7 +122,7 @@ fun ClientSuggestionListItem(
                     modifier = Modifier
                         .size(70.dp)
                         .clip(RoundedCornerShape(10.dp)),
-                    model = suggestion.image1,
+                    model = suggestion.images.get(1),
                     contentDescription = ""
                 )
             }

@@ -1,6 +1,6 @@
 package com.aldeadavila.suggestionbox.domain.usecase.comments
 
-data class CommentsUseCase(
+data class CommentsUseCases(
     val createCommentUseCase: CreateCommentUseCase,
     val deleteCommentUseCase: DeleteCommentUseCase,
     val findAllCommentsUseCase: FindAllCommentsUseCase,

@@ -3,6 +3,7 @@ package com.aldeadavila.suggestionbox.presentation.navigation.graph
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.SuggestionCreateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.update.ProfileUpdateScreen
 
 
@@ -13,8 +14,8 @@ fun NavGraphBuilder.DetailsNavGraph(navController: NavHostController) {
         startDestination = DetailsScreen.ProfileUpdate.route
     ) {
 
-        composable(route = DetailsScreen.NewPost.route) {
-        //    NewPostScreen(navController = navController)
+        composable(route = DetailsScreen.CreateSuggestion.route) {
+            SuggestionCreateScreen(navHostController = navController)
         }
 
         composable(
@@ -55,7 +56,7 @@ fun NavGraphBuilder.DetailsNavGraph(navController: NavHostController) {
 
 sealed class DetailsScreen(val route: String) {
 
-    object NewPost: DetailsScreen("posts/new")
+    object CreateSuggestion: DetailsScreen("suggestion/create")
     object ProfileUpdate: DetailsScreen("profile/update/{user}") {
         fun passUser(user: String) = "profile/update/$user"
     }

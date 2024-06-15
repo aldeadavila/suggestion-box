@@ -6,16 +6,16 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
+import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase,
-    private val usersUseCase: UsersUseCase): ViewModel() {
+    private val authUseCases: AuthUseCases,
+    private val usersUseCases: UsersUseCases): ViewModel() {
 
     var userData by mutableStateOf(User())
         private set
@@ -24,10 +24,10 @@ class ProfileViewModel @Inject constructor(
         getUserById()
     }
 
-    fun logout() =  authUseCase.logout()
+    fun logout() =  authUseCases.logout()
 
     private fun getUserById() = viewModelScope.launch {
-        usersUseCase.getUserByIdUseCase(authUseCase.getCurrentUser()!!.uid).collect() {
+        usersUseCases.getUserByIdUseCase(authUseCases.getCurrentUser()!!.uid).collect() {
             userData = it
         }
     }

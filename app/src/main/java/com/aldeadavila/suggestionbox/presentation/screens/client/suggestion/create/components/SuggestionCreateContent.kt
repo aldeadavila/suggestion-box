@@ -16,12 +16,14 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -44,7 +46,7 @@ import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTextField
 import com.aldeadavila.suggestionbox.presentation.components.DialagoCapturePicture
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.ClientSuggestionCreateViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.SuggestionCreateViewModel
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
@@ -52,17 +54,18 @@ import com.aldeadavila.suggestionbox.ui.theme.poppins
 
 
 @Composable
-fun ClientSuggestionCreateContent(
+fun SuggestionCreateContent(
     paddingValues: PaddingValues,
-    vm: ClientSuggestionCreateViewModel = hiltViewModel()
+    vm: SuggestionCreateViewModel = hiltViewModel()
 ) {
 
     val state = vm.state
-    val category = vm.category.name.dropLast(1)
     vm.resultingActivityHandler.handle()
     val stateDialog = remember { mutableStateOf(false) }
     val stateDialogImageNumber = remember { mutableStateOf(1) }
     val keyboard = LocalSoftwareKeyboardController.current
+
+
 
     DialagoCapturePicture(
         state = stateDialog,
@@ -76,7 +79,7 @@ fun ClientSuggestionCreateContent(
                 paddingValues = paddingValues
             )
             .fillMaxSize()
-            .clickable{keyboard?.hide()},
+            .clickable { keyboard?.hide() },
     ) {
         Image(
             modifier = Modifier
@@ -91,42 +94,43 @@ fun ClientSuggestionCreateContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(paddingValues).padding(20.dp),
+                .padding(paddingValues)
+                .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
 
-        ) {
-            if (!state.image1.isNullOrBlank()) {
-                AsyncImage(
-                    modifier = Modifier
-                        .size(125.dp)
-                        .clip(RoundedCornerShape(20.dp))
-                        .clickable {
-                            stateDialog.value = true
-                            stateDialogImageNumber.value = 1
-                        },
-                    model = state.image1,
-                    contentDescription = "",
-                    contentScale = ContentScale.Crop
-                )
-            } else {
-                Image(
-                    modifier = Modifier
-                        .size(125.dp)
-                        .clip(RoundedCornerShape(20.dp))
-                        .clickable {
-                            stateDialog.value = true
-                            stateDialogImageNumber.value = 1
-                        },
-                    painter = painterResource(id = R.drawable.image_add),
-                    contentDescription = ""
-                )
-            }
+            ) {
+                if (!state.image1.isNullOrBlank()) {
+                    AsyncImage(
+                        modifier = Modifier
+                            .size(125.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .clickable {
+                                stateDialog.value = true
+                                stateDialogImageNumber.value = 1
+                            },
+                        model = state.image1,
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop
+                    )
+                } else {
+                    Image(
+                        modifier = Modifier
+                            .size(125.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .clickable {
+                                stateDialog.value = true
+                                stateDialogImageNumber.value = 1
+                            },
+                        painter = painterResource(id = R.drawable.image_add),
+                        contentDescription = ""
+                    )
+                }
 
                 Spacer(modifier = Modifier.width(15.dp))
 
@@ -161,17 +165,17 @@ fun ClientSuggestionCreateContent(
             Spacer(modifier = Modifier.height(40.dp))
 
             Text(
-                text =  if (category.last() == 'o') "Nuevo $category" else "Nueva $category",
+                text = "Nueva Sugerencia",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
 
             DefaultTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = state.name,
-                onValueChange = { vm.onNameInput(it) },
-                label = if (category.last() == 'o') "Título del $category" else "Título de la $category",
-                icon = Icons.Default.List,
+                value = state.title,
+                onValueChange = { vm.onTitleInput(it) },
+                label = "Título de la sugerencia",
+                icon = Icons.AutoMirrored.Filled.List,
                 contentDescription = ""
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -179,15 +183,49 @@ fun ClientSuggestionCreateContent(
                 modifier = Modifier.fillMaxWidth(),
                 value = state.description,
                 onValueChange = { vm.onDescriptionInput(it) },
-                label = if (category.last() == 'o') "Descripción del $category" else "Descripción de la $category",
+                label = "Descripción de la Sugerencia",
                 icon = Icons.Default.Info,
                 contentDescription = ""
             )
 
+
+            vm.radioOptions.forEach { option ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .selectable(
+                            selected = (option.category.lowercase() == state.category.lowercase()),
+                            onClick = { vm.onCategoryInput(option.category) }
+                        ),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    RadioButton(
+                        selected = (option.category.lowercase()  == state.category.lowercase() ),
+                        onClick = { vm.onCategoryInput(option.category) }
+                    )
+                    Row {
+                        Text(
+                            modifier = Modifier
+                                .width(150.dp)
+                                .padding(12.dp),
+                            text = option.category
+                        )
+                        Image(
+                            modifier = Modifier
+                                .height(50.dp)
+                                .padding(8.dp),
+                            painter = painterResource(id = option.image),
+                            contentDescription = ""
+                        )
+                    }
+                }
+            }
+
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
-                    vm.createSuggestion()
+                    vm.onNewSuggestion()
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -211,7 +249,7 @@ fun ClientSuggestionCreateContent(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Crear $category",
+                        text = "Crear Sugerencia",
                         style = TextStyle(
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
@@ -222,7 +260,6 @@ fun ClientSuggestionCreateContent(
                     )
                 }
             }
-
         }
     }
 }

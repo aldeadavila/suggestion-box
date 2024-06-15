@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
+import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCases
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,9 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClientCommentDetailViewModel @Inject constructor(
-    private val commentsUseCase: CommentsUseCase,
+    private val commentsUseCases: CommentsUseCases,
     private val savedStateHandle: SavedStateHandle,
-    private val authUseCase: AuthUseCase
+    private val authUseCases: AuthUseCases
 ) : ViewModel() {
 
     var data = savedStateHandle.get<String>("comment")
@@ -30,13 +30,10 @@ class ClientCommentDetailViewModel @Inject constructor(
     var deleteCommentResponse by mutableStateOf<Resource<Unit>?>(null)
         private set
 
-    init {
-        getSessionDate()
-    }
 
     fun deleteComment(id: String) = viewModelScope.launch {
         deleteCommentResponse = Resource.Loading
-        var result = commentsUseCase.deleteCommentUseCase(id)
+        var result = commentsUseCases.deleteCommentUseCase(id)
         deleteCommentResponse = result
     }
 
@@ -44,9 +41,5 @@ class ClientCommentDetailViewModel @Inject constructor(
         return idUser == user?.id
     }
 
-    private fun getSessionDate() = viewModelScope.launch {
-        authUseCase.getSessionData().collect() { data ->
-            user = data.user
-        }
-    }
+
 }

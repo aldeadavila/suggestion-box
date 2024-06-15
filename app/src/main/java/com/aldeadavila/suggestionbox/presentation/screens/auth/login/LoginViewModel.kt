@@ -7,19 +7,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aldeadavila.suggestionbox.domain.model.AuthResponse
 import com.aldeadavila.suggestionbox.domain.model.Response
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.util.Resource
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase): ViewModel() {
+class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases): ViewModel() {
 
     var state by mutableStateOf(LoginState())
         private set
@@ -28,20 +24,17 @@ class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase): 
 
    var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null)
 
-    val currentUser = authUseCase.getCurrentUser()
+    val currentUser = authUseCases.getCurrentUser()
     init {
         if(currentUser != null) {
             loginResponse = Response.Success(currentUser!!)
         }
     }
 
-    fun saveSession(authResponse: AuthResponse) = viewModelScope.launch {
-        authUseCase.saveSession(authResponse)
-    }
     fun login() = viewModelScope.launch {
         if (isValidateForm()) {
             loginResponse = Response.Loading
-            val result = authUseCase.login(state.email, state.password) // devuelve la respuesta
+            val result = authUseCases.login(state.email, state.password) // devuelve la respuesta
 
             loginResponse = result
             Log.d("LoginViewModel", "Response guay: ${loginResponse}")

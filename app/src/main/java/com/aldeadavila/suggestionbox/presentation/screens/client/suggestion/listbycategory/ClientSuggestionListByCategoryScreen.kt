@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Category
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCategoryScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.components.GetSuggestionsByCategory
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,7 +35,9 @@ fun ClientSuggestionListByCategoryScreen(navHostController: NavHostController, c
         floatingActionButton = {
             FloatingActionButton(
                 modifier = Modifier.padding(bottom = 20.dp),
-                onClick = { navHostController.navigate(route = ClientCategoryScreen.SuggestionCreate.passCategory(categoryParse)) },
+                onClick = {
+                   // navHostController.navigate(route = ClientCategoryScreen.SuggestionCreate.passCategory(categoryParse))
+                          },
                 containerColor = Color.DarkGray
             )
             {

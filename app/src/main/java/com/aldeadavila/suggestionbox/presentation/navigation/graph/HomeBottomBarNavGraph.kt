@@ -10,7 +10,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
-import com.aldeadavila.suggestionbox.presentation.screens.client.category.list.ClientCategoryListScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileScreen
 
@@ -28,7 +27,7 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
         }
 
         composable(route = HomeBottomBarScreen.CategoryList.route) {
-            ClientCategoryListScreen(navController)
+        //    ClientCategoryListScreen(navController)
         }
 
         composable(route = HomeBottomBarScreen.Profile.route) {

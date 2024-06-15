@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Category
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClientSuggestionListByCategoryViewModel @Inject constructor(
-    private val suggestionsUseCase: SuggestionsUseCase,
+    private val suggestionsUseCases: SuggestionsUseCases,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -32,9 +32,9 @@ class ClientSuggestionListByCategoryViewModel @Inject constructor(
 
     private fun getSuggestions() = viewModelScope.launch {
         suggestionResponse = Resource.Loading
-        suggestionsUseCase.findByCategory(category.id!!).collect {
+       /* suggestionsUseCase.findByCategory(category.id!!).collect {
             suggestionResponse = it
-        }
+        }*/
     }
 
 }

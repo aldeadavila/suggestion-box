@@ -1,45 +1,40 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create
 
 import android.content.Context
+import android.os.Build
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aldeadavila.suggestionbox.domain.model.Category
+import com.aldeadavila.suggestionbox.R
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
-import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.mapper.toSuggestion
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
+import com.google.firebase.Timestamp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import java.io.File
+import java.time.Instant
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientSuggestionCreateViewModel @Inject constructor(
+class SuggestionCreateViewModel @Inject constructor(
     @ApplicationContext val context: Context,
-    private val savedStateHandle: SavedStateHandle,
-    private val suggestionUseCase: SuggestionsUseCase,
-    private val authUseCase: AuthUseCase
+    private val suggestionUseCase: SuggestionsUseCases,
+    private val authUseCases: AuthUseCases
 ) : ViewModel() {
 
-    var state by mutableStateOf(ClientSuggestionCreateState())
+    var state by mutableStateOf(SuggestionCreateState())
         private set
 
-    var user by mutableStateOf<User?> (null)
+    var suggestionResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
-
-    var suggestionResponse by mutableStateOf<Resource<Suggestion>?>(null)
-
-    var data = savedStateHandle.get<String>("category")
-    var category = Category.fromJson(data!!)
 
     //imagenes
     var file1: File? = null
@@ -47,23 +42,26 @@ class ClientSuggestionCreateViewModel @Inject constructor(
     var files: List<File> = listOf()
     val resultingActivityHandler = ResultingActivityHandler()
 
+    val currentUser = authUseCases.getCurrentUser()
+
+    val radioOptions = listOf(
+        CategoryRadioButton("Agradecimientos", R.drawable.checked),
+        CategoryRadioButton("Quejas", R.drawable.cancelar),
+        CategoryRadioButton("Sugerencias", R.drawable.email),
+    )
+
     init {
-        state = state.copy(idCategory = category.id ?: "")
-        getSessionDate()
+
     }
 
-    fun createSuggestion() = viewModelScope.launch {
+    fun createSuggestion(suggestion: Suggestion) = viewModelScope.launch {
         if (file1 != null && file2 != null) {
             files = listOf(
                 file1!!,
                 file2!!
             )
-            state = user?.id?.let { state.copy(idUser = it) }!!
-            suggestionResponse = Resource.Loading
-            val result = suggestionUseCase.createSuggestionUseCase(
-                state.toSuggestion(),
-                files
-            )
+            suggestionResponse = Response.Loading
+            val result = suggestionUseCase.createSuggestionUseCase(suggestion, files)
             suggestionResponse = result
         }
 
@@ -115,30 +113,48 @@ class ClientSuggestionCreateViewModel @Inject constructor(
 
     fun clearForm() {
         state = state.copy(
-            name = "",
+            title = "",
             description = "",
             image1 = "",
             image2 = "",
             idUser = "",
+            category = ""
         )
         suggestionResponse = null
     }
 
-    fun onNameInput(input: String) {
-        state = state.copy(name = input)
+    fun onTitleInput(input: String) {
+        state = state.copy(title = input)
     }
 
     fun onDescriptionInput(input: String) {
         state = state.copy(description = input)
     }
 
-    fun onIdUserInput(input: String) {
-        state = state.copy(idUser = input)
+
+    fun onCategoryInput(category: String) {
+        state = state.copy(category = category.lowercase())
     }
 
-    fun getSessionDate() = viewModelScope.launch {
-        authUseCase.getSessionData().collect() { data ->
-            user = data.user
+    fun onNewSuggestion() {
+        val suggestion = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Suggestion(
+                title = state.title,
+                description = state.description,
+                category = state.category,
+                images = mutableListOf(),
+                user_id = currentUser?.uid ?: "",
+                created_at = Timestamp(Instant.now())
+            )
+        } else {
+            TODO("VERSION.SDK_INT < O")
         }
+        createSuggestion(suggestion)
     }
+
 }
+
+data class CategoryRadioButton(
+    var category: String,
+    var image: Int
+)

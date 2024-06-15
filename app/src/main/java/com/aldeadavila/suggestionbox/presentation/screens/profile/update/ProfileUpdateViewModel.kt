@@ -1,7 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.profile.update
 
 import android.content.Context
-import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,8 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCases
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileUpdateViewModel @Inject constructor(
-    private val usersUseCase: UsersUseCase,
+    private val usersUseCases: UsersUseCases,
     private val savedStateHandle: SavedStateHandle,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
@@ -62,14 +60,14 @@ class ProfileUpdateViewModel @Inject constructor(
     fun saveImage() = viewModelScope.launch {
         if (file != null) {
             saveImageResponse = Response.Loading
-            val result = usersUseCase.saveImage(file!!, user.id)
+            val result = usersUseCases.saveImage(file!!, user.id)
             saveImageResponse = result
         }
     }
 
     fun update(user: User) = viewModelScope.launch {
         updateResponse = Response.Loading
-        val result = usersUseCase.updateUser(user)
+        val result = usersUseCases.updateUser(user)
         updateResponse = result
     }
 

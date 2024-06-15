@@ -5,5 +5,6 @@ import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 
 class UpdateSuggestionUseCase(private val repository: SuggestionRepository) {
 
-    suspend operator fun  invoke(id: String, suggestion: Suggestion) = repository.update(id, suggestion)
+    suspend operator fun  invoke(id: String, suggestion: Suggestion) = {}
+        //repository.update(id, suggestion)
 }

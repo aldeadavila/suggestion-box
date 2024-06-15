@@ -1,12 +1,10 @@
 package com.aldeadavila.suggestionbox.data.repository
 
 import android.net.Uri
-import com.aldeadavila.suggestionbox.data.datasource.remote.UsersRemoteDatasource
+import com.aldeadavila.suggestionbox.core.Config.USERS
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.repository.UsersRepository
-import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.domain.util.ResponseToRequest
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.channels.awaitClose
@@ -15,11 +13,12 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import java.io.File
 import javax.inject.Inject
+import javax.inject.Named
 
 
 class UsersRepositoryImpl @Inject constructor(
-    private val usersRef: CollectionReference,
-    private val storageUsersRef: StorageReference
+    @Named(USERS) private val usersRef: CollectionReference,
+    @Named(USERS) private val storageUsersRef: StorageReference
     ): UsersRepository {
     override suspend fun createUser(user: User): Response<Boolean> {
         return try {

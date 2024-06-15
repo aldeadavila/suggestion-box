@@ -8,9 +8,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
 import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.mapper.toSuggestion
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +22,7 @@ import javax.inject.Inject
 class ClientSuggestionUpdateViewModel @Inject constructor(
     @ApplicationContext val context: Context,
     private val savedStateHandle: SavedStateHandle,
-    private val suggestionsUseCase: SuggestionsUseCase
+    private val suggestionsUseCases: SuggestionsUseCases
 ) : ViewModel() {
 
     var state by mutableStateOf(ClientSuggestionUpdateState())
@@ -43,16 +42,16 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
 
     init {
         state = state.copy(
-            name = suggestion.name,
+            name = suggestion.title,
             description = suggestion.description,
-            idUser = suggestion.idUser,
-            idCategory = suggestion.idCategory,
-            image1 = suggestion.image1 ?: "",
-            image2 = suggestion.image2 ?: "",
+            idUser = suggestion.user_id,
+            category = suggestion.category,
+            image1 = suggestion.images.get(0),
+            image2 = suggestion.images.get(1),
         )
     }
 
-    fun updateSuggestion() = viewModelScope.launch {
+    /*fun updateSuggestion() = viewModelScope.launch {
 
         suggestionResponse = Resource.Loading
         if (file1 == null && file2 == null) {
@@ -83,7 +82,7 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
         file1 = null
         file2 = null
         state.imagesToUpdate.clear()
-    }
+    }*/
 
     fun pickImage(imageNumber: Int) = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("image/*") // URI

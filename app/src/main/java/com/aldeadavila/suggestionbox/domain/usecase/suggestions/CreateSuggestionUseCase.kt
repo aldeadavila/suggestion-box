@@ -6,5 +6,5 @@ import java.io.File
 
 class CreateSuggestionUseCase(private val repository: SuggestionRepository) {
 
-    suspend operator fun  invoke(suggestion: Suggestion, files: List<File>) = repository.create(suggestion, files)
+    suspend operator fun  invoke(suggestion: Suggestion, files: List<File>) = repository.createSuggestion(suggestion, files)
 }

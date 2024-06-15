@@ -15,10 +15,7 @@ interface AuthRepository {
 
     suspend fun signUp(user: User): Response<FirebaseUser>
 
-    suspend fun saveSession(authResponse: AuthResponse)
-
-    suspend fun updateSession(user: User)
     fun logout()
-    fun getSessionData(): Flow<AuthResponse>
+
 
 }

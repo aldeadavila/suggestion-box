@@ -6,7 +6,7 @@ data class ClientSuggestionUpdateState(
     val name: String = "",
     val description: String = "",
     val idUser: String = "",
-    val idCategory: String = "",
+    val category: String = "",
     val image1: String = "",
     val image2: String = "",
     val imagesToUpdate: MutableList<Int> = mutableListOf()

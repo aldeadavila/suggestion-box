@@ -1,38 +1,33 @@
 package com.aldeadavila.suggestionbox.domain.model
 
+
+import com.google.firebase.Timestamp
+import com.google.firebase.database.ServerValue
+import com.google.firebase.firestore.PropertyName
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 data class Suggestion(
-    @SerializedName("id")val id: String? = null,
-    @SerializedName("name")val name: String,
-    @SerializedName("description")val description: String,
-    @SerializedName("id_user")val idUser: String,
-    @SerializedName("id_category")val idCategory: String,
-    @SerializedName("image1")val image1: String? = null,
-    @SerializedName("image2")val image2: String? = null,
-    @SerializedName("images_to_update")val imagesToUpdate: List<Int>? = listOf()
+    @PropertyName("id") var id: String = "",
+    @PropertyName("title") val title: String = "",
+    @PropertyName("description") val description: String = "",
+    @PropertyName("user_id") val user_id: String = "",
+    @PropertyName("category") val category: String = "",
+    @PropertyName("images") var images: MutableList<String> = mutableListOf(),
+    @PropertyName("created_at") var created_at: Timestamp
+
 ): Serializable {
 
     fun toJson(): String = Gson().toJson(
         Suggestion(
             id,
-            name,
+            title,
             description,
-            idUser,
-            idCategory,
-            if (!image1.isNullOrBlank()) URLEncoder.encode(
-                image1,
-                StandardCharsets.UTF_8.toString()
-            ) else "",
-            if (!image2.isNullOrBlank()) URLEncoder.encode(
-                image2,
-                StandardCharsets.UTF_8.toString()
-            ) else "",
-            imagesToUpdate
+            user_id,
+            category,
+            images,
+            created_at
         )
     )
 

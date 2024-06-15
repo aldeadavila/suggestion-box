@@ -85,7 +85,7 @@ fun ClientSuggestionDetailContent(
                 selectedIndex = pageState.currentPage
             )
             Text(
-                text = vm.suggestion.name,
+                text = vm.suggestion.title,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp
             )

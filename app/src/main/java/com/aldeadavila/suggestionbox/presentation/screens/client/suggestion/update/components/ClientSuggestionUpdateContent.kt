@@ -161,7 +161,7 @@ fun ClientSuggestionUpdateContent(
             Column(modifier = Modifier.padding(20.dp))
             {
                 Text(
-                    text = vm.suggestion.name,
+                    text = vm.suggestion.title,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -190,7 +190,7 @@ fun ClientSuggestionUpdateContent(
 
             Button(
                 onClick = {
-                    vm.updateSuggestion()
+                  //  vm.updateSuggestion()
                 },
                 modifier = Modifier
                     .fillMaxWidth()

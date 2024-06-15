@@ -1,23 +1,22 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.components
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.aldeadavila.suggestionbox.domain.util.Resource
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.ClientSuggestionCreateViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.SuggestionCreateViewModel
 
 @Composable
-fun CreateClientSuggestion(vm: ClientSuggestionCreateViewModel = hiltViewModel()) {
+fun CreateClientSuggestion(vm: SuggestionCreateViewModel = hiltViewModel()) {
 
     when (val response = vm.suggestionResponse) {
-        Resource.Loading -> {
+        Response.Loading -> {
             ProgressBar()
         }
 
-        is Resource.Succes -> {
+        is Response.Success -> {
             vm.clearForm()
             Toast.makeText(
                 LocalContext.current,
@@ -26,22 +25,16 @@ fun CreateClientSuggestion(vm: ClientSuggestionCreateViewModel = hiltViewModel()
             ).show()
         }
 
-        is Resource.Failure -> {
+        is Response.Failure -> {
             Toast.makeText(
                 LocalContext.current,
-                response.message,
+                response.exception?.message ?: "Error desconocido",
                 Toast.LENGTH_LONG
             ).show()
         }
 
         else -> {
-            if (response != null) {
-                Toast.makeText(
-                    LocalContext.current,
-                    "Hubo un error desconocido",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+
         }
     }
 

@@ -1,6 +1,6 @@
 package com.aldeadavila.suggestionbox.domain.usecase.users
 
-data class UsersUseCase(
+data class UsersUseCases(
 
     val getUserByIdUseCase: GetUserByIdUseCase,
     val updateUser: UpdateUserUseCase,

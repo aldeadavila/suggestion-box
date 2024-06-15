@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
+import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCases
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase,
-    private val usersUseCase: UsersUseCase
+    private val authUseCases: AuthUseCases,
+    private val usersUseCases: UsersUseCases
     ) : ViewModel() {
 
     var state by mutableStateOf(RegisterState())
@@ -32,13 +32,13 @@ class RegisterViewModel @Inject constructor(
     var user = User()
 
     fun createUser() = viewModelScope.launch {
-        user.id = authUseCase.getCurrentUser()!!.uid
-        usersUseCase.createUser(user)
+        user.id = authUseCases.getCurrentUser()!!.uid
+        usersUseCases.createUser(user)
     }
     fun signUp(user: User) = viewModelScope.launch {
         if (isValidateForm()) {
             registerResponse = Response.Loading
-            val result = authUseCase.signUp(user)
+            val result = authUseCases.signUp(user)
             registerResponse = result
         }
     }

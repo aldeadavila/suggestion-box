@@ -50,7 +50,7 @@ fun ClientSuggestionListByCategoryItem(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = suggestion.name,
+                    text = suggestion.title,
                     color = Color.Black,
                     fontSize = 16.sp
                 )
@@ -67,7 +67,7 @@ fun ClientSuggestionListByCategoryItem(
                 modifier = Modifier
                     .size(70.dp)
                     .clip(RoundedCornerShape(10.dp)),
-                model = suggestion.image1,
+                model = suggestion.images.get(0),
                 contentDescription = ""
             )
 
