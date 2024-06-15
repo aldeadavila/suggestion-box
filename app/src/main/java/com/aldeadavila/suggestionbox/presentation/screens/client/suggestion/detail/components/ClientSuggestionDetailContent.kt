@@ -35,7 +35,7 @@ import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.DotsIndicator
 import com.aldeadavila.suggestionbox.presentation.components.SliderView
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.SuggestionDetailViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
@@ -46,7 +46,7 @@ import kotlinx.coroutines.launch
 fun ClientSuggestionDetailContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
-    vm: ClientSuggestionDetailViewModel = hiltViewModel()
+    vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
 
     val pageState = rememberPagerState()

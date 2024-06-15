@@ -28,14 +28,14 @@ import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientSuggestionScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.SuggestionListViewModel
 
 @Composable
-fun ClientSuggestionListItem(
+fun SuggestionListItem(
     navHostController: NavHostController,
     suggestion: Suggestion,
     user: User?,
-    vm: ClientSuggestionListViewModel = hiltViewModel()
+    vm: SuggestionListViewModel = hiltViewModel()
 ) {
 
     Column(
@@ -61,7 +61,7 @@ fun ClientSuggestionListItem(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = suggestion.title,
+                    text = vm.printTitle(suggestion.title),
                     color = Color.Black,
                     fontSize = 16.sp
                 )
@@ -71,6 +71,13 @@ fun ClientSuggestionListItem(
                     text = vm.printDescription(suggestion.description),
                     color = Color.Gray,
                     fontSize = 12.sp
+                )
+
+                Spacer(modifier = Modifier.height(3.dp))
+                Text(
+                    text = "Autor: " + suggestion.user.nickname,
+                    color = Color.Black,
+                    fontSize = 8.sp
                 )
 
 
@@ -122,7 +129,7 @@ fun ClientSuggestionListItem(
                     modifier = Modifier
                         .size(70.dp)
                         .clip(RoundedCornerShape(10.dp)),
-                    model = suggestion.images.get(1),
+                    model = suggestion.images[0] ,
                     contentDescription = ""
                 )
             }

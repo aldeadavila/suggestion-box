@@ -1,9 +1,9 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -14,10 +14,10 @@ import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.presentation.navigation.graph.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components.GetSuggestions
 
-@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ClientSuggestionListScreen(navHostController: NavHostController) {
-    Scaffold (
+fun SuggestionListScreen(navHostController: NavHostController) {
+    Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 modifier = Modifier.padding(bottom = 50.dp),
@@ -25,13 +25,13 @@ fun ClientSuggestionListScreen(navHostController: NavHostController) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "")
+                    contentDescription = ""
+                )
             }
         }
-    ){
+    ) {
         GetSuggestions(
-            navHostController = navHostController,
-            paddingValues = it
+            navHostController = navHostController
         )
     }
 }

@@ -32,12 +32,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Comment
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.SuggestionDetailViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
-import com.aldeadavila.suggestionbox.ui.theme.md_theme_secondary99
 import com.aldeadavila.suggestionbox.ui.theme.poppins
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,7 +45,7 @@ fun ClientCommentListBySuggestionContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
     comments: List<Comment>,
-    vm: ClientSuggestionDetailViewModel = hiltViewModel()
+    vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
 
     val state = vm.state

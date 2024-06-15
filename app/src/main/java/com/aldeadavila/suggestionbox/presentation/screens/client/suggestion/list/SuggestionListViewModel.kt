@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
@@ -15,12 +16,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientSuggestionListViewModel @Inject constructor(
+class SuggestionListViewModel @Inject constructor(
     private val suggestionsUseCases: SuggestionsUseCases,
     private val authUseCases: AuthUseCases
 )  :ViewModel() {
 
-    var suggestionsResponse by mutableStateOf<Resource<List<Suggestion>>?>(null)
+    var suggestionsResponse by mutableStateOf<Response<List<Suggestion>>?>(null)
         private set
     var deleteSuggestionResponse by mutableStateOf<Resource<Unit>?>(null)
         private set
@@ -34,8 +35,10 @@ class ClientSuggestionListViewModel @Inject constructor(
 
 
     fun getSuggestions() = viewModelScope.launch {
-        suggestionsResponse = Resource.Loading
-
+        suggestionsResponse = Response.Loading
+        suggestionsUseCases.getSuggestions().collect { response ->
+            suggestionsResponse = response
+        }
     }
 
 
@@ -48,6 +51,14 @@ class ClientSuggestionListViewModel @Inject constructor(
             return description.substring(0,110) + "..."
         } else {
             return description
+        }
+    }
+
+    fun printTitle(title:String): String {
+        if(title.length > 28) {
+            return title.substring(0,28) + "..."
+        } else {
+            return title
         }
     }
 

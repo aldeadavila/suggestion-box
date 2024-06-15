@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientSuggestionDetailViewModel @Inject constructor(
+class SuggestionDetailViewModel @Inject constructor(
     private val commentsUseCases: CommentsUseCases,
     private val savedStateHandle: SavedStateHandle,
     private val authUseCases: AuthUseCases,
@@ -101,7 +101,7 @@ class ClientSuggestionDetailViewModel @Inject constructor(
 
     private fun getComments() = viewModelScope.launch {
         commentsResponse = Resource.Loading
-        commentsUseCases.findBySuggestionUseCase(suggestion.id!!).collect {
+        commentsUseCases.findBySuggestionUseCase(suggestion.user_id!!).collect {
             commentsResponse = it
         }
     }

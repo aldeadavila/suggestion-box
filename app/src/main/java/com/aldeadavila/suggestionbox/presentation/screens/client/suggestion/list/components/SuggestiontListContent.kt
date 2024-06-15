@@ -10,22 +10,20 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.ClientSuggestionListViewModel
 
 @Composable
-fun ClientSuggestionListContent(
+fun SuggestionListContent(
     navHostController: NavHostController,
-    paddingValues: PaddingValues,
+
     suggestions: List<Suggestion>,
     user: User?
 ) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(paddingValues)
     ) {
         items(items = suggestions) {
-            ClientSuggestionListItem(
+            SuggestionListItem(
                 navHostController = navHostController,
                 suggestion = it,
                 user = user

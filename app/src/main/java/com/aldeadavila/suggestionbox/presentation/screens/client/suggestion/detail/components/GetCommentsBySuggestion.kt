@@ -8,13 +8,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.SuggestionDetailViewModel
 
 @Composable
 fun GetCommentsBySuggestion(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
-    vm: ClientSuggestionDetailViewModel = hiltViewModel()
+    vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
     when (val response = vm.commentsResponse) {
         Resource.Loading -> {

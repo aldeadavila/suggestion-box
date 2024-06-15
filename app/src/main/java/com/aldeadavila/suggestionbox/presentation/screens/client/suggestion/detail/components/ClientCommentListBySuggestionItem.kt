@@ -24,14 +24,14 @@ import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Comment
 import com.aldeadavila.suggestionbox.presentation.navigation.screen.ClientCommentScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.ClientSuggestionDetailViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.SuggestionDetailViewModel
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primaryContainer
 
 @Composable
 fun ClientCommentListBySuggestionItem(
     navHostController: NavHostController,
     comment: Comment,
-    vm: ClientSuggestionDetailViewModel = hiltViewModel()
+    vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
 
     val isFromMe = vm.isFromMe(comment.idUser)
