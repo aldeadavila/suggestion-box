@@ -9,13 +9,13 @@ import androidx.navigation.navigation
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.CommentDetailScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.ClientCommentUpdateScreen
 
-fun NavGraphBuilder.ClientCommentNavGraph(navHostController: NavHostController) {
+fun NavGraphBuilder.CommentNavGraph(navHostController: NavHostController) {
     navigation(
         route = Graph.COMMENT,
-        startDestination = ClientCommentScreen.CommentDetail.route
+        startDestination = CommentScreen.CommentDetail.route
     ) {
         composable(
-            route = ClientCommentScreen.CommentDetail.route,
+            route = CommentScreen.CommentDetail.route,
             arguments = listOf(navArgument("comment") {
                 type = NavType.StringType
             })
@@ -29,7 +29,7 @@ fun NavGraphBuilder.ClientCommentNavGraph(navHostController: NavHostController) 
         }
 
         composable(
-            route = ClientCommentScreen.CommentUpdate.route,
+            route = CommentScreen.CommentUpdate.route,
             arguments = listOf(navArgument("comment") {
                 type = NavType.StringType
             })
@@ -45,13 +45,13 @@ fun NavGraphBuilder.ClientCommentNavGraph(navHostController: NavHostController) 
     }
 }
 
-sealed class ClientCommentScreen(val route: String) {
-    object CommentDetail: ClientCommentScreen("client/comment/detail/{comment}") {
-        fun passComment(comment: String) = "client/comment/detail/$comment"
+sealed class CommentScreen(val route: String) {
+    object CommentDetail: CommentScreen("comment/detail/{comment}") {
+        fun passComment(comment: String) = "comment/detail/$comment"
     }
 
-    object CommentUpdate: ClientCommentScreen("client/comment/update/{comment}") {
-        fun passComment(comment: String) = "client/comment/update/$comment"
+    object CommentUpdate: CommentScreen("comment/update/{comment}") {
+        fun passComment(comment: String) = "comment/update/$comment"
     }
 }
 

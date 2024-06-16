@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
-import com.aldeadavila.suggestionbox.presentation.navigation.ClientCommentScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.CommentScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.CommentDetailViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
@@ -70,14 +70,6 @@ fun CommentDetailContent(
                     modifier = Modifier.padding(vertical = 10.dp),
                     color = Color.Gray
                 )
-                Text(
-                    modifier = Modifier
-                        .padding(bottom = 7.dp)
-                        .align(alignment = Alignment.End),
-                    text = "Creado por " + vm.user?.nickname,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 12.sp
-                )
 
             }
             if (vm.getEditable(vm.comment.user_id)) {
@@ -88,7 +80,7 @@ fun CommentDetailContent(
                             .size(25.dp)
                             .clickable {
                                 navHostController.navigate(
-                                    route = ClientCommentScreen.CommentUpdate.passComment(
+                                    route = CommentScreen.CommentUpdate.passComment(
                                         vm.comment.toJson()
                                     )
                                 )

@@ -26,7 +26,7 @@ fun GetSuggestions(
             SuggestionListContent(
                 navHostController,
                 suggestions = response.data,
-                user = vm.user
+                user = vm.currentUser?.uid
             )
 
         }

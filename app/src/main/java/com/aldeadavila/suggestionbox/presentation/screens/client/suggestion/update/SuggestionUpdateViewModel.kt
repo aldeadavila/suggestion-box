@@ -28,7 +28,7 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
     var state by mutableStateOf(ClientSuggestionUpdateState())
         private set
 
-    var suggestionResponse by mutableStateOf<Response<Suggestion>?>(null)
+    var suggestionResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
     var data = savedStateHandle.get<String>("suggestion")
@@ -51,38 +51,20 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
         )
     }
 
-    /*fun updateSuggestion() = viewModelScope.launch {
-
-        suggestionResponse = Resource.Loading
-        if (file1 == null && file2 == null) {
-
-            val result = suggestionsUseCase.updateSuggestion(
-                suggestion.id!!,
-                state.toSuggestion()
-            )
-            suggestionResponse = result
-        } else {
-            if (file1 != null) {
-                files.add(file1!!)
-                state.imagesToUpdate.add(0)
-            }
-            if (file2 != null) {
-                files.add(file2!!)
-                state.imagesToUpdate.add(1)
-            }
-
-            val result = suggestionsUseCase.updateSuggestionWithImage(
-                suggestion.id!!,
-                state.toSuggestion(),
-                files.toList()
-            )
-            suggestionResponse = result
+    fun updateSuggestion(suggestion: Suggestion) = viewModelScope.launch {
+        suggestionResponse = Response.Loading
+        if (file1 != null) {
+            files.add(0, file1!!)
         }
+        if (file2 != null) {
+            files.add(1, file2!!)
+        }
+        val result = suggestionsUseCases.updateSuggestion(suggestion, files.toList())
+        suggestionResponse = result
         files.clear()
         file1 = null
         file2 = null
-        state.imagesToUpdate.clear()
-    }*/
+    }
 
     fun pickImage(imageNumber: Int) = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("image/*") // URI

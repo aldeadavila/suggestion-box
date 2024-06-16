@@ -24,9 +24,10 @@ import com.aldeadavila.suggestionbox.domain.usecase.comments.FindBySuggestionUse
 import com.aldeadavila.suggestionbox.domain.usecase.comments.FindByUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.UpdateCommentUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.CreateSuggestionUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.suggestions.getSuggestions
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.getSuggestionsUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.FindByCategoryUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.CreateUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.GetUserByIdUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.SaveImageUseCase
@@ -109,8 +110,9 @@ object AppModule {
     @Provides
     fun provideSuggestionsUseCases(repository: SuggestionRepository) = SuggestionsUseCases(
         createSuggestionUseCase = CreateSuggestionUseCase(repository),
-        getSuggestions = getSuggestions(repository),
-        findByCategory = FindByCategoryUseCase(repository)
+        getSuggestionsUseCase = getSuggestionsUseCase(repository),
+        findByCategory = FindByCategoryUseCase(repository),
+        updateSuggestion = UpdateSuggestionUseCase(repository)
     )
 
     @Provides

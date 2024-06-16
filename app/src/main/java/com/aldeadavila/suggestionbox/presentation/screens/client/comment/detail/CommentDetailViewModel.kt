@@ -24,6 +24,7 @@ class CommentDetailViewModel @Inject constructor(
 
     var data = savedStateHandle.get<String>("comment")
     var comment = Comment.fromJson(data!!)
+    val currentUser = authUseCases.getCurrentUser()
 
     var user by mutableStateOf<User?> (null)
         private set
@@ -38,7 +39,7 @@ class CommentDetailViewModel @Inject constructor(
     }
 
     fun getEditable(idUser: String): Boolean {
-        return idUser == user?.id
+        return idUser == currentUser?.uid
     }
 
 

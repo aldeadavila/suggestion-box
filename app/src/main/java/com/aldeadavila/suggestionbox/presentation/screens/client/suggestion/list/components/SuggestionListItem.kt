@@ -34,7 +34,6 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list
 fun SuggestionListItem(
     navHostController: NavHostController,
     suggestion: Suggestion,
-    user: User?,
     vm: SuggestionListViewModel = hiltViewModel()
 ) {
 
@@ -105,7 +104,7 @@ fun SuggestionListItem(
                                 .size(20.dp)
                                 .clickable {
                                     navHostController.navigate(
-                                        route = DetailsScreen.DetailSuggestion.passSuggestion(
+                                        route = DetailsScreen.UpdateSuggestion.passSuggestion(
                                             suggestion.toJson()
                                         )
                                     )

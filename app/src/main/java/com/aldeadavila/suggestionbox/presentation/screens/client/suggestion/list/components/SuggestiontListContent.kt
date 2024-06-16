@@ -16,7 +16,7 @@ fun SuggestionListContent(
     navHostController: NavHostController,
 
     suggestions: List<Suggestion>,
-    user: User?
+    user: String?
 ) {
     LazyColumn(
         modifier = Modifier
@@ -25,8 +25,7 @@ fun SuggestionListContent(
         items(items = suggestions) {
             SuggestionListItem(
                 navHostController = navHostController,
-                suggestion = it,
-                user = user
+                suggestion = it
             )
         }
     }

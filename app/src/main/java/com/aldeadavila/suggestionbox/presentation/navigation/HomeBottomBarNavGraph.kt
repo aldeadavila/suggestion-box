@@ -76,6 +76,8 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
             }
         }
 
+        CommentNavGraph(navController)
+
     }
 
 }

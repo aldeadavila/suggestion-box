@@ -24,8 +24,7 @@ class SuggestionListViewModel @Inject constructor(
         private set
     var deleteSuggestionResponse by mutableStateOf<Response<Unit>?>(null)
         private set
-    var user by mutableStateOf<User?> (null)
-        private set
+    var currentUser = authUseCases.getCurrentUser()
 
 
     init {
@@ -35,14 +34,14 @@ class SuggestionListViewModel @Inject constructor(
 
     fun getSuggestions() = viewModelScope.launch {
         suggestionsResponse = Response.Loading
-        suggestionsUseCases.getSuggestions().collect { response ->
+        suggestionsUseCases.getSuggestionsUseCase().collect { response ->
             suggestionsResponse = response
         }
     }
 
 
     fun getEditable(idUser: String): Boolean {
-        return idUser == user?.id
+        return idUser == currentUser?.uid
     }
 
     fun printDescription(description:String): String {

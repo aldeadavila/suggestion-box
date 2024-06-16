@@ -23,7 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Comment
-import com.aldeadavila.suggestionbox.presentation.navigation.ClientCommentScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.CommentScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.SuggestionDetailViewModel
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primaryContainer
 
@@ -51,7 +51,7 @@ fun CommentListBySuggestionItem(
                 .padding(5.dp)
                 .clickable {
                     navHostController.navigate(
-                        route = ClientCommentScreen.CommentDetail.passComment(
+                        route = CommentScreen.CommentDetail.passComment(
                             comment.toJson()
                         )
                     )
@@ -71,7 +71,7 @@ fun CommentListBySuggestionItem(
                     .size(15.dp)
                     .clickable {
                         navHostController.navigate(
-                            route = ClientCommentScreen.CommentDetail.passComment(
+                            route = CommentScreen.CommentDetail.passComment(
                                 comment.toJson()
                             )
                         )
