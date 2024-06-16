@@ -34,7 +34,7 @@ fun CommentListBySuggestionItem(
     vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
 
-    val isFromMe = vm.isFromMe(comment.idUser)
+    val isFromMe = vm.isFromMe(comment.user_id)
 
     if (isFromMe) {
         Box(

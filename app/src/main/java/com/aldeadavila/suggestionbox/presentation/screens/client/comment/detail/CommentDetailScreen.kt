@@ -5,11 +5,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.components.ClientCommentDetailContent
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.components.CommentDetailContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ClientCommentDetailScreen(navHostController: NavHostController, commentParam: String) {
+fun CommentDetailScreen(navHostController: NavHostController, commentParam: String) {
 
     Scaffold(
         topBar = {
@@ -19,7 +19,7 @@ fun ClientCommentDetailScreen(navHostController: NavHostController, commentParam
         },
     ) {
 
-        ClientCommentDetailContent(
+        CommentDetailContent(
             navHostController = navHostController, paddingValues = it
         )
     }

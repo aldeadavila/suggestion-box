@@ -28,15 +28,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.navigation.ClientCommentScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.ClientCommentDetailViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.CommentDetailViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ClientCommentDetailContent(
+fun CommentDetailContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
-    vm: ClientCommentDetailViewModel = hiltViewModel()
+    vm: CommentDetailViewModel = hiltViewModel()
 ) {
 
     Box(
@@ -80,7 +80,7 @@ fun ClientCommentDetailContent(
                 )
 
             }
-            if (vm.getEditable(vm.comment.idUser)) {
+            if (vm.getEditable(vm.comment.user_id)) {
                 Column {
                     Spacer(modifier = Modifier.height(5.dp))
                     Image(
@@ -101,7 +101,7 @@ fun ClientCommentDetailContent(
                         modifier = Modifier
                             .size(25.dp)
                             .clickable {
-                                vm.deleteComment(vm.comment.id ?: "")
+                                vm.deleteComment(vm.comment.comment_id ?: "")
                             },
                         painter = painterResource(id = R.drawable.trash),
                         contentDescription = "eliminar"

@@ -6,7 +6,6 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.
 fun ClientCommentUpdateState.toComment(): Comment {
     return Comment(
         content = content,
-        idUser = idUser,
-        idSuggestion = idSuggestion
+        user_id = user_id
     )
 }

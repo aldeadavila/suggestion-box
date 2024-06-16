@@ -8,14 +8,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Comment
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
 import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCases
-import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCases
-import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.ClientCommentCreateState
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.mapper.toComment
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.create.CommentCreateState
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.components.GetUserState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SuggestionDetailViewModel @Inject constructor(
     private val commentsUseCases: CommentsUseCases,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val authUseCases: AuthUseCases
 ) : ViewModel() {
 
     var data = savedStateHandle.get<String>("suggestion")
@@ -33,25 +31,25 @@ class SuggestionDetailViewModel @Inject constructor(
         suggestion.images[0],
         suggestion.images[1]
     )
-    var commentsResponse by mutableStateOf<Resource<List<Comment>>?>(null)
-    var commentResponse by mutableStateOf<Resource<Comment>?>(null)
-    var state by mutableStateOf(ClientCommentCreateState())
+    var commentsResponse by mutableStateOf<Response<List<Comment>>?>(null)
+        private set
+    var commentResponse by mutableStateOf<Response<Boolean>?>(null)
+    var state by mutableStateOf(CommentCreateState())
     var stateUser by mutableStateOf(GetUserState())
 
-    var user by mutableStateOf<User?>(null)
-        private set
+    val currentUser = authUseCases.getCurrentUser()
+
 
     var errorMessage by mutableStateOf("")
 
     init {
-       // getComments()
-
+        getComments()
     }
 
-    fun createComment() = viewModelScope.launch {
+    fun createComment(comment: Comment) = viewModelScope.launch {
         if (isValidateForm()) {
-            commentResponse = Resource.Loading
-            val result = commentsUseCases.createCommentUseCase(state.toComment())
+            commentResponse = Response.Loading
+            val result = commentsUseCases.createCommentUseCase(comment)
             commentResponse = result
             clearComment()
         }
@@ -62,9 +60,9 @@ class SuggestionDetailViewModel @Inject constructor(
     }
 
     fun isFromMe(idUser: String): Boolean {
-        val isMine = user?.id == idUser
+        val isMine = currentUser?.uid == idUser
         Log.d("ISFROMME", isMine.toString())
-        return user?.id == idUser
+        return currentUser?.uid == idUser
     }
 
     fun isValidateForm(): Boolean {
@@ -99,12 +97,21 @@ class SuggestionDetailViewModel @Inject constructor(
     }
 
     private fun getComments() = viewModelScope.launch {
-        commentsResponse = Resource.Loading
-        commentsUseCases.findBySuggestionUseCase(suggestion.user_id!!).collect {
+        commentsResponse = Response.Loading
+        commentsUseCases.findBySuggestionUseCase(suggestion.suggestion_id).collect {
             commentsResponse = it
         }
     }
 
+    fun onNewComment() {
+        val comment =
+            Comment(
+                suggestion_id = suggestion.suggestion_id,
+                user_id = currentUser?.uid ?: "",
+                content = state.content
+            )
+        createComment(comment)
+    }
 
 
 }

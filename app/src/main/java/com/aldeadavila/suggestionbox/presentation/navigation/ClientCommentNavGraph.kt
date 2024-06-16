@@ -6,7 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.ClientCommentDetailScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.CommentDetailScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.ClientCommentUpdateScreen
 
 fun NavGraphBuilder.ClientCommentNavGraph(navHostController: NavHostController) {
@@ -21,7 +21,7 @@ fun NavGraphBuilder.ClientCommentNavGraph(navHostController: NavHostController) 
             })
         )  {
             it.arguments?.getString("comment")?.let { comment ->
-                ClientCommentDetailScreen(
+                CommentDetailScreen(
                     navHostController = navHostController,
                     commentParam = comment
                 )

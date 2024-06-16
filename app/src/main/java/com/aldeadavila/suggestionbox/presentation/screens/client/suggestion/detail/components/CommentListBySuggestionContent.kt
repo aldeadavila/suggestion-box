@@ -78,7 +78,7 @@ fun CommentListBySuggestionContent(
 
             Button(
                 onClick = {
-                    vm.createComment()
+                    vm.onNewComment()
                 },
                 modifier = Modifier
                     .fillMaxWidth()

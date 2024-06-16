@@ -1,5 +1,6 @@
 package com.aldeadavila.suggestionbox.di
 
+import com.aldeadavila.suggestionbox.core.Config.COMMENTS
 import com.aldeadavila.suggestionbox.core.Config.SUGGESTIONS
 import com.aldeadavila.suggestionbox.core.Config.USERS
 import com.aldeadavila.suggestionbox.data.repository.AuthRepositoryImpl
@@ -69,6 +70,10 @@ object AppModule {
     @Provides
     @Named(SUGGESTIONS)
     fun provideSuggestionsRef(db: FirebaseFirestore): CollectionReference = db.collection(SUGGESTIONS)
+
+    @Provides
+    @Named(COMMENTS)
+    fun provideCommentsRef(db: FirebaseFirestore): CollectionReference = db.collection(COMMENTS)
 
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()

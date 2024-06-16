@@ -9,8 +9,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Comment
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCases
-import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.update.mapper.toComment
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,7 +28,7 @@ class ClientCommentUpdateViewModel  @Inject constructor(
     var state by mutableStateOf(ClientCommentUpdateState())
         private set
 
-    var commentResponse by mutableStateOf<Resource<Comment>?>(null)
+    var commentResponse by mutableStateOf<Response<Comment>?>(null)
     val resultingActivityHandler = ResultingActivityHandler()
 
     val data = savedStateHandle.get<String>("comment")
@@ -37,8 +37,7 @@ class ClientCommentUpdateViewModel  @Inject constructor(
     init {
         state = state.copy(
             content = comment.content,
-            idSuggestion = comment.idSuggestion,
-            idUser = comment.idUser
+            user_id = comment.user_id
         )
     }
     fun onContentInput(input: String) {
@@ -48,10 +47,10 @@ class ClientCommentUpdateViewModel  @Inject constructor(
 
     fun updateComment() = viewModelScope.launch {
 
-        commentResponse = Resource.Loading
+        commentResponse = Response.Loading
         val result = commentsUseCases.updateCommentUseCase(
 
-            comment.id ?: "",
+            comment.comment_id ?: "",
 
             state.toComment()
         )

@@ -1,8 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create
 
 import android.content.Context
-import android.os.Build
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -20,7 +18,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import java.io.File
-import java.time.Instant
 import javax.inject.Inject
 
 @HiltViewModel
@@ -137,18 +134,15 @@ class SuggestionCreateViewModel @Inject constructor(
     }
 
     fun onNewSuggestion() {
-        val suggestion = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val suggestion =
             Suggestion(
                 title = state.title,
                 description = state.description,
                 category = state.category,
                 images = mutableListOf(),
                 user_id = currentUser?.uid ?: "",
-                created_at = Timestamp(Instant.now())
+                created_at = Timestamp.now()
             )
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        }
         createSuggestion(suggestion)
     }
 

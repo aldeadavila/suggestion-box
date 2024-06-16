@@ -2,7 +2,6 @@ package com.aldeadavila.suggestionbox.domain.repository
 
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.domain.util.Resource
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 

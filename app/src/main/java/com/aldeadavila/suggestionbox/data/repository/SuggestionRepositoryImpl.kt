@@ -2,6 +2,7 @@ package com.aldeadavila.suggestionbox.data.repository
 
 
 import android.net.Uri
+import com.aldeadavila.suggestionbox.core.Config.COMMENTS
 import com.aldeadavila.suggestionbox.core.Config.SUGGESTIONS
 import com.aldeadavila.suggestionbox.core.Config.USERS
 import com.aldeadavila.suggestionbox.domain.model.Response
@@ -9,6 +10,7 @@ import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -46,7 +48,11 @@ class SuggestionRepositoryImpl @Inject constructor(
             val url1 = ref1.downloadUrl.await()
             suggestion.images.add(1, url1.toString())
 
-            suggestionsRef.add(suggestion).await()
+            //Generamos el id
+            val document = suggestionsRef.document()
+
+            suggestion.suggestion_id = document.id
+            suggestionsRef.document(document.id).set(suggestion).await()
             Response.Success(true)
 
         } catch (e: Exception) {
@@ -56,6 +62,7 @@ class SuggestionRepositoryImpl @Inject constructor(
     }
 
     override fun getSuggestions(): Flow<Response<List<Suggestion>>> = callbackFlow {
+
         val snapshopListener = suggestionsRef.addSnapshotListener { snapshot, e ->
 
             GlobalScope.launch(Dispatchers.IO) {

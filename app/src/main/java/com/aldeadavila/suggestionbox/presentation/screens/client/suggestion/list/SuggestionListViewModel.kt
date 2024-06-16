@@ -10,7 +10,6 @@ import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
-import com.aldeadavila.suggestionbox.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +22,7 @@ class SuggestionListViewModel @Inject constructor(
 
     var suggestionsResponse by mutableStateOf<Response<List<Suggestion>>?>(null)
         private set
-    var deleteSuggestionResponse by mutableStateOf<Resource<Unit>?>(null)
+    var deleteSuggestionResponse by mutableStateOf<Response<Unit>?>(null)
         private set
     var user by mutableStateOf<User?> (null)
         private set

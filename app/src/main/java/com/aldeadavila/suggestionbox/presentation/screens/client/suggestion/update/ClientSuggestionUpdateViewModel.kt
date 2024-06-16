@@ -7,9 +7,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
-import com.aldeadavila.suggestionbox.domain.util.Resource
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,7 +28,7 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
     var state by mutableStateOf(ClientSuggestionUpdateState())
         private set
 
-    var suggestionResponse by mutableStateOf<Resource<Suggestion>?>(null)
+    var suggestionResponse by mutableStateOf<Response<Suggestion>?>(null)
         private set
 
     var data = savedStateHandle.get<String>("suggestion")

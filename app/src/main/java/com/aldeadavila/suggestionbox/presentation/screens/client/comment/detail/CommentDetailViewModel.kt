@@ -7,16 +7,16 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Comment
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
 import com.aldeadavila.suggestionbox.domain.usecase.comments.CommentsUseCases
-import com.aldeadavila.suggestionbox.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientCommentDetailViewModel @Inject constructor(
+class CommentDetailViewModel @Inject constructor(
     private val commentsUseCases: CommentsUseCases,
     private val savedStateHandle: SavedStateHandle,
     private val authUseCases: AuthUseCases
@@ -27,12 +27,12 @@ class ClientCommentDetailViewModel @Inject constructor(
 
     var user by mutableStateOf<User?> (null)
         private set
-    var deleteCommentResponse by mutableStateOf<Resource<Unit>?>(null)
+    var deleteCommentResponse by mutableStateOf<Response<Unit>?>(null)
         private set
 
 
     fun deleteComment(id: String) = viewModelScope.launch {
-        deleteCommentResponse = Resource.Loading
+        deleteCommentResponse = Response.Loading
         var result = commentsUseCases.deleteCommentUseCase(id)
         deleteCommentResponse = result
     }
