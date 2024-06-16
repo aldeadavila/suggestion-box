@@ -2,7 +2,6 @@ package com.aldeadavila.suggestionbox.data.repository
 
 
 import android.net.Uri
-import com.aldeadavila.suggestionbox.core.Config.COMMENTS
 import com.aldeadavila.suggestionbox.core.Config.SUGGESTIONS
 import com.aldeadavila.suggestionbox.core.Config.USERS
 import com.aldeadavila.suggestionbox.domain.model.Response
@@ -10,7 +9,6 @@ import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -51,7 +49,7 @@ class SuggestionRepositoryImpl @Inject constructor(
                 suggestion.images.add(1, url1.toString())
             }
 
-            val map: MutableMap<String, Any> = HashMap();
+            val map: MutableMap<String, Any> = HashMap()
             map["title"] = suggestion.title
             map["description"] = suggestion.description
             map["category"] = suggestion.category
@@ -68,6 +66,7 @@ class SuggestionRepositoryImpl @Inject constructor(
             Response.Failure(e)
         }
     }
+
     override suspend fun createSuggestion(
         suggestion: Suggestion,
         files: List<File>
@@ -138,7 +137,6 @@ class SuggestionRepositoryImpl @Inject constructor(
         }
 
     }
-
 
 
 }

@@ -18,8 +18,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -74,7 +74,7 @@ fun ClientSuggestionUpdateContent(
                 paddingValues = paddingValues
             )
             .fillMaxSize()
-            .clickable{keyboard?.hide()},
+            .clickable { keyboard?.hide() },
     ) {
         Image(
             modifier = Modifier
@@ -171,7 +171,7 @@ fun ClientSuggestionUpdateContent(
                     value = state.name,
                     onValueChange = { vm.onNameInput(it) },
                     label = "Nombre de la sugerencia",
-                    icon = Icons.Default.List,
+                    icon = Icons.AutoMirrored.Filled.List,
                     contentDescription = ""
                 )
                 Spacer(modifier = Modifier.height(10.dp))
@@ -190,7 +190,7 @@ fun ClientSuggestionUpdateContent(
 
             Button(
                 onClick = {
-                  //  vm.updateSuggestion()
+                    //  vm.updateSuggestion()
                 },
                 modifier = Modifier
                     .fillMaxWidth()

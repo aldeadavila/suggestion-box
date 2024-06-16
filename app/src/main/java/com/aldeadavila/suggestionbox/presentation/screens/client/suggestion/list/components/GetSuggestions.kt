@@ -1,7 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,7 +33,7 @@ fun GetSuggestions(
         is Response.Failure -> {
             Toast.makeText(
                 LocalContext.current,
-                response.exception?.message ?: "Error desconocido",
+                response.exception.message ?: "Error desconocido",
                 Toast.LENGTH_LONG
             ).show()
         }

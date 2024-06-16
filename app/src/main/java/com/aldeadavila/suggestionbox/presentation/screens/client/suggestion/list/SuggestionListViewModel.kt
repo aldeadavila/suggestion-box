@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +17,7 @@ import javax.inject.Inject
 class SuggestionListViewModel @Inject constructor(
     private val suggestionsUseCases: SuggestionsUseCases,
     private val authUseCases: AuthUseCases
-)  :ViewModel() {
+) : ViewModel() {
 
     var suggestionsResponse by mutableStateOf<Response<List<Suggestion>>?>(null)
         private set
@@ -44,17 +43,17 @@ class SuggestionListViewModel @Inject constructor(
         return idUser == currentUser?.uid
     }
 
-    fun printDescription(description:String): String {
-        if(description.length > 110) {
-            return description.substring(0,110) + "..."
+    fun printDescription(description: String): String {
+        if (description.length > 110) {
+            return description.substring(0, 110) + "..."
         } else {
             return description
         }
     }
 
-    fun printTitle(title:String): String {
-        if(title.length > 28) {
-            return title.substring(0,28) + "..."
+    fun printTitle(title: String): String {
+        if (title.length > 28) {
+            return title.substring(0, 28) + "..."
         } else {
             return title
         }

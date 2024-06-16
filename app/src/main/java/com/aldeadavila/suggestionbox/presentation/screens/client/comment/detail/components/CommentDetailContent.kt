@@ -29,9 +29,7 @@ import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.navigation.CommentScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.CommentDetailViewModel
-import com.google.accompanist.pager.ExperimentalPagerApi
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CommentDetailContent(
     navHostController: NavHostController,
@@ -93,7 +91,7 @@ fun CommentDetailContent(
                         modifier = Modifier
                             .size(25.dp)
                             .clickable {
-                                vm.deleteComment(vm.comment.comment_id ?: "")
+                                vm.deleteComment(vm.comment.comment_id)
                             },
                         painter = painterResource(id = R.drawable.trash),
                         contentDescription = "eliminar"

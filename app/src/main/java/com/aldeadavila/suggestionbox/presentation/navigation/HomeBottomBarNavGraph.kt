@@ -1,7 +1,7 @@
 package com.aldeadavila.suggestionbox.presentation.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.runtime.Composable
@@ -32,7 +32,7 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
         }
 
         composable(route = HomeBottomBarScreen.CategoryList.route) {
-        //    ClientCategoryListScreen(navController)
+            //    ClientCategoryListScreen(navController)
         }
 
         composable(route = HomeBottomBarScreen.Profile.route) {
@@ -87,25 +87,26 @@ sealed class HomeBottomBarScreen(
     val title: String,
     val icon: ImageVector
 ) {
-    object CategoryList: HomeBottomBarScreen(
+    object CategoryList : HomeBottomBarScreen(
         route = "category",
         title = "Categorías",
-        icon = Icons.Default.List
+        icon = Icons.AutoMirrored.Filled.List
     )
 
-    object SuggestionList: HomeBottomBarScreen(
+    object SuggestionList : HomeBottomBarScreen(
         route = "suggestions",
         title = "Sugerencias",
         icon = Icons.Default.ThumbUp
     )
 
-    object Profile: HomeBottomBarScreen(
+    object Profile : HomeBottomBarScreen(
         route = "profile",
         title = "Perfíl",
         icon = Icons.Default.Person
     )
 
 }
+
 sealed class DetailsScreen(val route: String) {
 
     object CreateSuggestion : DetailsScreen("suggestions/create")

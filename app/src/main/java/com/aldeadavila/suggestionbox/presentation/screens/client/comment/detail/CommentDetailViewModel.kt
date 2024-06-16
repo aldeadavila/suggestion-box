@@ -26,7 +26,7 @@ class CommentDetailViewModel @Inject constructor(
     var comment = Comment.fromJson(data!!)
     val currentUser = authUseCases.getCurrentUser()
 
-    var user by mutableStateOf<User?> (null)
+    var user by mutableStateOf<User?>(null)
         private set
     var deleteCommentResponse by mutableStateOf<Response<Unit>?>(null)
         private set
