@@ -1,7 +1,8 @@
 package com.aldeadavila.suggestionbox.presentation.screens.profile.update.components
 
-import android.app.Activity
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -46,6 +46,7 @@ import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTextField
 import com.aldeadavila.suggestionbox.presentation.components.DialagoCapturePicture
 import com.aldeadavila.suggestionbox.presentation.screens.profile.update.ProfileUpdateViewModel
+import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.Constants
 import com.aldeadavila.suggestionbox.ui.theme.SuggestionBoxTheme
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
@@ -82,16 +83,16 @@ fun ProfileUpdateContent(
             Spacer(modifier = Modifier.padding(40.dp))
             Log.d(
                 "ProfileUpdateContent",
-                "Image: ${state.image}"
+                "Image: ${state.profileImagePathUrl}"
             )
-            if (!state.image.isNullOrBlank()) {
+            if (vm.state.profileImagePathUrl != "") {
                 AsyncImage(
                     modifier = Modifier
                         .size(150.dp)
                         .clip(CircleShape)
                         .align(Alignment.CenterHorizontally)
                         .clickable { stateDialog.value = true },
-                    model = state.image,
+                    model = vm.state.profileImagePathUrl,
                     contentDescription = "",
                     contentScale = ContentScale.Crop
                 )
@@ -101,7 +102,9 @@ fun ProfileUpdateContent(
                         .size(150.dp)
                         .clip(CircleShape)
                         .align(Alignment.CenterHorizontally)
-                        .clickable { stateDialog.value = true },
+                        .clickable {
+                            stateDialog.value = true
+                        },
                     painter = painterResource(id = R.drawable.user_image),
                     contentDescription = ""
                 )
@@ -125,7 +128,7 @@ fun ProfileUpdateContent(
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
-                    vm.onUpdate()
+                    vm.saveImage()
                 },
                 modifier = Modifier
                     .fillMaxWidth()

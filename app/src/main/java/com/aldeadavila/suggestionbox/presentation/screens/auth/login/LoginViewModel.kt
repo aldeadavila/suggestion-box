@@ -7,45 +7,37 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aldeadavila.suggestionbox.domain.model.AuthResponse
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.util.Resource
+import com.aldeadavila.suggestionbox.domain.model.Response
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase): ViewModel() {
+class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases): ViewModel() {
 
     var state by mutableStateOf(LoginState())
         private set
 
     var errorMessage by mutableStateOf("")
 
-    // LOGIN RESPONSE
-    var loginResource by mutableStateOf<Resource<AuthResponse>?>(null)
-        private set
+   var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null)
 
+    val currentUser = authUseCases.getCurrentUser()
     init {
-        getSessionData()
-    }
-    fun getSessionData() = viewModelScope.launch {
-        authUseCase.getSessionData().collect() { data ->
-            if (!data.token.isNullOrBlank()) {
-                loginResource = Resource.Succes(data)
-            }
+        if(currentUser != null) {
+            loginResponse = Response.Success(currentUser!!)
         }
     }
-    fun saveSession(authResponse: AuthResponse) = viewModelScope.launch {
-        authUseCase.saveSession(authResponse)
-    }
+
     fun login() = viewModelScope.launch {
         if (isValidateForm()) {
-            loginResource = Resource.Loading //esperando respuesta
-            val result = authUseCase.login(state.email, state.password) // devuelve la respuesta
+            loginResponse = Response.Loading
+            val result = authUseCases.login(state.email, state.password) // devuelve la respuesta
 
-            loginResource = result // respuesta exitosa o errónea
-            Log.d("LoginViewModel", "Response guay: ${loginResource}")
+            loginResponse = result
+            Log.d("LoginViewModel", "Response guay: ${loginResponse}")
         }
     }
 

@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.aldeadavila.suggestionbox.presentation.navigation.graph.root.RootNavGraph
+import com.aldeadavila.suggestionbox.presentation.navigation.RootNavGraph
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginScreen
 import com.aldeadavila.suggestionbox.ui.theme.SuggestionBoxTheme
 import dagger.hilt.android.AndroidEntryPoint

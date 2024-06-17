@@ -1,20 +1,18 @@
 package com.aldeadavila.suggestionbox.domain.repository
 
-import com.aldeadavila.suggestionbox.domain.model.AuthResponse
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.domain.util.Resource
-import kotlinx.coroutines.flow.Flow
+import com.google.firebase.auth.FirebaseUser
 
 interface AuthRepository {
 
-    suspend fun login(email:String, password:String): Resource<AuthResponse>
+    val currentUser: FirebaseUser?
 
-    suspend fun register(user: User): Resource<AuthResponse>
+    suspend fun login(email:String, password:String): Response<FirebaseUser>
 
-    suspend fun saveSession(authResponse: AuthResponse)
+    suspend fun signUp(user: User): Response<FirebaseUser>
 
-    suspend fun updateSession(user: User)
-    suspend fun logout()
-    fun getSessionData(): Flow<AuthResponse>
+    fun logout()
+
 
 }

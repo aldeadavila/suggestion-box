@@ -6,51 +6,64 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aldeadavila.suggestionbox.domain.model.AuthResponse
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.auth.register.mapper.toUser
+import com.aldeadavila.suggestionbox.domain.model.Response
+import com.aldeadavila.suggestionbox.domain.model.User
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
+import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCases
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase) : ViewModel() {
+class RegisterViewModel @Inject constructor(
+    private val authUseCases: AuthUseCases,
+    private val usersUseCases: UsersUseCases
+    ) : ViewModel() {
 
     var state by mutableStateOf(RegisterState())
         private set
 
     var errorMessage by mutableStateOf("")
 
-    var registerResponse by mutableStateOf<Resource<AuthResponse>?>(null)
+    var registerResponse by mutableStateOf<Response<FirebaseUser>?>(null)
         private set
 
-    fun saveSession(authResponse: AuthResponse) = viewModelScope.launch {
-        authUseCase.saveSession(authResponse)
-    }
+    var user = User()
 
-    fun register() = viewModelScope.launch {
+    fun createUser() = viewModelScope.launch {
+        user.id = authUseCases.getCurrentUser()!!.uid
+        usersUseCases.createUser(user)
+    }
+    fun signUp(user: User) = viewModelScope.launch {
         if (isValidateForm()) {
-            registerResponse = Resource.Loading
-            val result = authUseCase.register(state.toUser())
+            registerResponse = Response.Loading
+            val result = authUseCases.signUp(user)
             registerResponse = result
         }
     }
 
-    fun onNicknameInput(input: String) {
-        state = state.copy(nickname = input)
+    fun onSignUp() {
+        user.nickname = state.nickname
+        user.email = state.email
+        user.password = state.password
+        signUp(user)
     }
 
-    fun onEmailInput(input: String) {
-        state = state.copy(email = input)
+    fun onNicknameInput(nickname: String) {
+        state = state.copy(nickname = nickname)
     }
 
-    fun onPasswordInput(input: String) {
-        state = state.copy(password = input)
+    fun onEmailInput(email: String) {
+        state = state.copy(email = email)
     }
 
-    fun onConfirmPasswordInput(input: String) {
-        state = state.copy(confirmPassword = input)
+    fun onPasswordInput(password: String) {
+        state = state.copy(password = password)
+    }
+
+    fun onConfirmPasswordInput(password: String) {
+        state = state.copy(confirmPassword = password)
     }
 
     fun isValidateForm(): Boolean {

@@ -7,23 +7,23 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Category
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
-import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCase
-import com.aldeadavila.suggestionbox.domain.util.Resource
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ClientSuggestionListByCategoryViewModel @Inject constructor(
-    private val suggestionsUseCase: SuggestionsUseCase,
+    private val suggestionsUseCases: SuggestionsUseCases,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     var data = savedStateHandle.get<String>("category")
     var category = Category.fromJson(data!!)
 
-    var suggestionResponse by mutableStateOf<Resource<List<Suggestion>>?>(null)
+    var suggestionResponse by mutableStateOf<Response<List<Suggestion>>?>(null)
         private set
 
     init {
@@ -31,10 +31,10 @@ class ClientSuggestionListByCategoryViewModel @Inject constructor(
     }
 
     private fun getSuggestions() = viewModelScope.launch {
-        suggestionResponse = Resource.Loading
-        suggestionsUseCase.findByCategory(category.id!!).collect {
+        suggestionResponse = Response.Loading
+       /* suggestionsUseCase.findByCategory(category.id!!).collect {
             suggestionResponse = it
-        }
+        }*/
     }
 
 }

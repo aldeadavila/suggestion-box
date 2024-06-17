@@ -24,7 +24,7 @@ fun RegisterScreen(navController: NavHostController) {
             )
         }
     ) { paddingValues ->
-        RegisterContent(paddingValues = paddingValues)
+        RegisterContent(paddingValues = paddingValues, navHostController = navController)
     }
     Register(navController)
 }

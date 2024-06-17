@@ -6,45 +6,31 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.aldeadavila.suggestionbox.domain.util.Resource
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginViewModel
 
 @Composable
-fun Login(navController: NavHostController, vm: LoginViewModel = hiltViewModel()) {
+fun Login(navHostController: NavHostController,viewModel: LoginViewModel =  hiltViewModel()) {
 
-    when(val response = vm.loginResource) {
-        Resource.Loading -> {
+    when(val loginRespponse = viewModel.loginResponse) {
+        Response.Loading -> {
             ProgressBar()
         }
-        is Resource.Succes -> {
-            vm.saveSession(response.data)
-
+        is Response.Success -> {
             LaunchedEffect(Unit) {
-
-                if(response.data.user?.roles!!.size > 1) {
-                    navController.navigate(route = Graph.ROLES) {
-                        popUpTo(Graph.AUTH) { inclusive = true }
-                    }
-                } else { // usuario con un solo rol
-                    navController.navigate(route = Graph.CLIENT) {
-                        popUpTo(Graph.AUTH) { inclusive = true }
-                    }
+                navHostController.navigate(route = Graph.HOME) {
+                    popUpTo(Graph.AUTH) { inclusive = true }
                 }
-
             }
+
+        }
+        is Response.Failure -> {
+            Toast.makeText(LocalContext.current, loginRespponse.exception?.message ?: "Error desconocido", Toast.LENGTH_LONG).show()
         }
 
-        is Resource.Failure -> {
-            Toast.makeText(LocalContext.current, response.message, Toast.LENGTH_SHORT).show()
-        }
-
-        else -> {
-            if(response != null) {
-                Toast.makeText(LocalContext.current, "Hubo un error desconocido", Toast.LENGTH_SHORT).show()
-            }
-        }
+        else -> {}
     }
 
 }

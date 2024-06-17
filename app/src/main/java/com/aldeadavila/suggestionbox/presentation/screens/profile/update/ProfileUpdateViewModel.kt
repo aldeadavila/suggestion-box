@@ -7,11 +7,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
-import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCase
-import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.presentation.screens.profile.update.mapper.toUser
+import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCases
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,8 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileUpdateViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase,
-    private val usersUseCase: UsersUseCase,
+    private val usersUseCases: UsersUseCases,
     private val savedStateHandle: SavedStateHandle,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
@@ -34,60 +31,55 @@ class ProfileUpdateViewModel @Inject constructor(
     val data = savedStateHandle.get<String>("user")
     var user = User.fromJson(data!!)
 
-    //imagenes
+
     var file: File? = null
     val resultingActivityHandler = ResultingActivityHandler()
 
-    var updateResponse by mutableStateOf<Resource<User>?>(null)
+    var updateResponse by mutableStateOf<Response<Boolean>?>(null)
+        private set
+
+    var saveImageResponse by mutableStateOf<Response<String>?>(null)
         private set
 
     init {
         state = state.copy(
             nickname = user.nickname,
-            image = user.image
+            profileImagePathUrl = user.profileImagePathUrl
         )
     }
 
-    fun updateUsersWithImage() = viewModelScope.launch {
-        updateResponse = Resource.Loading
-        val result = usersUseCase.updateUserWithImageUseCase(
-            user.id ?: "",
-            state.toUser(),
-            file!!
+    fun onUpdate(url: String) {
+        val myUser = User (
+            id = user.id,
+            nickname = state.nickname,
+            profileImagePathUrl = url
         )
-        updateResponse = result
+        update(myUser)
     }
 
-    fun onUpdate() {
+    fun saveImage() = viewModelScope.launch {
         if (file != null) {
-            updateUsersWithImage()
-        } else {
-            update()
+            saveImageResponse = Response.Loading
+            val result = usersUseCases.saveImage(file!!, user.id)
+            saveImageResponse = result
         }
     }
 
-    fun updateUserSession(userResponse: User) = viewModelScope.launch {
-        authUseCase.updateSession(userResponse)
-    }
-
-    fun update() = viewModelScope.launch {
-
-        updateResponse = Resource.Loading
-        val result = usersUseCase.updateUser(
-            user.id ?: "",
-            state.toUser()
-        )
+    fun update(user: User) = viewModelScope.launch {
+        updateResponse = Response.Loading
+        val result = usersUseCases.updateUser(user)
         updateResponse = result
     }
 
     fun pickImage() = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("image/*")
+
         if (result != null) {
             file = ComposeFileProvider.createFileFromUri(
                 context,
                 result
             )
-            state = state.copy(image = result.toString())
+            state = state.copy(profileImagePathUrl = result.toString())
         }
     }
 
@@ -95,12 +87,12 @@ class ProfileUpdateViewModel @Inject constructor(
         val result = resultingActivityHandler.takePicturePreview()
         if (result != null) {
             state = state.copy(
-                image = ComposeFileProvider.getPathFromBitmap(
+                profileImagePathUrl = ComposeFileProvider.getPathFromBitmap(
                     context,
                     result
                 )
             )
-            file = File(state.image)
+            file = File(state.profileImagePathUrl)
         }
     }
 
@@ -108,8 +100,5 @@ class ProfileUpdateViewModel @Inject constructor(
         state = state.copy(nickname = input)
     }
 
-    fun onImageInput(input: String) {
-        state = state.copy(image = input)
-    }
 
 }

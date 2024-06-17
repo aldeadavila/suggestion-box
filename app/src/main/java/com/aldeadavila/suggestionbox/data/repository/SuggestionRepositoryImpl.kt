@@ -1,151 +1,141 @@
 package com.aldeadavila.suggestionbox.data.repository
 
-import com.aldeadavila.suggestionbox.data.datasource.local.SuggestionsLocalDataSource
-import com.aldeadavila.suggestionbox.data.datasource.remote.SuggestionsRemoteDataSource
-import com.aldeadavila.suggestionbox.data.mapper.toSuggestion
-import com.aldeadavila.suggestionbox.data.mapper.toSuggestionEntity
+
+import android.net.Uri
+import com.aldeadavila.suggestionbox.core.Config.SUGGESTIONS
+import com.aldeadavila.suggestionbox.core.Config.USERS
+import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
+import com.aldeadavila.suggestionbox.domain.model.User
 import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
-import com.aldeadavila.suggestionbox.domain.util.Resource
-import com.aldeadavila.suggestionbox.domain.util.ResponseToRequest
-import com.aldeadavila.suggestionbox.domain.util.isListEqual
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.io.File
+import javax.inject.Inject
+import javax.inject.Named
 
-class SuggestionRepositoryImpl(
-    private val suggestionsRemoteDataSource: SuggestionsRemoteDataSource,
-    private val suggestionsLocalDataSource: SuggestionsLocalDataSource
-    ):SuggestionRepository {
-    override fun findAll(): Flow<Resource<List<Suggestion>>> = flow {
-        suggestionsLocalDataSource.getSuggestions().collect() {
-            it.run {
-                val suggestionsLocalMap = this.map { suggestionEntity -> suggestionEntity.toSuggestion() }
-                try {
-                    ResponseToRequest.send(suggestionsRemoteDataSource.findAll()).run {
-                        when(this) {
-                            is Resource.Succes -> {
-                                val suggestionRemote = this.data
+class SuggestionRepositoryImpl @Inject constructor(
+    @Named(SUGGESTIONS) private val suggestionsRef: CollectionReference,
+    @Named(USERS) private val usersRef: CollectionReference,
+    @Named(SUGGESTIONS) private val storageSuggestionsRef: StorageReference
+) : SuggestionRepository {
 
-                                if(!isListEqual(suggestionRemote, suggestionsLocalMap)) {
-                                    suggestionsLocalDataSource.insertAll(suggestionRemote.map { suggestion ->  suggestion.toSuggestionEntity()})
+    override suspend fun updateSuggestion(
+        suggestion: Suggestion,
+        files: List<File>
+    ): Response<Boolean> {
+        return try {
+            if (files[0] != null) {
+                val fromFile0 = Uri.fromFile(files[0])
+                val ref0 = storageSuggestionsRef.child(files[0].name)
+                ref0.putFile(fromFile0).await()
+                val url0 = ref0.downloadUrl.await()
+                suggestion.images.add(0, url0.toString())
+            }
+
+            if (files[1] != null) {
+                val fromFile1 = Uri.fromFile(files[1])
+                val ref1 = storageSuggestionsRef.child(files[1].name)
+                ref1.putFile(fromFile1).await()
+                val url1 = ref1.downloadUrl.await()
+                suggestion.images.add(1, url1.toString())
+            }
+
+            val map: MutableMap<String, Any> = HashMap()
+            map["title"] = suggestion.title
+            map["description"] = suggestion.description
+            map["category"] = suggestion.category
+            if (files[0] != null || files[1] != null) {
+                map["images"] = suggestion.images
+            }
+            map["title"] = suggestion.title
+
+            suggestionsRef.document(suggestion.suggestion_id).update(map).await()
+            Response.Success(true)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
+
+    override suspend fun createSuggestion(
+        suggestion: Suggestion,
+        files: List<File>
+    ): Response<Boolean> {
+        return try {
+
+            val fromFile0 = Uri.fromFile(files[0])
+            val ref0 = storageSuggestionsRef.child(files[0].name)
+            ref0.putFile(fromFile0).await()
+            val url0 = ref0.downloadUrl.await()
+            suggestion.images.add(0, url0.toString())
+
+            val fromFile1 = Uri.fromFile(files[1])
+            val ref1 = storageSuggestionsRef.child(files[1].name)
+            ref1.putFile(fromFile1).await()
+            val url1 = ref1.downloadUrl.await()
+            suggestion.images.add(1, url1.toString())
+
+            //Generamos el id
+            val document = suggestionsRef.document()
+
+            suggestion.suggestion_id = document.id
+            suggestionsRef.document(document.id).set(suggestion).await()
+            Response.Success(true)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
+
+    override fun getSuggestions(): Flow<Response<List<Suggestion>>> = callbackFlow {
+
+        val snapshopListener = suggestionsRef.addSnapshotListener { snapshot, e ->
+
+            GlobalScope.launch(Dispatchers.IO) {
+                val suggestionResponse = if (snapshot != null) {
+                    val suggestions = snapshot.toObjects(Suggestion::class.java)
+                    val idUserArray = ArrayList<String>()
+                    suggestions.forEach { suggestion ->
+                        idUserArray.add(suggestion.user_id)
+                    }
+
+                    val idUserList = idUserArray.toSet().toList()
+                    idUserList.map { id ->
+                        async {
+                            val user = usersRef.document(id).get().await().toObject(
+                                User::class.java
+                            )!!
+                            suggestions.forEach { suggestion ->
+                                if (suggestion.user_id == id) {
+                                    suggestion.user = user
                                 }
-
-                                emit(Resource.Succes(suggestionRemote))
-                            }
-                            else -> {
-                                emit(Resource.Succes(suggestionsLocalMap))
                             }
                         }
+                    }.forEach {
+                        it.await()
                     }
-                }catch (e: Exception) {
-                    emit(Resource.Succes(suggestionsLocalMap))
+                    Response.Success(suggestions)
+                } else {
+                    Response.Failure(Exception(e?.message ?: "Error desconocido"))
                 }
+                trySend(suggestionResponse)
             }
         }
-    }.flowOn(Dispatchers.IO)
-
-    override fun findByCategory(idCategory: String): Flow<Resource<List<Suggestion>>> = flow {
-        suggestionsLocalDataSource.findByCategory(idCategory).collect() {
-            it.run {
-                val suggestionsLocalMap = this.map { suggestionEntity -> suggestionEntity.toSuggestion() }
-                try {
-                    ResponseToRequest.send(suggestionsRemoteDataSource.findByCategory(idCategory)).run {
-                        when(this) {
-                            is Resource.Succes -> {
-                                val suggestionsRemote = this.data
-
-                                if(!isListEqual(suggestionsRemote, suggestionsLocalMap)) {
-                                    suggestionsLocalDataSource.insertAll(suggestionsRemote.map { suggestion ->  suggestion.toSuggestionEntity()})
-                                }
-
-                                emit(Resource.Succes(suggestionsRemote))
-                            }
-                            else -> {
-                                emit(Resource.Succes(suggestionsLocalMap))
-                            }
-                        }
-                    }
-                }catch (e: Exception) {
-                    emit(Resource.Succes(suggestionsLocalMap))
-                }
-            }
+        awaitClose {
+            snapshopListener.remove()
         }
-    }.flowOn(Dispatchers.IO)
 
-
-    override suspend fun create(suggestion: Suggestion, files: List<File>): Resource<Suggestion> {
-
-        ResponseToRequest.send(suggestionsRemoteDataSource.create(suggestion, files)).run {
-            return when(this) {
-                is Resource.Succes -> {
-                    suggestionsLocalDataSource.create(this.data.toSuggestionEntity())
-                    Resource.Succes(this.data)
-                }
-                else -> {
-                    Resource.Failure("Error desconocido")
-                }
-            }
-        }
-    }
-
-    override suspend fun updateWithImage(id:String, suggestion: Suggestion, files: List<File>?): Resource<Suggestion> {
-        ResponseToRequest.send(suggestionsRemoteDataSource.updateWithImage(id, suggestion, files)).run {
-            return when(this) {
-                is Resource.Succes -> {
-                    suggestionsLocalDataSource.update(
-                        id = this.data.id ?: "",
-                        name = this.data.name,
-                        description = this.data.description,
-                        image1 = this.data.image1 ?: "",
-                        image2 = this.data.image2 ?: "",
-                    )
-                    Resource.Succes(this.data)
-                }
-                else -> {
-                    Resource.Failure("Error desconocido")
-                }
-            }
-        }
-    }
-
-    override suspend fun update(id: String, suggestion: Suggestion): Resource<Suggestion> {
-        ResponseToRequest.send(suggestionsRemoteDataSource.update(id, suggestion)).run {
-            return when(this) {
-                is Resource.Succes -> {
-                    suggestionsLocalDataSource.update(
-                        id = this.data.id ?: "",
-                        name = this.data.name,
-                        description = this.data.description,
-                        image1 = this.data.image1 ?: "",
-                        image2 = this.data.image2 ?: "",
-
-                    )
-                    Resource.Succes(this.data)
-                }
-                else -> {
-                    Resource.Failure("Error desconocido")
-                }
-            }
-        }
-    }
-
-
-
-    override suspend fun detele(id: String): Resource<Unit> {
-        ResponseToRequest.send(suggestionsRemoteDataSource.detele(id)).run {
-            return when(this) {
-                is Resource.Succes -> {
-                   suggestionsLocalDataSource.delete(id)
-                    Resource.Succes(Unit)
-                }
-                else -> {
-                    Resource.Failure("Error desconocido")
-                }
-            }
-        }
     }
 
 

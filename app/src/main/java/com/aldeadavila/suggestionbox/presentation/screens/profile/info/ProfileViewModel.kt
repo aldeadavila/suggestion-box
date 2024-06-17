@@ -6,26 +6,30 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.User
-import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
+import com.aldeadavila.suggestionbox.domain.usecase.users.UsersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val authUseCase: AuthUseCase): ViewModel() {
+class ProfileViewModel @Inject constructor(
+    private val authUseCases: AuthUseCases,
+    private val usersUseCases: UsersUseCases): ViewModel() {
 
-    var user by mutableStateOf<User?> (null)
+    var userData by mutableStateOf(User())
         private set
 
     init {
-        getSessionDate()
+        getUserById()
     }
-    fun getSessionDate() = viewModelScope.launch {
-        authUseCase.getSessionData().collect() { data ->
-            user = data.user
+
+    fun logout() =  authUseCases.logout()
+
+    private fun getUserById() = viewModelScope.launch {
+        usersUseCases.getUserByIdUseCase(authUseCases.getCurrentUser()!!.uid).collect() {
+            userData = it
         }
     }
-    fun logout() = viewModelScope.launch {
-        authUseCase.logout()
-    }
+
 }

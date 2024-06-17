@@ -44,6 +44,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTextField
 import com.aldeadavila.suggestionbox.presentation.components.NormalTextComponent
@@ -59,6 +60,7 @@ import com.aldeadavila.suggestionbox.ui.theme.poppins
 @Composable
 fun RegisterContent(
     paddingValues: PaddingValues,
+    navHostController: NavHostController,
     vm: RegisterViewModel = hiltViewModel()
 ) {
 
@@ -85,7 +87,7 @@ fun RegisterContent(
                 paddingValues = paddingValues
             )
             .fillMaxSize()
-            .clickable{keyboard?.hide()},
+            .clickable { keyboard?.hide() },
     ) {
 
         Image(
@@ -164,7 +166,7 @@ fun RegisterContent(
                 Button(
                     onClick = {
                         keyboard?.hide()
-                        vm.register()
+                        vm.onSignUp()
                     },
                     modifier = Modifier
                         .fillMaxWidth()

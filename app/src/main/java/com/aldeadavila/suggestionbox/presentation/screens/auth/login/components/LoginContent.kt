@@ -52,9 +52,8 @@ import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.AuthenticationField
 import com.aldeadavila.suggestionbox.presentation.components.NormalTextComponent
 import com.aldeadavila.suggestionbox.presentation.components.TitleTextComponent
-import com.aldeadavila.suggestionbox.presentation.navigation.screen.auth.AuthScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginViewModel
-import com.aldeadavila.suggestionbox.presentation.util.Constants.FORGOT_PASSWORD
 import com.aldeadavila.suggestionbox.presentation.util.Constants.NO_ACCOUNT
 import com.aldeadavila.suggestionbox.presentation.util.Constants.SIGN_IN_BUTTON
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
@@ -100,7 +99,7 @@ fun LoginContent(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 40.dp)
-            .clickable{keyboard?.hide()},
+            .clickable { keyboard?.hide() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TitleTextComponent(value = stringResource(id = R.string.do_login))
@@ -215,5 +214,6 @@ fun LoginContent(
         }
 
     }
+
 
 }
