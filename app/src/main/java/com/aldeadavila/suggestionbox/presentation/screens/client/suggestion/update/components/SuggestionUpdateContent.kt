@@ -89,7 +89,7 @@ fun ClientSuggestionUpdateContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(paddingValues),
+                .padding(bottom = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(40.dp))
