@@ -50,6 +50,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.AuthenticationField
+import com.aldeadavila.suggestionbox.presentation.components.GoogleSignInButton
 import com.aldeadavila.suggestionbox.presentation.components.NormalTextComponent
 import com.aldeadavila.suggestionbox.presentation.components.TitleTextComponent
 import com.aldeadavila.suggestionbox.presentation.navigation.AuthScreen
@@ -184,6 +185,8 @@ fun LoginContent(
                 )
             }
         }
+
+        GoogleSignInButton(navController)
 
         Column(
             modifier = Modifier.align(alignment = Alignment.CenterHorizontally),

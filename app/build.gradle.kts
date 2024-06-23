@@ -66,8 +66,13 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
 
 
+    val ggogle_credentielas = "1.2.2"
     val nav_version = "2.7.7"
     val room_version = "2.6.1"
+
+    implementation("androidx.credentials:credentials:$ggogle_credentielas")
+    implementation ("androidx.credentials:credentials-play-services-auth:$ggogle_credentielas")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
@@ -80,6 +85,10 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.6.8")
     implementation("androidx.compose.material:material-icons-extended:1.6.8")
     implementation("androidx.compose.material:material:1.6.8")
+
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    }
 
 
     //ROOM
