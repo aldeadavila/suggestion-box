@@ -85,7 +85,7 @@ fun ProfileContent(
                 }) {
                 Image(
                     modifier = Modifier.size(35.dp),
-                    painter = painterResource(id = R.drawable.logout),
+                    painter = painterResource(id = R.drawable.ic_logout),
                     contentDescription = ""
                 )
 
@@ -107,7 +107,7 @@ fun ProfileContent(
                         .size(150.dp)
                         .clip(CircleShape)
                         .align(Alignment.CenterHorizontally),
-                    painter = painterResource(id = R.drawable.user_image),
+                    painter = painterResource(id = R.drawable.ic_user),
                     contentDescription = ""
                 )
             }

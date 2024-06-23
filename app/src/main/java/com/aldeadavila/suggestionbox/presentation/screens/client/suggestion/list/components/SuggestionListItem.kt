@@ -1,5 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -11,14 +12,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.rounded.ShoppingCart
+
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,6 +35,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
+import com.aldeadavila.suggestionbox.presentation.components.AlertDialogSuggestion
 import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.SuggestionListViewModel
 
@@ -35,6 +45,9 @@ fun SuggestionListItem(
     suggestion: Suggestion,
     vm: SuggestionListViewModel = hiltViewModel()
 ) {
+
+    val openAlertDialog = remember { mutableStateOf(false) }
+
 
     Column(
         modifier = Modifier
@@ -108,7 +121,7 @@ fun SuggestionListItem(
                                         )
                                     )
                                 },
-                            painter = painterResource(id = R.drawable.edit),
+                            painter = painterResource(id = R.drawable.ic_edit),
                             contentDescription = "editar"
                         )
                         Spacer(modifier = Modifier.height(5.dp))
@@ -116,11 +129,24 @@ fun SuggestionListItem(
                             modifier = Modifier
                                 .size(20.dp)
                                 .clickable {
-                                    // vm.deleteSuggestion(suggestion.id ?: "")
+                                    openAlertDialog.value = true
                                 },
-                            painter = painterResource(id = R.drawable.trash),
+                            painter = painterResource(id = R.drawable.ic_delete),
                             contentDescription = "eliminar"
                         )
+                        if(openAlertDialog.value) {
+                            AlertDialogSuggestion(
+                                onDismissRequest = { openAlertDialog.value = false },
+                                onConfirmation = {
+                                    openAlertDialog.value = false
+                                    vm.deleteSuggestion(suggestion.suggestion_id)
+
+                                },
+                                dialogTitle = "Borrar sugerencia",
+                                dialogText = "¿Estás seguro de que quiere borrar esta sugerencia?",
+                                icon = Icons.Default.Info
+                            )
+                        }
                     }
                 }
             } else {

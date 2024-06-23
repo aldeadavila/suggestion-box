@@ -121,7 +121,7 @@ fun ClientSuggestionUpdateContent(
                                 stateDialog.value = true
                                 stateDialogImageNumber.value = 1
                             },
-                        painter = painterResource(id = R.drawable.image_add),
+                        painter = painterResource(id = R.drawable.ic_add),
                         contentDescription = ""
                     )
                 }
@@ -150,7 +150,7 @@ fun ClientSuggestionUpdateContent(
                                 stateDialog.value = true
                                 stateDialogImageNumber.value = 2
                             },
-                        painter = painterResource(id = R.drawable.image_add),
+                        painter = painterResource(id = R.drawable.ic_add),
                         contentDescription = ""
                     )
                 }

@@ -12,4 +12,5 @@ interface SuggestionRepository {
 
     suspend fun updateSuggestion(suggestion: Suggestion, files: List<File>): Response<Boolean>
 
+    suspend fun delete(idPost: String): Response<Boolean>
 }

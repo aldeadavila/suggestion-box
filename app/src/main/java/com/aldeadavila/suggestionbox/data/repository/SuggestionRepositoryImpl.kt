@@ -67,6 +67,16 @@ class SuggestionRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun delete(idSuggestion: String): Response<Boolean> {
+        return try {
+            suggestionsRef.document(idSuggestion).delete().await()
+            Response.Success(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
+
     override suspend fun createSuggestion(
         suggestion: Suggestion,
         files: List<File>

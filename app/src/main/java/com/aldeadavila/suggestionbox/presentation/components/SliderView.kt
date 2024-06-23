@@ -50,7 +50,7 @@ fun SliderView(state: PagerState, images: List<String>) {
                 val painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current).data(data = imageUrl.value)
                         .apply(block = fun ImageRequest.Builder.() {
-                            placeholder(R.drawable.user_image)
+                            placeholder(R.drawable.ic_user)
                             scale(Scale.FILL)
                         }).build()
                 )

@@ -4,5 +4,6 @@ data class SuggestionsUseCases(
     val createSuggestionUseCase: CreateSuggestionUseCase,
     val findByCategory: FindByCategoryUseCase,
     val getSuggestionsUseCase: getSuggestionsUseCase,
-    val updateSuggestion: UpdateSuggestionUseCase
+    val updateSuggestion: UpdateSuggestionUseCase,
+    val deleteSuggestion: DeleteSuggestionUseCase
 )
