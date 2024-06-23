@@ -64,14 +64,15 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
+    implementation("com.google.android.gms:play-services-wallet:19.4.0")
 
 
-    val ggogle_credentielas = "1.2.2"
+    val google_credentielas = "1.2.2"
     val nav_version = "2.7.7"
     val room_version = "2.6.1"
 
-    implementation("androidx.credentials:credentials:$ggogle_credentielas")
-    implementation ("androidx.credentials:credentials-play-services-auth:$ggogle_credentielas")
+    implementation("androidx.credentials:credentials:$google_credentielas")
+    implementation ("androidx.credentials:credentials-play-services-auth:$google_credentielas")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
 
     implementation("androidx.core:core-ktx:1.13.1")

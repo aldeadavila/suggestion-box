@@ -4,9 +4,11 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -184,14 +186,18 @@ fun LoginContent(
                     ),
                 )
             }
+
+
         }
 
-        GoogleSignInButton(navController)
-
-        Column(
-            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Spacer(modifier = Modifier.height(16.dp))
+        Row (
+            horizontalArrangement = Arrangement.Center
         ) {
+            GoogleSignInButton(navController)
+        }
+
+
             Text(
                 text = NO_ACCOUNT,
                 color = Color.Black,
@@ -201,21 +207,19 @@ fun LoginContent(
                     }
                     .padding(top = 10.dp),
                 style = TextStyle(
-                    fontSize = 12.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
                     fontStyle = FontStyle.Normal,
                     fontFamily = poppins
                 ),
             )
 
+
             Image(
                 painter = painterResource(id = R.drawable.logo_avaldeadavilacorporario),
                 contentDescription = "Agrupación vecinal de Aldeadávila",
                 modifier = Modifier.size(500.dp)
             )
-
-        }
-
     }
 
 

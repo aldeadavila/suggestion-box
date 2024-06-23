@@ -3,12 +3,24 @@ package com.aldeadavila.suggestionbox.presentation.components
 import android.content.ContentValues.TAG
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
@@ -17,7 +29,10 @@ import androidx.credentials.PasswordCredential
 import androidx.credentials.PublicKeyCredential
 import androidx.credentials.exceptions.GetCredentialException
 import androidx.navigation.NavHostController
+import com.aldeadavila.suggestionbox.R
+import com.aldeadavila.suggestionbox.core.Config.WEB_CLIENT_ID
 import com.aldeadavila.suggestionbox.presentation.navigation.Graph
+import com.google.android.gms.wallet.button.ButtonConstants
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
@@ -30,7 +45,7 @@ import java.util.UUID
 
 
 @Composable
-fun GoogleSignInButton(navHostController: NavHostController ) {
+fun GoogleSignInButton(navHostController: NavHostController) {
 
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -48,7 +63,8 @@ fun GoogleSignInButton(navHostController: NavHostController ) {
 
         val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(true)
-            .setServerClientId("858759898662-r1dt9j4djag9gind2m560hue7si3g3ag.apps.googleusercontent.com")
+            .setServerClientId(WEB_CLIENT_ID)
+            .setAutoSelectEnabled(true)
             .setNonce(hashNonce)
             .build()
 
@@ -74,8 +90,7 @@ fun GoogleSignInButton(navHostController: NavHostController ) {
                         navHostController.navigate(route = Graph.HOME)
                     }
                 }
-                Log.i(TAG, googleIdToken)
-                Toast.makeText(context, "You are sign in with Google", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Has entrado con tu cuenta de google", Toast.LENGTH_SHORT).show()
             } catch (e: GetCredentialException) {
                 Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
             } catch (e: GoogleIdTokenParsingException) {
@@ -85,54 +100,10 @@ fun GoogleSignInButton(navHostController: NavHostController ) {
         }
 
     }
-    Button(onClick = onClick )
-    {
-        Text(text = "Login con Google")
-    }
-
-    fun handleSignIn(result: GetCredentialResponse) {
-        // Handle the successfully returned credential.
-        val credential = result.credential
-
-        when (credential) {
-
-            // Passkey credential
-            is PublicKeyCredential -> {
-                // Share responseJson such as a GetCredentialResponse on your server to
-                // validate and authenticate
-                credential.authenticationResponseJson
-            }
-
-            // Password credential
-            is PasswordCredential -> {
-                // Send ID and password to your server to validate and authenticate.
-                val username = credential.id
-                val password = credential.password
-            }
-
-            // GoogleIdToken credential
-            is CustomCredential -> {
-                if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
-                    try {
-                        // Use googleIdTokenCredential and extract id to validate and
-                        // authenticate on your server.
-                        val googleIdTokenCredential = GoogleIdTokenCredential
-                            .createFrom(credential.data)
-                    } catch (e: GoogleIdTokenParsingException) {
-                        Log.e(TAG, "Received an invalid google id token response", e)
-                    }
-                } else {
-                    // Catch any unrecognized custom credential type here.
-                    Log.e(TAG, "Unexpected type of credential")
-                }
-            }
-
-            else -> {
-                // Catch any unrecognized credential type here.
-                Log.e(TAG, "Unexpected type of credential")
-            }
-        }
-    }
-
-
+    Image(
+        modifier = Modifier.clickable{ onClick()},
+        painter = painterResource(id = R.drawable.android_dark_rd_ctn),
+        contentDescription = "Icono de Google",
+        alignment = Alignment.Center
+    )
 }
