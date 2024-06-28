@@ -34,7 +34,7 @@ class SuggestionListViewModel @Inject constructor(
 
     init {
         getUserById()
-        getSuggestions()
+
     }
 
 

@@ -57,16 +57,12 @@ fun SuggestionListItem(
                 top = 5.dp
             )
             .height(110.dp)
-            .clickable {
-                navHostController.navigate(
-                    route = DetailsScreen.DetailSuggestion.passSuggestion(
-                        suggestion.toJson()
-                    )
-                )
-            }
+
 
     ) {
-        Row {
+        Row (
+
+        ){
 
             Column(
                 modifier = Modifier.weight(1f)
@@ -74,7 +70,15 @@ fun SuggestionListItem(
                 Text(
                     text = vm.printTitle(suggestion.title),
                     color = Color.Black,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                            modifier = Modifier
+                            .clickable {
+                        navHostController.navigate(
+                            route = DetailsScreen.DetailSuggestion.passSuggestion(
+                                suggestion.toJson()
+                            )
+                        )
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(5.dp))

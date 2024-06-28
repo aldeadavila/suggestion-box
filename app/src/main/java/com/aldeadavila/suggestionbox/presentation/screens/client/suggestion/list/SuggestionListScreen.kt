@@ -10,13 +10,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components.GetSuggestions
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SuggestionListScreen(navHostController: NavHostController) {
+fun SuggestionListScreen(navHostController: NavHostController, vm: SuggestionListViewModel = hiltViewModel()) {
+
+    vm.getSuggestions()
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -30,7 +34,7 @@ fun SuggestionListScreen(navHostController: NavHostController) {
             }
         }
     ) {
-        GetSuggestions(
+         GetSuggestions(
             navHostController = navHostController
         )
     }
