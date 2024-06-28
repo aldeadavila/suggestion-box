@@ -33,7 +33,7 @@ class SuggestionRepositoryImpl @Inject constructor(
         files: List<File>
     ): Response<Boolean> {
         return try {
-            if (files[0] != null) {
+            if (files.isNotEmpty() && files[0] != null) {
                 val fromFile0 = Uri.fromFile(files[0])
                 val ref0 = storageSuggestionsRef.child(files[0].name)
                 ref0.putFile(fromFile0).await()
@@ -41,7 +41,7 @@ class SuggestionRepositoryImpl @Inject constructor(
                 suggestion.images.add(0, url0.toString())
             }
 
-            if (files[1] != null) {
+            if (files.size > 1 && files[1] != null) {
                 val fromFile1 = Uri.fromFile(files[1])
                 val ref1 = storageSuggestionsRef.child(files[1].name)
                 ref1.putFile(fromFile1).await()
@@ -53,10 +53,9 @@ class SuggestionRepositoryImpl @Inject constructor(
             map["title"] = suggestion.title
             map["description"] = suggestion.description
             map["category"] = suggestion.category
-            if (files[0] != null || files[1] != null) {
+            if (files.isNotEmpty()) {
                 map["images"] = suggestion.images
             }
-            map["title"] = suggestion.title
 
             suggestionsRef.document(suggestion.suggestion_id).update(map).await()
             Response.Success(true)
