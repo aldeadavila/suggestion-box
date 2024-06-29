@@ -69,7 +69,14 @@ class CommentsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun delete(id: String): Response<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun delete(id: String): Response<Boolean> {
+        return try {
+            commentsRef.document(id).delete().await()
+            Response.Success(true)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
     }
 }

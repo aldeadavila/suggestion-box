@@ -11,5 +11,5 @@ interface CommentsRepository {
     fun findByUser(idUser: String): Flow<Response<List<Comment>>>
     suspend fun createComment(comment: Comment): Response<Boolean>
     suspend fun update(id:String, comment: Comment): Response<Comment>
-    suspend fun delete(id: String): Response<Unit>
+    suspend fun delete(id: String): Response<Boolean>
 }

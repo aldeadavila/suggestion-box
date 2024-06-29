@@ -13,9 +13,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
+import com.aldeadavila.suggestionbox.presentation.components.AlertDialogSuggestion
 import com.aldeadavila.suggestionbox.presentation.navigation.CommentScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.comment.detail.CommentDetailViewModel
 
@@ -36,6 +41,8 @@ fun CommentDetailContent(
     paddingValues: PaddingValues,
     vm: CommentDetailViewModel = hiltViewModel()
 ) {
+
+    val openAlertDialog = remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.padding(paddingValues)
@@ -91,11 +98,24 @@ fun CommentDetailContent(
                         modifier = Modifier
                             .size(25.dp)
                             .clickable {
-                                vm.deleteComment(vm.comment.comment_id)
+                                openAlertDialog.value = true
                             },
                         painter = painterResource(id = R.drawable.ic_delete),
                         contentDescription = "eliminar"
                     )
+                    if (openAlertDialog.value) {
+                        AlertDialogSuggestion(
+                            onDismissRequest = { openAlertDialog.value = false },
+                            onConfirmation = {
+                                openAlertDialog.value = false
+                                vm.deleteComment(vm.comment.comment_id)
+
+                            },
+                            dialogTitle = "Borrar comentario",
+                            dialogText = "¿Estás seguro de que quiere borrar este comentario?",
+                            icon = Icons.Default.Info
+                        )
+                    }
                 }
             }
         }
