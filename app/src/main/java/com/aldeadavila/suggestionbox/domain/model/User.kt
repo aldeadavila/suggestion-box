@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets
 import java.util.Date
 
 data class User(
-    @PropertyName("id") var id: String = "",
+    @PropertyName("id") var user_id: String = "",
     @PropertyName("nickname") var nickname: String =  "",
     @PropertyName("email") var email: String = "",
     @PropertyName("password") var password: String = "",
@@ -20,7 +20,7 @@ data class User(
     @PropertyName("date_created") @ServerTimestamp var dateCreated: Date? = null,
 ) {
     fun toJson(): String = Gson().toJson(User(
-        id,
+        user_id,
         nickname,
         email,
         password,

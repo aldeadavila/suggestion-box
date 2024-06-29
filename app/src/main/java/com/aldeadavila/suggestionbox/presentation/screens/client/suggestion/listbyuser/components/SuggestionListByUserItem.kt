@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.components
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbyuser.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -22,13 +22,13 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientSuggestionListByCategoryViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbyuser.SuggestionListByUserViewModel
 
 @Composable
-fun ClientSuggestionListByCategoryItem(
+fun SuggestionListByUserItem(
     navHostController: NavHostController,
     suggestion: Suggestion,
-    vm: ClientSuggestionListByCategoryViewModel = hiltViewModel()
+    vm: SuggestionListByUserViewModel = hiltViewModel()
 ) {
 
 

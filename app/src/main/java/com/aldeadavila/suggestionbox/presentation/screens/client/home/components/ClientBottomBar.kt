@@ -12,7 +12,7 @@ fun ClientBottomBar(navHostController: NavHostController) {
 
     val screens = listOf(
         HomeBottomBarScreen.SuggestionList,
-        HomeBottomBarScreen.CategoryList,
+        HomeBottomBarScreen.SuggestionsByUserList,
         HomeBottomBarScreen.Profile
     )
 

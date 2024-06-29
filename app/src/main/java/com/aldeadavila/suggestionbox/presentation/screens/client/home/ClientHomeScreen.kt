@@ -3,12 +3,14 @@ package com.aldeadavila.suggestionbox.presentation.screens.client.home
 import android.annotation.SuppressLint
 import androidx.compose.material.*
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -34,7 +36,7 @@ fun ClientHomeScreen(navHostController: NavHostController = rememberNavControlle
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         HomeBottomBarScreen.SuggestionList,
-        HomeBottomBarScreen.CategoryList,
+        HomeBottomBarScreen.SuggestionsByUserList,
         HomeBottomBarScreen.Profile,
     )
 
@@ -45,7 +47,7 @@ fun BottomBar(navController: NavHostController) {
     if (bottomBarDestination) {
 
         BottomNavigation(
-//            backgroundColor = Red500
+            backgroundColor = MaterialTheme.colors.secondary,
         ){
             screens.forEach { screen ->
                 AddItem(

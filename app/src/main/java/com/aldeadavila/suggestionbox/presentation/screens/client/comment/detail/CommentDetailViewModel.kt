@@ -28,7 +28,7 @@ class CommentDetailViewModel @Inject constructor(
 
     var user by mutableStateOf<User?>(null)
         private set
-    var deleteCommentResponse by mutableStateOf<Response<Unit>?>(null)
+    var deleteCommentResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
 

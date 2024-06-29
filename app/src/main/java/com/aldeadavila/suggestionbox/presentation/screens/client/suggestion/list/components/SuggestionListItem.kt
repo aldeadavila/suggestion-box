@@ -14,10 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.rounded.ShoppingCart
-
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -57,12 +53,16 @@ fun SuggestionListItem(
                 top = 5.dp
             )
             .height(110.dp)
-
+            .clickable {
+                navHostController.navigate(
+                    route = DetailsScreen.DetailSuggestion.passSuggestion(
+                        suggestion.toJson()
+                    )
+                )
+            }
 
     ) {
-        Row (
-
-        ){
+        Row {
 
             Column(
                 modifier = Modifier.weight(1f)
@@ -71,14 +71,6 @@ fun SuggestionListItem(
                     text = vm.printTitle(suggestion.title),
                     color = Color.Black,
                     fontSize = 16.sp,
-                            modifier = Modifier
-                            .clickable {
-                        navHostController.navigate(
-                            route = DetailsScreen.DetailSuggestion.passSuggestion(
-                                suggestion.toJson()
-                            )
-                        )
-                    }
                 )
 
                 Spacer(modifier = Modifier.height(5.dp))
@@ -94,8 +86,6 @@ fun SuggestionListItem(
                     color = Color.Black,
                     fontSize = 8.sp
                 )
-
-
             }
             Spacer(modifier = Modifier.width(5.dp))
 
@@ -138,7 +128,7 @@ fun SuggestionListItem(
                             painter = painterResource(id = R.drawable.ic_delete),
                             contentDescription = "eliminar"
                         )
-                        if(openAlertDialog.value) {
+                        if (openAlertDialog.value) {
                             AlertDialogSuggestion(
                                 onDismissRequest = { openAlertDialog.value = false },
                                 onConfirmation = {

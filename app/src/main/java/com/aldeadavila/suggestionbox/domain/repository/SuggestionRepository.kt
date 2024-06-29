@@ -10,6 +10,8 @@ interface SuggestionRepository {
 
     fun getSuggestions(): Flow<Response<List<Suggestion>>>
 
+    fun getSuggestionsByUser(user_id: String): Flow<Response<List<Suggestion>>>
+
     suspend fun updateSuggestion(
         suggestion: Suggestion,
         files: List<File>,

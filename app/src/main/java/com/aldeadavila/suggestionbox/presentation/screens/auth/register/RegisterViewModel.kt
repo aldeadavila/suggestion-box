@@ -32,7 +32,7 @@ class RegisterViewModel @Inject constructor(
     var user = User()
 
     fun createUser() = viewModelScope.launch {
-        user.id = authUseCases.getCurrentUser()!!.uid
+        user.user_id = authUseCases.getCurrentUser()!!.uid
         usersUseCases.createUser(user)
     }
     fun signUp(user: User) = viewModelScope.launch {
