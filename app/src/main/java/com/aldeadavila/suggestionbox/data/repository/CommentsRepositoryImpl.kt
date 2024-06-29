@@ -58,7 +58,15 @@ class CommentsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun update(id: String, comment: Comment): Response<Comment> {
-        TODO("Not yet implemented")
+        return try {
+            val map: MutableMap<String, Any> = HashMap()
+            map["content"] = comment.content
+            commentsRef.document(id).update(map).await()
+            Response.Success(comment)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
     }
 
     override suspend fun delete(id: String): Response<Unit> {

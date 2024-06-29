@@ -76,7 +76,7 @@ fun CommentListBySuggestionItem(
                             )
                         )
                     },
-                painter = painterResource(id = R.drawable.edit),
+                painter = painterResource(id = R.drawable.ic_edit),
                 contentDescription = "editar"
             )
 

@@ -83,7 +83,7 @@ fun CommentDetailContent(
                                     )
                                 )
                             },
-                        painter = painterResource(id = R.drawable.edit),
+                        painter = painterResource(id = R.drawable.ic_edit),
                         contentDescription = "editar"
                     )
                     Spacer(modifier = Modifier.height(5.dp))
@@ -93,7 +93,7 @@ fun CommentDetailContent(
                             .clickable {
                                 vm.deleteComment(vm.comment.comment_id)
                             },
-                        painter = painterResource(id = R.drawable.trash),
+                        painter = painterResource(id = R.drawable.ic_delete),
                         contentDescription = "eliminar"
                     )
                 }
