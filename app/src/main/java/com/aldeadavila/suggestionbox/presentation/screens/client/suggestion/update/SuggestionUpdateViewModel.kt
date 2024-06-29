@@ -7,9 +7,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.CategoryRadioButton
 import com.aldeadavila.suggestionbox.presentation.util.ComposeFileProvider
 import com.aldeadavila.suggestionbox.presentation.util.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,9 +42,14 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
     var files: MutableList<File> = mutableListOf()
     val resultingActivityHandler = ResultingActivityHandler()
 
+    val radioOptions = listOf(
+        CategoryRadioButton("Agradecimientos", R.drawable.ic_check),
+        CategoryRadioButton("Quejas", R.drawable.ic_forbid),
+        CategoryRadioButton("Sugerencias", R.drawable.ic_cognition),
+    )
     init {
         state = state.copy(
-            name = suggestion.title,
+            title = suggestion.title,
             description = suggestion.description,
             idUser = suggestion.user_id,
             category = suggestion.category,
@@ -51,19 +58,39 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
         )
     }
 
+    fun onUpdateSuggestion() {
+        val suggestion = Suggestion(
+            suggestion_id = suggestion.suggestion_id,
+            title = state.title,
+            description = state.description,
+            category = state.category,
+            images = suggestion.images,
+            user_id = suggestion.user_id,
+            created_at = suggestion.created_at
+        )
+        updateSuggestion(suggestion)
+    }
+
     fun updateSuggestion(suggestion: Suggestion) = viewModelScope.launch {
         suggestionResponse = Response.Loading
         if (file1 != null) {
-            files.add(0, file1!!)
+            files.add(file1!!)
+            state.imagesToUpdate.add(0)
         }
         if (file2 != null) {
-            files.add(1, file2!!)
+            files.add(file2!!)
+            state.imagesToUpdate.add(1)
         }
-        val result = suggestionsUseCases.updateSuggestion(suggestion, files.toList())
+        val result = suggestionsUseCases.updateSuggestion.invoke(
+            suggestion,
+            files.toList(),
+            state.imagesToUpdate
+        )
         suggestionResponse = result
         files.clear()
         file1 = null
         file2 = null
+        state.imagesToUpdate.clear()
     }
 
     fun pickImage(imageNumber: Int) = viewModelScope.launch {
@@ -109,11 +136,15 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
     }
 
     fun onNameInput(input: String) {
-        state = state.copy(name = input)
+        state = state.copy(title = input)
     }
 
     fun onDescriptionInput(input: String) {
         state = state.copy(description = input)
+    }
+
+    fun onCategoryInput(category: String) {
+        state = state.copy(category = category)
     }
 
     fun onIdUserInput(input: String) {

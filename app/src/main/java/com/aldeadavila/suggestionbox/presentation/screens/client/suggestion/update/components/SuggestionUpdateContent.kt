@@ -16,12 +16,14 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -121,7 +123,7 @@ fun ClientSuggestionUpdateContent(
                                 stateDialog.value = true
                                 stateDialogImageNumber.value = 1
                             },
-                        painter = painterResource(id = R.drawable.image_add),
+                        painter = painterResource(id = R.drawable.ic_add),
                         contentDescription = ""
                     )
                 }
@@ -150,7 +152,7 @@ fun ClientSuggestionUpdateContent(
                                 stateDialog.value = true
                                 stateDialogImageNumber.value = 2
                             },
-                        painter = painterResource(id = R.drawable.image_add),
+                        painter = painterResource(id = R.drawable.ic_add),
                         contentDescription = ""
                     )
                 }
@@ -168,7 +170,7 @@ fun ClientSuggestionUpdateContent(
 
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = state.name,
+                    value = state.title,
                     onValueChange = { vm.onNameInput(it) },
                     label = "Nombre de la sugerencia",
                     icon = Icons.AutoMirrored.Filled.List,
@@ -184,13 +186,46 @@ fun ClientSuggestionUpdateContent(
                     contentDescription = ""
                 )
 
+                vm.radioOptions.forEach { option ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .selectable(
+                                selected = (option.category.lowercase() == state.category.lowercase()),
+                                onClick = { vm.onCategoryInput(option.category) }
+                            ),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = (option.category.lowercase()  == state.category.lowercase() ),
+                            onClick = { vm.onCategoryInput(option.category) }
+                        )
+                        Row {
+                            Text(
+                                modifier = Modifier
+                                    .width(150.dp)
+                                    .padding(12.dp),
+                                text = option.category
+                            )
+                            Image(
+                                modifier = Modifier
+                                    .height(50.dp)
+                                    .padding(8.dp),
+                                painter = painterResource(id = option.image),
+                                contentDescription = ""
+                            )
+                        }
+                    }
+                }
+
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
                 onClick = {
-                    //  vm.updateSuggestion()
+                   vm.onUpdateSuggestion()
                 },
                 modifier = Modifier
                     .fillMaxWidth()

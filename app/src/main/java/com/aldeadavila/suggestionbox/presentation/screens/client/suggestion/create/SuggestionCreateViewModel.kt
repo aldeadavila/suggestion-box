@@ -42,9 +42,9 @@ class SuggestionCreateViewModel @Inject constructor(
     val currentUser = authUseCases.getCurrentUser()
 
     val radioOptions = listOf(
-        CategoryRadioButton("Agradecimientos", R.drawable.checked),
-        CategoryRadioButton("Quejas", R.drawable.cancelar),
-        CategoryRadioButton("Sugerencias", R.drawable.email),
+        CategoryRadioButton("Agradecimientos", R.drawable.ic_check),
+        CategoryRadioButton("Quejas", R.drawable.ic_forbid),
+        CategoryRadioButton("Sugerencias", R.drawable.ic_cognition),
     )
 
     init {
