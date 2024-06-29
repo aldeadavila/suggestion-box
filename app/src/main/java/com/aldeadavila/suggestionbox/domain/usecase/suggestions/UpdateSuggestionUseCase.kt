@@ -5,5 +5,9 @@ import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import java.io.File
 
 class UpdateSuggestionUseCase(private val repository: SuggestionRepository) {
-    suspend operator fun  invoke(suggestion: Suggestion, files: List<File>) = repository.updateSuggestion(suggestion,files)
+    suspend operator fun  invoke(
+        suggestion: Suggestion,
+        files: List<File>,
+        imagesToUpdate: MutableList<Int>
+    ) = repository.updateSuggestion(suggestion,files, imagesToUpdate)
 }

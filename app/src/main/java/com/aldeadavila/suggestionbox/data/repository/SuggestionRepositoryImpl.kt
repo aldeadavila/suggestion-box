@@ -30,23 +30,31 @@ class SuggestionRepositoryImpl @Inject constructor(
 
     override suspend fun updateSuggestion(
         suggestion: Suggestion,
-        files: List<File>
+        files: List<File>,
+        imagesToUpdate: MutableList<Int>
     ): Response<Boolean> {
         return try {
-            if (files.isNotEmpty() && files[0] != null) {
+            if (imagesToUpdate.contains(0)) {
                 val fromFile0 = Uri.fromFile(files[0])
                 val ref0 = storageSuggestionsRef.child(files[0].name)
                 ref0.putFile(fromFile0).await()
                 val url0 = ref0.downloadUrl.await()
-                suggestion.images.add(0, url0.toString())
+                suggestion.images[0] = url0.toString()
             }
 
-            if (files.size > 1 && files[1] != null) {
-                val fromFile1 = Uri.fromFile(files[1])
-                val ref1 = storageSuggestionsRef.child(files[1].name)
+            if (imagesToUpdate.contains(1)) {
+                var fromFile1: Uri?
+                var ref1: StorageReference?
+                if (files.size == 1) {
+                    fromFile1 = Uri.fromFile(files[0])
+                    ref1 = storageSuggestionsRef.child(files[0].name)
+                } else {
+                    fromFile1 = Uri.fromFile(files[1])
+                    ref1 = storageSuggestionsRef.child(files[1].name)
+                }
                 ref1.putFile(fromFile1).await()
                 val url1 = ref1.downloadUrl.await()
-                suggestion.images.add(1, url1.toString())
+                suggestion.images[1] = url1.toString()
             }
 
             val map: MutableMap<String, Any> = HashMap()

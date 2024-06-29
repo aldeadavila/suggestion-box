@@ -64,7 +64,7 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
             title = state.title,
             description = state.description,
             category = state.category,
-            images = mutableListOf(state.image1, state.image2),
+            images = suggestion.images,
             user_id = suggestion.user_id,
             created_at = suggestion.created_at
         )
@@ -74,16 +74,23 @@ class ClientSuggestionUpdateViewModel @Inject constructor(
     fun updateSuggestion(suggestion: Suggestion) = viewModelScope.launch {
         suggestionResponse = Response.Loading
         if (file1 != null) {
-            files.add(0, file1!!)
+            files.add(file1!!)
+            state.imagesToUpdate.add(0)
         }
         if (file2 != null) {
-            files.add(1, file2!!)
+            files.add(file2!!)
+            state.imagesToUpdate.add(1)
         }
-        val result = suggestionsUseCases.updateSuggestion(suggestion, files.toList())
+        val result = suggestionsUseCases.updateSuggestion.invoke(
+            suggestion,
+            files.toList(),
+            state.imagesToUpdate
+        )
         suggestionResponse = result
         files.clear()
         file1 = null
         file2 = null
+        state.imagesToUpdate.clear()
     }
 
     fun pickImage(imageNumber: Int) = viewModelScope.launch {
