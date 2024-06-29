@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.components
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbyuser.components
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,13 +8,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.ClientSuggestionListByCategoryViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbyuser.SuggestionListByUserViewModel
 
 @Composable
-fun GetSuggestionsByCategory(
+fun GetSuggestionsByUser(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
-    vm: ClientSuggestionListByCategoryViewModel = hiltViewModel()
+    vm: SuggestionListByUserViewModel = hiltViewModel()
 ) {
 
     when (val response = vm.suggestionResponse) {
@@ -24,7 +24,7 @@ fun GetSuggestionsByCategory(
 
         is Response.Success-> {
 
-            ClientSuggestionListByCategoryContent(
+            SuggestionListByUserContent(
                 navHostController,
                 paddingValues = paddingValues,
                 suggestions = response.data

@@ -23,7 +23,7 @@ class UsersRepositoryImpl @Inject constructor(
     override suspend fun createUser(user: User): Response<Boolean> {
         return try {
             user.password = ""
-            usersRef.document(user.id).set(user).await()
+            usersRef.document(user.user_id).set(user).await()
             Response.Success(true)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -32,7 +32,7 @@ class UsersRepositoryImpl @Inject constructor(
     }
 
     override fun getUserById(idUser: String): Flow<User> = callbackFlow{
-        val snapshotListener = usersRef.document(idUser).addSnapshotListener { snapshot, e ->
+        val snapshotListener = usersRef.document(idUser).addSnapshotListener { snapshot, _ ->
 
             val user = snapshot?.toObject(User::class.java) ?: User()
             trySend(user)
@@ -47,7 +47,7 @@ class UsersRepositoryImpl @Inject constructor(
             val map: MutableMap<String, Any> = HashMap()
             map["nickname"] = user.nickname
             map["profileImagePathUrl"] = user.profileImagePathUrl
-            usersRef.document(user.id).update(map).await()
+            usersRef.document(user.user_id).update(map).await()
             Response.Success(true)
         } catch (e: Exception) {
             e.printStackTrace()

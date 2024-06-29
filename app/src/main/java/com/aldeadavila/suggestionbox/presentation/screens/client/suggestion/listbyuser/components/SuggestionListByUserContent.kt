@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory.components
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbyuser.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,8 +11,9 @@ import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
 
 
+
 @Composable
-fun ClientSuggestionListByCategoryContent(
+fun SuggestionListByUserContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
     suggestions: List<Suggestion>
@@ -23,7 +24,7 @@ fun ClientSuggestionListByCategoryContent(
             .padding(paddingValues)
     ) {
         items(items = suggestions) {
-            ClientSuggestionListByCategoryItem(navHostController = navHostController, suggestion = it)
+            SuggestionListByUserItem(navHostController = navHostController, suggestion = it)
         }
     }
 }

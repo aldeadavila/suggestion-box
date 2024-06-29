@@ -105,7 +105,7 @@ fun ProfileUpdateContent(
                         .clickable {
                             stateDialog.value = true
                         },
-                    painter = painterResource(id = R.drawable.user_image),
+                    painter = painterResource(id = R.drawable.ic_user),
                     contentDescription = ""
                 )
             }

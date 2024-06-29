@@ -11,10 +11,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.SuggestionCreateScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.SuggestionDetailScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.SuggestionListScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.ClientSuggestionUpdateScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbyuser.SuggestionListByUserScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.update.ProfileUpdateScreen
 
@@ -31,8 +29,11 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
             SuggestionListScreen(navController)
         }
 
-        composable(route = HomeBottomBarScreen.CategoryList.route) {
-            //    ClientCategoryListScreen(navController)
+        composable(
+            route = HomeBottomBarScreen.SuggestionsByUserList.route,
+
+            ) {
+            SuggestionListByUserScreen(navController)
         }
 
         composable(route = HomeBottomBarScreen.Profile.route) {
@@ -63,9 +64,9 @@ sealed class HomeBottomBarScreen(
     val title: String,
     val icon: ImageVector
 ) {
-    object CategoryList : HomeBottomBarScreen(
-        route = "category",
-        title = "Categorías",
+    object SuggestionsByUserList : HomeBottomBarScreen(
+        route = "mysuggestions",
+        title = "Mis Sugerencias",
         icon = Icons.AutoMirrored.Filled.List
     )
 

@@ -155,5 +155,45 @@ class SuggestionRepositoryImpl @Inject constructor(
 
     }
 
+    override fun getSuggestionsByUser(user_id: String): Flow<Response<List<Suggestion>>> = callbackFlow {
+
+        val snapshopListener = suggestionsRef.whereEqualTo("user_id", user_id).addSnapshotListener { snapshot, e ->
+
+            GlobalScope.launch(Dispatchers.IO) {
+                val suggestionResponse = if (snapshot != null) {
+                    val suggestions = snapshot.toObjects(Suggestion::class.java)
+                    val idUserArray = ArrayList<String>()
+                    suggestions.forEach { suggestion ->
+                        idUserArray.add(suggestion.user_id)
+                    }
+
+                    val idUserList = idUserArray.toSet().toList()
+                    idUserList.map { id ->
+                        async {
+                            val user = usersRef.document(id).get().await().toObject(
+                                User::class.java
+                            )!!
+                            suggestions.forEach { suggestion ->
+                                if (suggestion.user_id == id) {
+                                    suggestion.user = user
+                                }
+                            }
+                        }
+                    }.forEach {
+                        it.await()
+                    }
+                    Response.Success(suggestions)
+                } else {
+                    Response.Failure(Exception(e?.message ?: "Error desconocido"))
+                }
+                trySend(suggestionResponse)
+            }
+        }
+        awaitClose {
+            snapshopListener.remove()
+        }
+
+    }
+
 
 }

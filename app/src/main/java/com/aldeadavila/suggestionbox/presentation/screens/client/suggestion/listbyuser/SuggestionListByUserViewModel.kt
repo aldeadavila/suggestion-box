@@ -1,4 +1,4 @@
-package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbycategory
+package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbyuser
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,19 +9,20 @@ import androidx.lifecycle.viewModelScope
 import com.aldeadavila.suggestionbox.domain.model.Category
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.domain.model.Suggestion
+import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientSuggestionListByCategoryViewModel @Inject constructor(
+class SuggestionListByUserViewModel @Inject constructor(
     private val suggestionsUseCases: SuggestionsUseCases,
     private val savedStateHandle: SavedStateHandle,
+    private val authUseCases: AuthUseCases
 ) : ViewModel() {
 
-    var data = savedStateHandle.get<String>("category")
-    var category = Category.fromJson(data!!)
+    val currentUser = authUseCases.getCurrentUser()
 
     var suggestionResponse by mutableStateOf<Response<List<Suggestion>>?>(null)
         private set
@@ -32,9 +33,9 @@ class ClientSuggestionListByCategoryViewModel @Inject constructor(
 
     private fun getSuggestions() = viewModelScope.launch {
         suggestionResponse = Response.Loading
-       /* suggestionsUseCase.findByCategory(category.id!!).collect {
+        suggestionsUseCases.getSuggestionsByUserUseCase(currentUser?.uid ?: "").collect {
             suggestionResponse = it
-        }*/
+        }
     }
 
 }

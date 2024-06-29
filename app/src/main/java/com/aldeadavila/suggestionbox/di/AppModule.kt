@@ -27,6 +27,7 @@ import com.aldeadavila.suggestionbox.domain.usecase.suggestions.CreateSuggestion
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.DeleteSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.getSuggestionsUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.FindByCategoryUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.suggestions.GetSuggestionsByUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.SuggestionsUseCases
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.UpdateSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.users.CreateUserUseCase
@@ -114,7 +115,8 @@ object AppModule {
         getSuggestionsUseCase = getSuggestionsUseCase(repository),
         findByCategory = FindByCategoryUseCase(repository),
         updateSuggestion = UpdateSuggestionUseCase(repository),
-        deleteSuggestion = DeleteSuggestionUseCase(repository)
+        deleteSuggestion = DeleteSuggestionUseCase(repository),
+        getSuggestionsByUserUseCase = GetSuggestionsByUserUseCase(repository)
     )
 
     @Provides

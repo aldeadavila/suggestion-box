@@ -50,7 +50,7 @@ class ProfileUpdateViewModel @Inject constructor(
 
     fun onUpdate(url: String) {
         val myUser = User (
-            id = user.id,
+            user_id = user.user_id,
             nickname = state.nickname,
             profileImagePathUrl = url
         )
@@ -60,7 +60,7 @@ class ProfileUpdateViewModel @Inject constructor(
     fun saveImage() = viewModelScope.launch {
         if (file != null) {
             saveImageResponse = Response.Loading
-            val result = usersUseCases.saveImage(file!!, user.id)
+            val result = usersUseCases.saveImage(file!!, user.user_id)
             saveImageResponse = result
         }
     }
