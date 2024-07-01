@@ -1,14 +1,17 @@
 package com.aldeadavila.suggestionbox.di
 
 import com.aldeadavila.suggestionbox.core.Config.COMMENTS
+import com.aldeadavila.suggestionbox.core.Config.LOCATIONS
 import com.aldeadavila.suggestionbox.core.Config.SUGGESTIONS
 import com.aldeadavila.suggestionbox.core.Config.USERS
 import com.aldeadavila.suggestionbox.data.repository.AuthRepositoryImpl
 import com.aldeadavila.suggestionbox.data.repository.CommentsRepositoryImpl
+import com.aldeadavila.suggestionbox.data.repository.LocationsRepositoryImpl
 import com.aldeadavila.suggestionbox.data.repository.SuggestionRepositoryImpl
 import com.aldeadavila.suggestionbox.data.repository.UsersRepositoryImpl
 import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
 import com.aldeadavila.suggestionbox.domain.repository.CommentsRepository
+import com.aldeadavila.suggestionbox.domain.repository.LocationsRepository
 import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.aldeadavila.suggestionbox.domain.repository.UsersRepository
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
@@ -23,6 +26,8 @@ import com.aldeadavila.suggestionbox.domain.usecase.comments.FindAllCommentsUseC
 import com.aldeadavila.suggestionbox.domain.usecase.comments.FindBySuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.FindByUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.UpdateCommentUseCase
+import com.aldeadavila.suggestionbox.domain.usecase.locations.GetLocationsUsecase
+import com.aldeadavila.suggestionbox.domain.usecase.locations.LocationsUseCases
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.CreateSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.DeleteSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.getSuggestionsUseCase
@@ -67,6 +72,14 @@ object AppModule {
     fun provideUsersRef(db: FirebaseFirestore): CollectionReference = db.collection(USERS)
 
     @Provides
+    @Named(LOCATIONS)
+    fun providesStorageLocationsRef(storage: FirebaseStorage): StorageReference = storage.reference.child(LOCATIONS)
+
+    @Provides
+    @Named(LOCATIONS)
+    fun provideLocationsRef(db: FirebaseFirestore): CollectionReference = db.collection(LOCATIONS)
+
+    @Provides
     @Named(SUGGESTIONS)
     fun providesStorageSuggestionsRef(storage: FirebaseStorage): StorageReference = storage.reference.child(SUGGESTIONS)
 
@@ -94,11 +107,19 @@ object AppModule {
     fun provideCommentsRepository(impl: CommentsRepositoryImpl): CommentsRepository = impl
 
     @Provides
+    fun provideLocationsRepository(impl: LocationsRepositoryImpl): LocationsRepository = impl
+
+    @Provides
     fun provideAuthUseCase(repository: AuthRepository) = AuthUseCases(
         getCurrentUser = GetCurrentUserUseCase(repository),
         login = LoginUseCase(repository),
         signUp = SignUpUseCase(repository),
         logout = LogoutUseCase(repository)
+    )
+
+    @Provides
+    fun provideLocationsUseCases(repository: LocationsRepository) = LocationsUseCases(
+        getLocationsUseCase = GetLocationsUsecase(repository)
     )
 
     @Provides
