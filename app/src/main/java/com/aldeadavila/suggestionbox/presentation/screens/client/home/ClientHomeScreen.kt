@@ -10,7 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -36,6 +38,7 @@ fun ClientHomeScreen(navHostController: NavHostController = rememberNavControlle
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         HomeBottomBarScreen.SuggestionList,
+        HomeBottomBarScreen.Map,
         HomeBottomBarScreen.SuggestionsByUserList,
         HomeBottomBarScreen.Profile,
     )
@@ -53,7 +56,8 @@ fun BottomBar(navController: NavHostController) {
                 AddItem(
                     screen = screen,
                     currentDestination = currentDestination,
-                    navController = navController
+                    navController = navController,
+
                 )
             }
         }
@@ -71,7 +75,10 @@ fun RowScope.AddItem(
 
     BottomNavigationItem(
         label = {
-            Text(text = screen.title)
+            Text(
+                text = screen.title,
+                fontSize = 10.sp
+                )
         },
         icon = {
             Icon(

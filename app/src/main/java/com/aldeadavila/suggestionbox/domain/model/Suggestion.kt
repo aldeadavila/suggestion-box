@@ -31,7 +31,15 @@ data class Suggestion(
             category,
             toEncode(images),
             created_at,
-            user,
+            User(
+                user_id = user_id,
+                nickname = user?.nickname ?: "",
+                email = user?.email ?: "",
+                profileImagePathUrl =
+                if (!user?.profileImagePathUrl.isNullOrBlank())
+                    URLEncoder.encode(user?.profileImagePathUrl , StandardCharsets.UTF_8.toString())
+                else "",
+            ),
             comments
         )
     )

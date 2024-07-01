@@ -19,7 +19,7 @@ import javax.inject.Inject
 class SuggestionListViewModel @Inject constructor(
     private val suggestionsUseCases: SuggestionsUseCases,
     private val authUseCases: AuthUseCases,
-    private val usersUseCases       : UsersUseCases
+    private val usersUseCases: UsersUseCases
 ) : ViewModel() {
 
     var suggestionsResponse by mutableStateOf<Response<List<Suggestion>>?>(null)
@@ -29,7 +29,6 @@ class SuggestionListViewModel @Inject constructor(
     var currentUser = authUseCases.getCurrentUser()
     var userData by mutableStateOf(User())
         private set
-
 
 
     init {

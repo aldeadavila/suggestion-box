@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.internal.kapt.incremental.UnknownSnapshot
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id("com.android.application") version "8.4.1" apply false
@@ -6,4 +8,9 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.10-1.0.13" apply false
     id("com.google.gms.google-services") version "4.4.2" apply false
 
+}
+buildscript {
+    dependencies {
+        classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+    }
 }

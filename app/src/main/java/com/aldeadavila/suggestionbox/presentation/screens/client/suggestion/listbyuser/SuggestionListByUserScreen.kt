@@ -11,17 +11,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Category
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
 import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
+import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.SuggestionListViewModel
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbyuser.components.GetSuggestionsByUser
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SuggestionListByUserScreen(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    vm: SuggestionListByUserViewModel = hiltViewModel()
 ) {
+    vm.getSuggestions()
 
     Scaffold(
         topBar = {
