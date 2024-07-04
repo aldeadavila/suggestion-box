@@ -58,6 +58,7 @@ import com.aldeadavila.suggestionbox.presentation.components.TitleTextComponent
 import com.aldeadavila.suggestionbox.presentation.navigation.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants.NO_ACCOUNT
+import com.aldeadavila.suggestionbox.presentation.util.Constants.SIGN_IN_ANONYMOUS
 import com.aldeadavila.suggestionbox.presentation.util.Constants.SIGN_IN_BUTTON
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
@@ -177,6 +178,49 @@ fun LoginContent(
             ) {
                 Text(
                     text = SIGN_IN_BUTTON,
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontStyle = FontStyle.Normal,
+                        color = md_theme_light_tertiaryContainer,
+                        fontFamily = poppins
+                    ),
+                )
+            }
+
+
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = {
+                keyboard?.hide()
+                vm.signInAnnonymously()
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+            contentPadding = PaddingValues(),
+            colors = ButtonDefaults.buttonColors(Color.Transparent)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(38.dp)
+                    .background(
+                        brush = Brush.horizontalGradient(
+                            listOf(
+                                md_theme_light_primary,
+                                md_theme_light_secondary
+                            )
+                        ),
+                        shape = RoundedCornerShape(50.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = SIGN_IN_ANONYMOUS,
                     style = TextStyle(
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,

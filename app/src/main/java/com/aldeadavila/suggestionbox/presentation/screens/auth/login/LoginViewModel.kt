@@ -15,19 +15,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases): ViewModel() {
+class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases) : ViewModel() {
 
     var state by mutableStateOf(LoginState())
         private set
 
     var errorMessage by mutableStateOf("")
 
-   var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null)
+    var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null)
+
+    var loginResponseAnonymous by mutableStateOf<Response<Boolean>?>(null)
 
     val currentUser = authUseCases.getCurrentUser()
+
     init {
-        if(currentUser != null) {
-            loginResponse = Response.Success(currentUser!!)
+        if (currentUser != null) {
+            loginResponse = Response.Success(currentUser)
         }
     }
 
@@ -49,17 +52,21 @@ class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases)
         state = state.copy(password = password)
     }
 
-    fun isValidateForm(): Boolean  {
+    fun isValidateForm(): Boolean {
         if (!Patterns.EMAIL_ADDRESS.matcher(state.email).matches()) {
             errorMessage = "El email no es válido"
             return false
-        }
-
-         else if (state.password.length < 6) {
+        } else if (state.password.length < 6) {
             errorMessage = "La contraseña es menor de 6 caracteres"
             return false
         }
 
         return true
+    }
+
+    fun signInAnnonymously() = viewModelScope.launch {
+        loginResponseAnonymous = Response.Loading
+        loginResponseAnonymous = authUseCases.anonymous()
+
     }
 }

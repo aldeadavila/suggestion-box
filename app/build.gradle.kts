@@ -16,8 +16,8 @@ android {
         applicationId = "com.aldeadavila.suggestionbox"
         minSdk = 23
         targetSdk = 34
-        versionCode = 15
-        versionName = "1.15"
+        versionCode = 16
+        versionName = "1.16"
   
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -87,7 +87,6 @@ dependencies {
 
     val google_credentielas = "1.2.2"
     val nav_version = "2.7.7"
-    val room_version = "2.6.1"
 
     implementation("androidx.credentials:credentials:$google_credentielas")
     implementation ("androidx.credentials:credentials-play-services-auth:$google_credentielas")
@@ -106,7 +105,7 @@ dependencies {
 
 
     implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.3")
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation(platform("androidx.compose:compose-bom:2024.06.00"))
     implementation("androidx.compose.ui:ui")
@@ -120,14 +119,6 @@ dependencies {
     dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     }
-
-
-    //ROOM
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-
 
     //SLIDES
     implementation("com.google.accompanist:accompanist-pager:0.24.3-alpha")

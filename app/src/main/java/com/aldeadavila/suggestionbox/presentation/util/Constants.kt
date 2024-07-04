@@ -10,6 +10,7 @@ object Constants {
     const val UPDATE_INFO_BUTTON = "Actualizar información"
     const val UPDATE_SUGGESTION = "Actualizar sugerencia"
     const val SIGN_IN_BUTTON = "Iniciar sesión"
+    const val SIGN_IN_ANONYMOUS = "Iniciar anónimamente"
     const val NO_ACCOUNT = "Cree su cuenta nueva"
     const val EMAIL_LABEL = "Email"
     const val PASSWORD_LABEL = "Password"

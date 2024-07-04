@@ -32,4 +32,6 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun isanonymous() = authUseCases.getCurrentUser()?.let { firebaseUser -> firebaseUser?.isAnonymous }
+
 }

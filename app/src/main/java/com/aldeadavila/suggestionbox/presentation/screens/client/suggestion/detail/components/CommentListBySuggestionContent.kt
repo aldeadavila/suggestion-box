@@ -60,59 +60,61 @@ fun CommentListBySuggestionContent(
             Spacer(modifier = Modifier.height(3.dp))
         }
         item {
+            if (vm.currentUser?.isAnonymous == false) {
+                TextField(
+                    value = state.content,
+                    onValueChange = { vm.onCommentContentInput(it) },
+                    label = { Text("Añade tu comentario") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = md_theme_light_primary,
+                        focusedLabelColor = md_theme_light_primary,
+                        cursorColor = md_theme_light_primary,
+                        containerColor = Color.White
+                    ),
+                )
 
-            TextField(
-                value = state.content,
-                onValueChange = { vm.onCommentContentInput(it) },
-                label = { Text("Añade tu comentario") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = md_theme_light_primary,
-                    focusedLabelColor = md_theme_light_primary,
-                    cursorColor = md_theme_light_primary,
-                    containerColor = Color.White
-                ),
-            )
+                Spacer(modifier = Modifier.height(5.dp))
 
-            Spacer(modifier = Modifier.height(5.dp))
-
-            Button(
-                onClick = {
-                    vm.onNewComment()
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 5.dp),
-                contentPadding = PaddingValues(),
-                colors = ButtonDefaults.buttonColors(Color.Transparent)
-            ) {
-                Box(
+                Button(
+                    onClick = {
+                        vm.onNewComment()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(48.dp)
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                listOf(
-                                    md_theme_light_primary,
-                                    md_theme_light_secondary
-                                )
-                            ),
-                            shape = RoundedCornerShape(50.dp)
-                        ),
-                    contentAlignment = Alignment.Center
+                        .padding(bottom = 5.dp),
+                    contentPadding = PaddingValues(),
+                    colors = ButtonDefaults.buttonColors(Color.Transparent)
                 ) {
-                    Text(
-                        text = Constants.CREATE_COMMENT,
-                        style = TextStyle(
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            fontStyle = FontStyle.Normal,
-                            color = md_theme_light_tertiaryContainer,
-                            fontFamily = poppins
-                        ),
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(48.dp)
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    listOf(
+                                        md_theme_light_primary,
+                                        md_theme_light_secondary
+                                    )
+                                ),
+                                shape = RoundedCornerShape(50.dp)
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = Constants.CREATE_COMMENT,
+                            style = TextStyle(
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontStyle = FontStyle.Normal,
+                                color = md_theme_light_tertiaryContainer,
+                                fontFamily = poppins
+                            ),
+                        )
+                    }
                 }
             }
+
         }
     }
 

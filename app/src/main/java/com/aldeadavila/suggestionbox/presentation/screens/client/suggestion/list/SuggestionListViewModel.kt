@@ -55,6 +55,8 @@ class SuggestionListViewModel @Inject constructor(
         return idUser == currentUser?.uid || userData.roles?.contains("admin") ?: false
     }
 
+    fun isAnonymous() = currentUser!!.isAnonymous
+
     private fun getUserById() = viewModelScope.launch {
         usersUseCases.getUserByIdUseCase(authUseCases.getCurrentUser()!!.uid).collect() {
             userData = it
