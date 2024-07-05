@@ -22,7 +22,7 @@ class LocationsRepositoryImpl @Inject constructor(
     @Named(LOCATIONS) private val locationsRef: CollectionReference,
     @Named(LOCATIONS) private val storagelocationsRef: StorageReference,
 ): LocationsRepository {
-    override fun getSuggestions(): Flow<Response<List<Location>>> = callbackFlow {
+    override fun getLocations(): Flow<Response<List<Location>>> = callbackFlow {
 
         val snapshopListener = locationsRef.addSnapshotListener { snapshot, e ->
 
@@ -37,9 +37,6 @@ class LocationsRepositoryImpl @Inject constructor(
                     val idUserList = idUserArray.toSet().toList()
                     idUserList.map { id ->
                         async {
-                            val user = locationsRef.document(id).get().await().toObject(
-                                User::class.java
-                            )!!
                             locations.forEach { location ->
                                 if (location.location_id == id) {
                                   //  location.user = user
