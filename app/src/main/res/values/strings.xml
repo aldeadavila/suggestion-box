@@ -4,4 +4,5 @@
     <string name="welcome">!Bienvenido, le habíamos echado de menos!</string>
     <string name="sign_up">Crea una cuenta</string>
     <string name="add_comments">Podrás añadir entradas y realizar comentarios</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 </resources>
