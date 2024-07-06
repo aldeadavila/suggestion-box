@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocationsRepository {
 
-    fun getSuggestions(): Flow<Response<List<Location>>>
+    fun getLocations(): Flow<Response<List<Location>>>
 }

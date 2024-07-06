@@ -129,12 +129,21 @@ fun ProfileContent(
                     Column(
                         modifier = Modifier.padding(horizontal = 5.dp)
                     ) {
-                        Text(text = vm.userData.nickname )
-                        Text(
-                            text = "Usuario",
-                            fontSize = 12.sp,
-                            color = Color.Gray
-                        )
+                        if (vm.isanonymous() == true) {
+                            Text(
+                                text = "Usuario Anónimo",
+                                fontSize = 12.sp,
+                                color = Color.Gray
+                            )
+                        } else {
+                            Text(text = vm.userData.nickname )
+                            Text(
+                                text = "Usuario",
+                                fontSize = 12.sp,
+                                color = Color.Gray
+                            )
+                        }
+
                     }
                 }
 
@@ -152,15 +161,22 @@ fun ProfileContent(
                     Column(
                         modifier = Modifier.padding(horizontal = 5.dp)
                     ) {
-                        Text(text = vm.userData.email)
-                        Text(
-                            text = "Correo electrónico",
-                            fontSize = 12.sp,
-                            color = Color.Gray
-                        )
+                        if (vm.isanonymous() == true) {
+                            Text(text = vm.userData.email)
+                            Text(
+                                text = "Correo electrónico",
+                                fontSize = 12.sp,
+                                color = Color.Gray
+                            )
+                        } else {
+                            Text(
+                                text = "Sin correo electrónico",
+                                fontSize = 12.sp,
+                                color = Color.Gray
+                            )
+                        }
                     }
                 }
-
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -175,32 +191,35 @@ fun ProfileContent(
                 contentPadding = PaddingValues(),
                 colors = ButtonDefaults.buttonColors(Color.Transparent)
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(48.dp)
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                listOf(
-                                    md_theme_light_primary,
-                                    md_theme_light_secondary
-                                )
+                if (vm.isanonymous() == false) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(48.dp)
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    listOf(
+                                        md_theme_light_primary,
+                                        md_theme_light_secondary
+                                    )
+                                ),
+                                shape = RoundedCornerShape(50.dp)
                             ),
-                            shape = RoundedCornerShape(50.dp)
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = Constants.UPDATE_INFO_BUTTON,
-                        style = TextStyle(
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            fontStyle = FontStyle.Normal,
-                            color = md_theme_light_tertiaryContainer,
-                            fontFamily = poppins
-                        ),
-                    )
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = Constants.UPDATE_INFO_BUTTON,
+                            style = TextStyle(
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontStyle = FontStyle.Normal,
+                                color = md_theme_light_tertiaryContainer,
+                                fontFamily = poppins
+                            ),
+                        )
+                    }
                 }
+
             }
         }
     }

@@ -16,8 +16,8 @@ android {
         applicationId = "com.aldeadavila.suggestionbox"
         minSdk = 23
         targetSdk = 34
-        versionCode = 15
-        versionName = "1.15"
+        versionCode = 20
+        versionName = "1.20"
   
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -106,7 +106,7 @@ dependencies {
 
 
     implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.3")
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation(platform("androidx.compose:compose-bom:2024.06.00"))
     implementation("androidx.compose.ui:ui")
@@ -121,12 +121,6 @@ dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     }
 
-
-    //ROOM
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
 
 
     //SLIDES

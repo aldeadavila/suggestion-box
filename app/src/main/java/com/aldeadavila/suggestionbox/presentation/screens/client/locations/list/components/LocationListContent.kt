@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,12 +17,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Location
 import com.google.android.gms.maps.model.CameraPosition
@@ -58,16 +57,22 @@ fun LocationListContent(
 
 
         GoogleMap(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 55.dp),
             cameraPositionState = cameraPositionState,
             properties = properties,
-            uiSettings = uiSettings
-        ) {
+            uiSettings = uiSettings,
+
+            ) {
             locations.forEach { location ->
+
+                val uriHandler = LocalUriHandler.current
+
                 MarkerInfoWindowContent(
                     state = MarkerState(position = Location.toLatLng(location.coordinates)),
                     title = location.name,
-                    snippet = location.address,
+                    snippet = location.link,
                     //onInfoWindowClick =
                 ) { marker ->
                     Row(
@@ -87,7 +92,12 @@ fun LocationListContent(
                                 text = marker.title ?: "",
                                 fontWeight = FontWeight.Bold
                             )
-                            Text(text = marker.snippet ?: "")
+                            if (!location.link.isNullOrBlank()) {
+                                Text(text = location.link,
+                                color = Color.Blue)
+                            }
+                            Text(text = location.address)
+                            Text(text = location.phone)
                         }
                     }
                 }
@@ -111,17 +121,17 @@ fun LocationListContent(
         )
 
 
-    /*    LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            items(items = locations) { location ->
-                LocationListItem(
-                    navHostController = navHostController,
-                    location = location
-                )
-            }
-        }*/
+        /*    LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                items(items = locations) { location ->
+                    LocationListItem(
+                        navHostController = navHostController,
+                        location = location
+                    )
+                }
+            }*/
 
     }
 }

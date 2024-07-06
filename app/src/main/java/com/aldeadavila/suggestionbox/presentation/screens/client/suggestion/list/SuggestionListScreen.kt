@@ -23,14 +23,16 @@ fun SuggestionListScreen(navHostController: NavHostController, vm: SuggestionLis
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(
-                modifier = Modifier.padding(bottom = 50.dp),
-                onClick = { navHostController.navigate(DetailsScreen.CreateSuggestion.route) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = ""
-                )
+            if (!vm.isAnonymous()) {
+                FloatingActionButton(
+                    modifier = Modifier.padding(bottom = 50.dp),
+                    onClick = { navHostController.navigate(DetailsScreen.CreateSuggestion.route) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = ""
+                    )
+                }
             }
         }
     ) {
