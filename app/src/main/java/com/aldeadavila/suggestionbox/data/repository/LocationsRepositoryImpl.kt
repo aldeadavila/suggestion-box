@@ -34,18 +34,6 @@ class LocationsRepositoryImpl @Inject constructor(
                         idUserArray.add(location.location_id)
                     }
 
-                    val idUserList = idUserArray.toSet().toList()
-                    idUserList.map { id ->
-                        async {
-                            locations.forEach { location ->
-                                if (location.location_id == id) {
-                                  //  location.user = user
-                                }
-                            }
-                        }
-                    }.forEach {
-                        it.await()
-                    }
                     Response.Success(locations)
                 } else {
                     Response.Failure(Exception(e?.message ?: "Error desconocido"))
