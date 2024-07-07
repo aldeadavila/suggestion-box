@@ -16,8 +16,8 @@ android {
         applicationId = "com.aldeadavila.suggestionbox"
         minSdk = 23
         targetSdk = 34
-        versionCode = 22
-        versionName = "1.22"
+        versionCode = 23
+        versionName = "1.23"
   
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -82,7 +82,6 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
-    implementation("com.google.android.gms:play-services-wallet:19.4.0")
     implementation ("com.google.firebase:firebase-messaging-ktx")
 
 

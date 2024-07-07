@@ -6,5 +6,5 @@ object Config {
     const val NEWS = "news"
     const val SUGGESTIONS = "suggestions"
     const val COMMENTS = "comments"
-    const val WEB_CLIENT_ID = "858759898662-td1tdpdbeh6qpc05a97shaif16785bql.apps.googleusercontent.com"
+    const val WEB_CLIENT_ID = "858759898662-icjnlvsie81itu8iqv7v88dlsenm7cpp.apps.googleusercontent.com"
 }
