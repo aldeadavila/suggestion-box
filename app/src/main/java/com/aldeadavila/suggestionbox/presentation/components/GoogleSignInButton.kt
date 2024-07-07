@@ -46,7 +46,7 @@ fun GoogleSignInButton(navHostController: NavHostController) {
         val hashNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
 
         val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
-            .setFilterByAuthorizedAccounts(true)
+            .setFilterByAuthorizedAccounts(false)
             .setServerClientId(WEB_CLIENT_ID)
             .setAutoSelectEnabled(true)
             .setNonce(hashNonce)
