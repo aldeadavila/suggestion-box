@@ -73,25 +73,6 @@ class SuggestionDetailViewModel @Inject constructor(
         return true
     }
 
-    /*fun getOwnerData(id: String) = viewModelScope.launch {
-
-       when (val result = userUseCase.getUserByIdUseCase(suggestion.idUser)) {
-            is Resource.Succes -> {
-                println("Success: ${result.data}")
-                stateUser = stateUser.copy(
-                    nickname = result.data.nickname,
-                    image =  result.data.profileImagePathUrl
-                )
-            }
-            is Resource.Failure-> {
-                println("Error: ${result.message}")
-            }
-
-            Resource.Loading -> TODO()
-        }
-
-    }*/
-
     private fun clearComment() {
         state = state.copy(content = "")
     }

@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.aldeadavila.suggestionbox.presentation.screens.client.news.details.NewsDetailScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.create.SuggestionCreateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.SuggestionDetailScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.update.ClientSuggestionUpdateScreen
@@ -42,6 +43,17 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
             }
         }
 
+        composable(
+            route = DetailsScreen.DetailNews.route,
+            arguments = listOf(navArgument("news") {
+                type = NavType.StringType
+            })
+        ) {
+            it.arguments?.getString("news")?.let {
+                NewsDetailScreen(navController, newsParam = it)
+            }
+        }
+
     }
     }
     sealed class DetailsScreen(val route: String) {
@@ -58,6 +70,10 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
 
     object UpdateSuggestion : DetailsScreen("suggestions/update/{suggestion}") {
         fun passSuggestion(suggestion: String) = "suggestions/update/$suggestion"
+    }
+
+    object DetailNews : DetailsScreen("news/detail/{news}") {
+        fun passNews(news: String) = "news/detail/$news"
     }
 
 }

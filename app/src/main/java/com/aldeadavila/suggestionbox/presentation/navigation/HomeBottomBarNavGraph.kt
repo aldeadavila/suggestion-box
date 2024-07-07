@@ -13,8 +13,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.LocationsListScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.news.list.NewsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.SuggestionListScreen
-import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.listbyuser.SuggestionListByUserScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.update.ProfileUpdateScreen
 
@@ -36,10 +36,10 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
         }
 
         composable(
-            route = HomeBottomBarScreen.SuggestionsByUserList.route,
+            route = HomeBottomBarScreen.NewsList.route,
 
             ) {
-            SuggestionListByUserScreen(navController)
+            NewsScreen(navController)
         }
 
         composable(route = HomeBottomBarScreen.Profile.route) {
@@ -70,9 +70,9 @@ sealed class HomeBottomBarScreen(
     val title: String,
     val icon: ImageVector
 ) {
-    object SuggestionsByUserList : HomeBottomBarScreen(
-        route = "mysuggestions",
-        title = "Mías",
+    object NewsList : HomeBottomBarScreen(
+        route = "news",
+        title = "Noticias",
         icon = Icons.AutoMirrored.Filled.List
     )
 
