@@ -2,16 +2,19 @@ package com.aldeadavila.suggestionbox.di
 
 import com.aldeadavila.suggestionbox.core.Config.COMMENTS
 import com.aldeadavila.suggestionbox.core.Config.LOCATIONS
+import com.aldeadavila.suggestionbox.core.Config.NEWS
 import com.aldeadavila.suggestionbox.core.Config.SUGGESTIONS
 import com.aldeadavila.suggestionbox.core.Config.USERS
 import com.aldeadavila.suggestionbox.data.repository.AuthRepositoryImpl
 import com.aldeadavila.suggestionbox.data.repository.CommentsRepositoryImpl
 import com.aldeadavila.suggestionbox.data.repository.LocationsRepositoryImpl
+import com.aldeadavila.suggestionbox.data.repository.NewsRepositoryImpl
 import com.aldeadavila.suggestionbox.data.repository.SuggestionRepositoryImpl
 import com.aldeadavila.suggestionbox.data.repository.UsersRepositoryImpl
 import com.aldeadavila.suggestionbox.domain.repository.AuthRepository
 import com.aldeadavila.suggestionbox.domain.repository.CommentsRepository
 import com.aldeadavila.suggestionbox.domain.repository.LocationsRepository
+import com.aldeadavila.suggestionbox.domain.repository.NewsRepository
 import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.aldeadavila.suggestionbox.domain.repository.UsersRepository
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AnonymousLoginUseCase
@@ -29,6 +32,8 @@ import com.aldeadavila.suggestionbox.domain.usecase.comments.FindByUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.comments.UpdateCommentUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.locations.GetLocationsUsecase
 import com.aldeadavila.suggestionbox.domain.usecase.locations.LocationsUseCases
+import com.aldeadavila.suggestionbox.domain.usecase.news.GetNewsUsecase
+import com.aldeadavila.suggestionbox.domain.usecase.news.NewsUseCases
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.CreateSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.DeleteSuggestionUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.suggestions.FindByCategoryUseCase
@@ -83,6 +88,16 @@ object AppModule {
     fun provideLocationsRef(db: FirebaseFirestore): CollectionReference = db.collection(LOCATIONS)
 
     @Provides
+    @Named(NEWS)
+    fun providesStorageNewsRef(storage: FirebaseStorage): StorageReference =
+        storage.reference.child(NEWS)
+
+    @Provides
+    @Named(NEWS)
+    fun provideNewsRef(db: FirebaseFirestore): CollectionReference = db.collection(NEWS)
+
+
+    @Provides
     @Named(SUGGESTIONS)
     fun providesStorageSuggestionsRef(storage: FirebaseStorage): StorageReference =
         storage.reference.child(SUGGESTIONS)
@@ -109,6 +124,9 @@ object AppModule {
     fun provideSuggestionsRepository(impl: SuggestionRepositoryImpl): SuggestionRepository = impl
 
     @Provides
+    fun provideNewsRepository(impl: NewsRepositoryImpl): NewsRepository = impl
+
+    @Provides
     fun provideCommentsRepository(impl: CommentsRepositoryImpl): CommentsRepository = impl
 
     @Provides
@@ -126,6 +144,11 @@ object AppModule {
     @Provides
     fun provideLocationsUseCases(repository: LocationsRepository) = LocationsUseCases(
         getLocationsUseCase = GetLocationsUsecase(repository)
+    )
+
+    @Provides
+    fun provideNewsUseCases(repository: NewsRepository) = NewsUseCases(
+        getNewsUseCase = GetNewsUsecase(repository)
     )
 
     @Provides
