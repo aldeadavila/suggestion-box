@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">suggestionBox</string>
     <string name="do_login">Haz login aquí</string>
+    <string name="do_reset_password">Resetea tu contraseña</string>
     <string name="welcome">!Bienvenido, le habíamos echado de menos!</string>
     <string name="sign_up">Crea una cuenta</string>
     <string name="add_comments">Podrás añadir entradas y realizar comentarios</string>

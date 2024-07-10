@@ -8,7 +8,9 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Build
 import android.util.Log
+import androidx.compose.ui.graphics.Color
 import androidx.core.app.NotificationCompat
+import com.aldeadavila.suggestionbox.ui.theme.md_theme_dark_secondary
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlin.random.Random

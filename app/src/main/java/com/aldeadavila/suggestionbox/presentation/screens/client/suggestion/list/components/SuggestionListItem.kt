@@ -89,14 +89,69 @@ fun SuggestionListItem(
             }
             Spacer(modifier = Modifier.width(5.dp))
 
-            AsyncImage(
-                modifier = Modifier
-                    .size(70.dp)
-                    .clip(RoundedCornerShape(10.dp)),
-                model = suggestion.images[0],
-                contentDescription = ""
-            )
 
+            if (vm.getEditable(suggestion.user_id)) {
+
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    AsyncImage(
+                        modifier = Modifier
+                            .size(70.dp)
+                            .clip(RoundedCornerShape(10.dp)),
+                        model = suggestion.images.get(0),
+                        contentDescription = ""
+                    )
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Column {
+                        Image(
+                            modifier = Modifier
+                                .size(20.dp)
+                                .clickable {
+                                    navHostController.navigate(
+                                        route = DetailsScreen.UpdateSuggestion.passSuggestion(
+                                            suggestion.toJson()
+                                        )
+                                    )
+                                },
+                            painter = painterResource(id = R.drawable.ic_edit),
+                            contentDescription = "editar"
+                        )
+                        Spacer(modifier = Modifier.height(5.dp))
+                        Image(
+                            modifier = Modifier
+                                .size(20.dp)
+                                .clickable {
+                                    openAlertDialog.value = true
+                                },
+                            painter = painterResource(id = R.drawable.ic_delete),
+                            contentDescription = "eliminar"
+                        )
+                        if (openAlertDialog.value) {
+                            AlertDialogSuggestion(
+                                onDismissRequest = { openAlertDialog.value = false },
+                                onConfirmation = {
+                                    openAlertDialog.value = false
+                                    vm.deleteSuggestion(suggestion.suggestion_id)
+
+                                },
+                                dialogTitle = "Borrar sugerencia",
+                                dialogText = "¿Estás seguro de que quiere borrar esta sugerencia?",
+                                icon = Icons.Default.Info
+                            )
+                        }
+                    }
+                }
+            } else {
+                AsyncImage(
+                    modifier = Modifier
+                        .size(70.dp)
+                        .clip(RoundedCornerShape(10.dp)),
+                    model = suggestion.images[0],
+                    contentDescription = ""
+                )
+            }
         }
         Spacer(modifier = Modifier.height(15.dp))
         HorizontalDivider(

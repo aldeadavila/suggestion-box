@@ -69,4 +69,6 @@ class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases)
         loginResponseAnonymous = authUseCases.anonymous()
 
     }
+
+    suspend fun resetPassword(email: String) = authUseCases.resetPassword(email)
 }
