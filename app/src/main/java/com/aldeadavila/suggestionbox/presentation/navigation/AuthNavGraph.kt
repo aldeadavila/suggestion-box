@@ -4,6 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.aldeadavila.suggestionbox.presentation.screens.auth.login.ForgotPasswordScreen
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginScreen
 import com.aldeadavila.suggestionbox.presentation.screens.auth.register.RegisterScreen
 
@@ -20,6 +21,10 @@ fun NavGraphBuilder.AuthNavGraph(navController: NavHostController) {
             RegisterScreen(navController)
         }
 
+        composable(route = AuthScreen.ResetPassword.route) {
+            ForgotPasswordScreen(navController)
+        }
+
 
     }
 }
@@ -27,5 +32,6 @@ fun NavGraphBuilder.AuthNavGraph(navController: NavHostController) {
 sealed class AuthScreen(val route: String) {
     object  Login: AuthScreen("login")
     object Register: AuthScreen("register")
+    object ResetPassword: AuthScreen("resetPassword")
 
 }

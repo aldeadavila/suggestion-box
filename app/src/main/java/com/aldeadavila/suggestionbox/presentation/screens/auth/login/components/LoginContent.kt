@@ -56,7 +56,9 @@ import com.aldeadavila.suggestionbox.presentation.components.GoogleSignInButton
 import com.aldeadavila.suggestionbox.presentation.components.NormalTextComponent
 import com.aldeadavila.suggestionbox.presentation.components.TitleTextComponent
 import com.aldeadavila.suggestionbox.presentation.navigation.AuthScreen
+import com.aldeadavila.suggestionbox.presentation.navigation.Graph
 import com.aldeadavila.suggestionbox.presentation.screens.auth.login.LoginViewModel
+import com.aldeadavila.suggestionbox.presentation.util.Constants.FORGOT_PASSWORD
 import com.aldeadavila.suggestionbox.presentation.util.Constants.NO_ACCOUNT
 import com.aldeadavila.suggestionbox.presentation.util.Constants.SIGN_IN_ANONYMOUS
 import com.aldeadavila.suggestionbox.presentation.util.Constants.SIGN_IN_BUTTON
@@ -191,7 +193,28 @@ fun LoginContent(
 
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Text(
+            text = FORGOT_PASSWORD,
+            color = Color.Black,
+            modifier = Modifier
+                .clickable {
+                    navController.navigate(route = AuthScreen.ResetPassword.route) {
+                     //   popUpTo(Graph.AUTH) { inclusive = true }
+                    }
+                    // analytics.logButtonClicked("Click: ¿Olvidaste tu contraseña?")
+                }
+                .padding(top = 10.dp),
+            style = TextStyle(
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                fontStyle = FontStyle.Normal,
+                fontFamily = poppins
+            ),
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
 
         Button(
             onClick = {
@@ -235,35 +258,35 @@ fun LoginContent(
         }
 
         Spacer(modifier = Modifier.height(16.dp))
-        Row (
+        Row(
             horizontalArrangement = Arrangement.Center
         ) {
             GoogleSignInButton(navController)
         }
 
 
-            Text(
-                text = NO_ACCOUNT,
-                color = Color.Black,
-                modifier = Modifier
-                    .clickable {
-                        navController.navigate(route = AuthScreen.Register.route)
-                    }
-                    .padding(top = 10.dp),
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    fontStyle = FontStyle.Normal,
-                    fontFamily = poppins
-                ),
-            )
+        Text(
+            text = NO_ACCOUNT,
+            color = Color.Black,
+            modifier = Modifier
+                .clickable {
+                    navController.navigate(route = AuthScreen.Register.route)
+                }
+                .padding(top = 10.dp),
+            style = TextStyle(
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                fontStyle = FontStyle.Normal,
+                fontFamily = poppins
+            ),
+        )
 
 
-            Image(
-                painter = painterResource(id = R.drawable.logo_avaldeadavilacorporario),
-                contentDescription = "Agrupación vecinal de Aldeadávila",
-                modifier = Modifier.size(500.dp)
-            )
+        Image(
+            painter = painterResource(id = R.drawable.logo_avaldeadavilacorporario),
+            contentDescription = "Agrupación vecinal de Aldeadávila",
+            modifier = Modifier.size(500.dp)
+        )
     }
 
 

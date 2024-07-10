@@ -14,4 +14,5 @@ interface AuthRepository {
 
     fun logout()
     suspend fun signInAnonymously(): Response<Boolean>
+    suspend fun resetPassword(email: String): Response<Unit>
 }
