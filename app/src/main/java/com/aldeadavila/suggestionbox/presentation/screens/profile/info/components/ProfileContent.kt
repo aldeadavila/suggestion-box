@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -26,6 +27,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,6 +48,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.MainActivity
 import com.aldeadavila.suggestionbox.R
+import com.aldeadavila.suggestionbox.presentation.components.AlertDialogSuggestion
 import com.aldeadavila.suggestionbox.presentation.navigation.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileViewModel
@@ -62,8 +66,8 @@ fun ProfileContent(
     vm: ProfileViewModel = hiltViewModel()
 ) {
     val activity = LocalContext.current as? Activity
-
     val coroutineScope = rememberCoroutineScope()
+    val openAlertDialog = remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -172,15 +176,15 @@ fun ProfileContent(
                         modifier = Modifier.padding(horizontal = 5.dp)
                     ) {
                         if (vm.isanonymous() == true) {
-                            Text(text = vm.userData.email)
                             Text(
-                                text = "Correo electrónico",
+                                text = "Sin correo electrónico",
                                 fontSize = 12.sp,
                                 color = Color.Gray
                             )
                         } else {
+                            Text(text = vm.userData.email)
                             Text(
-                                text = "Sin correo electrónico",
+                                text = "Correo electrónico",
                                 fontSize = 12.sp,
                                 color = Color.Gray
                             )
@@ -193,11 +197,9 @@ fun ProfileContent(
 
             Button(
                 onClick = {
-                    coroutineScope.launch {
-                        vm.onDeleteMyAccountClick()
-                    }
-                    activity?.finish()
-                    activity?.startActivity(Intent(activity, MainActivity::class.java))
+
+                    openAlertDialog.value = true
+
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -233,7 +235,6 @@ fun ProfileContent(
                         )
                     }
                 }
-
             }
 
             Spacer(modifier = Modifier.weight(1f))
@@ -277,7 +278,24 @@ fun ProfileContent(
                         )
                     }
                 }
+            }
 
+            if (openAlertDialog.value) {
+                AlertDialogSuggestion(
+                    onDismissRequest = { openAlertDialog.value = false },
+                    onConfirmation = {
+                        openAlertDialog.value = false
+                        coroutineScope.launch {
+                            vm.onDeleteMyAccountClick()
+                            vm.logout()
+                            activity?.finish()
+                            activity?.startActivity(Intent(activity, MainActivity::class.java))
+                        }
+                    },
+                    dialogTitle = "Borrar usuario",
+                    dialogText = "¿Estás seguro de que quiere borrar su usuario?",
+                    icon = Icons.Default.Info
+                )
             }
         }
     }

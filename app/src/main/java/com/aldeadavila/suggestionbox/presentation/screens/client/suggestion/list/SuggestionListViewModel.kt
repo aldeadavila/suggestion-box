@@ -30,13 +30,6 @@ class SuggestionListViewModel @Inject constructor(
     var userData by mutableStateOf(User())
         private set
 
-
-    init {
-        getUserById()
-
-    }
-
-
     fun getSuggestions() = viewModelScope.launch {
         suggestionsResponse = Response.Loading
         suggestionsUseCases.getSuggestionsUseCase().collect { response ->
@@ -52,13 +45,14 @@ class SuggestionListViewModel @Inject constructor(
 
 
     fun getEditable(idUser: String): Boolean {
+        getUserById()
         return idUser == currentUser?.uid || userData.roles?.contains("admin") ?: false
     }
 
     fun isAnonymous() = currentUser!!.isAnonymous
 
     private fun getUserById() = viewModelScope.launch {
-        usersUseCases.getUserByIdUseCase(authUseCases.getCurrentUser()!!.uid).collect() {
+        usersUseCases.getUserByIdUseCase(authUseCases.getCurrentUser()!!.uid).collect {
             userData = it
         }
     }

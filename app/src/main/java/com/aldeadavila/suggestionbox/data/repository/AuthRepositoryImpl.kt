@@ -61,10 +61,6 @@ class AuthRepositoryImpl @Inject constructor(
 
 
     override fun logout() {
-        if (firebaseAuth.currentUser!!.isAnonymous) {
-            firebaseAuth.currentUser!!.delete()
-        }
-
         firebaseAuth.signOut()
     }
 
