@@ -8,6 +8,7 @@ object Constants {
     const val UPDATE_COMMENT = "Actualizar comentario"
     const val CONFIRM_BUTTON = "Confirmar"
     const val UPDATE_INFO_BUTTON = "Actualizar información"
+    const val DELETE_USER = "Borrar usuario"
     const val UPDATE_SUGGESTION = "Actualizar sugerencia"
     const val SIGN_IN_BUTTON = "Iniciar sesión"
     const val SIGN_IN_ANONYMOUS = "Iniciar anónimamente"

@@ -6,6 +6,7 @@ data class AuthUseCases(
     val anonymous: AnonymousLoginUseCase,
     val signUp: SignUpUseCase,
     val logout: LogoutUseCase,
-    val resetPassword: ResetPasswordUseCase
+    val resetPassword: ResetPasswordUseCase,
+    val deleteUser: DeleteUserUseCase
 
     )

@@ -19,6 +19,7 @@ import com.aldeadavila.suggestionbox.domain.repository.SuggestionRepository
 import com.aldeadavila.suggestionbox.domain.repository.UsersRepository
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AnonymousLoginUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.auth.AuthUseCases
+import com.aldeadavila.suggestionbox.domain.usecase.auth.DeleteUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.auth.GetCurrentUserUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.auth.LoginUseCase
 import com.aldeadavila.suggestionbox.domain.usecase.auth.LogoutUseCase
@@ -140,7 +141,8 @@ object AppModule {
         signUp = SignUpUseCase(repository),
         logout = LogoutUseCase(repository),
         anonymous = AnonymousLoginUseCase(repository),
-        resetPassword = ResetPasswordUseCase(repository)
+        resetPassword = ResetPasswordUseCase(repository),
+        deleteUser = DeleteUserUseCase(repository)
     )
 
     @Provides

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,6 +45,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.aldeadavila.suggestionbox.MainActivity
 import com.aldeadavila.suggestionbox.R
+import com.aldeadavila.suggestionbox.presentation.navigation.AuthScreen
 import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileViewModel
 import com.aldeadavila.suggestionbox.presentation.util.Constants
@@ -50,6 +53,7 @@ import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_secondary
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_tertiaryContainer
 import com.aldeadavila.suggestionbox.ui.theme.poppins
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileContent(
@@ -58,6 +62,8 @@ fun ProfileContent(
     vm: ProfileViewModel = hiltViewModel()
 ) {
     val activity = LocalContext.current as? Activity
+
+    val coroutineScope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier
@@ -70,34 +76,38 @@ fun ProfileContent(
             contentDescription = "",
             contentScale = ContentScale.Crop,
 
-        )
+            )
         Column(modifier = Modifier.fillMaxWidth()) {
-            IconButton(modifier = Modifier
-                .align(Alignment.End)
-                .padding(
-                    end = 15.dp,
-                    top = 15.dp
-                ),
-                onClick = {
-                    vm.logout()
-                    activity?.finish()
-                    activity?.startActivity(Intent(activity, MainActivity::class.java))
-                }) {
-                Image(
-                    modifier = Modifier.size(35.dp),
-                    painter = painterResource(id = R.drawable.ic_logout),
-                    contentDescription = ""
+            Row(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(10.dp)
+            ) {
+                Text(
+                    text = "Cerrar sesión"
                 )
-
+                IconButton(
+                    onClick = {
+                        vm.logout()
+                        activity?.finish()
+                        activity?.startActivity(Intent(activity, MainActivity::class.java))
+                    }
+                ) {
+                    Image(
+                        modifier = Modifier.size(35.dp),
+                        painter = painterResource(id = R.drawable.ic_logout),
+                        contentDescription = ""
+                    )
+                }
             }
 
-            if (!vm.userData?.profileImagePathUrl.isNullOrBlank()) {
+            if (!vm.userData.profileImagePathUrl.isNullOrBlank()) {
                 AsyncImage(
                     modifier = Modifier
                         .size(150.dp)
                         .clip(CircleShape)
                         .align(Alignment.CenterHorizontally),
-                    model = vm.userData?.profileImagePathUrl,
+                    model = vm.userData.profileImagePathUrl,
                     contentDescription = "",
                     contentScale = ContentScale.Crop
                 )
@@ -136,7 +146,7 @@ fun ProfileContent(
                                 color = Color.Gray
                             )
                         } else {
-                            Text(text = vm.userData.nickname )
+                            Text(text = vm.userData.nickname)
                             Text(
                                 text = "Usuario",
                                 fontSize = 12.sp,
@@ -178,6 +188,54 @@ fun ProfileContent(
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Button(
+                onClick = {
+                    coroutineScope.launch {
+                        vm.onDeleteMyAccountClick()
+                    }
+                    activity?.finish()
+                    activity?.startActivity(Intent(activity, MainActivity::class.java))
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                contentPadding = PaddingValues(),
+                colors = ButtonDefaults.buttonColors(Color.Transparent)
+            ) {
+                if (vm.isanonymous() == false) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(38.dp)
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    listOf(
+                                        md_theme_light_primary,
+                                        md_theme_light_secondary
+                                    )
+                                ),
+                                shape = RoundedCornerShape(50.dp)
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = Constants.DELETE_USER,
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontStyle = FontStyle.Normal,
+                                color = md_theme_light_tertiaryContainer,
+                                fontFamily = poppins
+                            ),
+                        )
+                    }
+                }
+
+            }
+
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
