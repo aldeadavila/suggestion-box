@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -66,11 +67,8 @@ fun CommentListBySuggestionContent(
                     onValueChange = { vm.onCommentContentInput(it) },
                     label = { Text("Añade tu comentario") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = md_theme_light_primary,
-                        focusedLabelColor = md_theme_light_primary,
-                        cursorColor = md_theme_light_primary,
-                        containerColor = Color.White
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.onPrimaryContainer
                     ),
                 )
 

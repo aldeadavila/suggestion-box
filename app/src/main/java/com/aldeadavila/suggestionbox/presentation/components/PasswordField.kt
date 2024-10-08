@@ -9,6 +9,7 @@ import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -44,11 +45,9 @@ fun PasswordField(
                 text = PASSWORD_LABEL
             )
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = md_theme_light_primary,
-            focusedLabelColor = md_theme_light_primary,
-            cursorColor = md_theme_light_primary,
-            containerColor = md_theme_secondary99
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.onSecondary
+
         ),
         singleLine = true,
         visualTransformation = if (passwordIsVisible) {

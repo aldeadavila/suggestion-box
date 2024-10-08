@@ -3,6 +3,7 @@ package com.aldeadavila.suggestionbox.presentation.components
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -35,11 +36,9 @@ fun DefaultTextField(
         label = {
             Text(text = label)
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = md_theme_light_primary,
-            focusedLabelColor = md_theme_light_primary,
-            cursorColor = md_theme_light_primary,
-            containerColor = md_theme_secondary99
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.onSecondary
+
         ),
 
         leadingIcon = {
