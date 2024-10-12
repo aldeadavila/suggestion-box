@@ -76,7 +76,6 @@ fun CustomTextField(
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = MaterialTheme.shapes.small,
-    colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
     onValueChange: (String) -> Unit,
     errorMsg: String = "",
 ) {
@@ -97,12 +96,10 @@ fun CustomTextField(
         maxLines = maxLines,
         interactionSource = interactionSource,
         shape = shape,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = md_theme_light_primary,
-            focusedLabelColor = md_theme_light_primary,
-            cursorColor = md_theme_light_primary,
-            containerColor = md_theme_secondary99
-        ),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.onSecondary
+
+        )
     )
 
     if (isError) {
