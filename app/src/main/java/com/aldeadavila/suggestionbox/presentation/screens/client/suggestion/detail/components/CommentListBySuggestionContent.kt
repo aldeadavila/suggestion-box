@@ -68,7 +68,7 @@ fun CommentListBySuggestionContent(
                     label = { Text("Añade tu comentario") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     colors = TextFieldDefaults.colors(
-                        focusedContainerColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer
                     ),
                 )
 
