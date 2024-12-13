@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Location
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -46,7 +47,7 @@ fun LocationListContent(
     Box(Modifier.fillMaxSize()) {
         val initialCoordinates = LatLng(41.21850902356192, -6.619980581162994)
         val cameraPositionState = rememberCameraPositionState {
-            position = CameraPosition.fromLatLngZoom(initialCoordinates, 16f)
+            position = CameraPosition.fromLatLngZoom(initialCoordinates, 13f)
         }
         var uiSettings by remember {
             mutableStateOf(MapUiSettings(zoomControlsEnabled = true))
@@ -73,6 +74,7 @@ fun LocationListContent(
                     state = MarkerState(position = Location.toLatLng(location.coordinates)),
                     title = location.name,
                     snippet = location.link,
+                    icon = BitmapDescriptorFactory.fromResource(chooseIcon(location.type))
                     //onInfoWindowClick =
                 ) { marker ->
                     Row(
@@ -93,8 +95,10 @@ fun LocationListContent(
                                 fontWeight = FontWeight.Bold
                             )
                             if (!location.link.isNullOrBlank()) {
-                                Text(text = location.link,
-                                color = Color.Blue)
+                                Text(
+                                    text = location.link,
+                                    color = Color.Blue
+                                )
                             }
                             Text(text = location.address)
                             Text(text = location.phone)
@@ -120,19 +124,20 @@ fun LocationListContent(
             cameraPositionState = cameraPositionState
         )
 
-
-        /*    LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                items(items = locations) { location ->
-                    LocationListItem(
-                        navHostController = navHostController,
-                        location = location
-                    )
-                }
-            }*/
-
+    }
+}
+    fun chooseIcon(type: String): Int {
+    return when (type) {
+        "Farmacia"-> R.drawable.marker_farmacia
+        "Casa Rural" -> R.drawable.marker_casa_rural
+        "Mirador"  -> R.drawable.marker_mirador
+        "Restaurante" -> R.drawable.marker_restaurante
+        "Iglesia" -> R.drawable.marker_iglesia
+        "Informacion" -> R.drawable.marker_informacion
+        "Supermercado" -> R.drawable.marker_supermercado
+        else -> { // Note the block
+            R.drawable.marker_casa_rural
+        }
     }
 }
 
