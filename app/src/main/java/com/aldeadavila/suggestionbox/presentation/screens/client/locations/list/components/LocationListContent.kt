@@ -86,7 +86,7 @@ fun LocationListContent(
         var properties by remember {
             mutableStateOf(
                 MapProperties(
-                    mapType = MapType.NORMAL,
+                    mapType = MapType.SATELLITE,
                     isMyLocationEnabled = hasLocationPermission.value
                 )
             )
