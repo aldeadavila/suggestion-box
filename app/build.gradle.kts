@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -14,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.aldeadavila.suggestionbox"
-        minSdk = 23
+        minSdk = 26
         targetSdk = 34
         versionCode = 28
         versionName = "1.28"
@@ -23,6 +25,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // Read Maps API key from local.properties
+        val localProperties = gradleLocalProperties(rootDir)
+        manifestPlaceholders["MAPS_API_KEY"] = localProperties.getProperty("MAPS_API_KEY", "")
     }
 
     buildTypes {
@@ -62,7 +68,7 @@ android {
 
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
@@ -72,6 +78,12 @@ android {
 }
 
 dependencies {
+    val navVersion = "2.7.7"
+    val retrofitVersion = "2.9.0"
+    val roomVersion = "2.6.1"
+    val moshiVersion = "1.15.0"
+    val hiltVersion = rootProject.extra["hilt_version"] as String
+
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
 
@@ -83,10 +95,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
     implementation ("com.google.firebase:firebase-messaging-ktx")
 
-
     val google_credentielas = "1.3.0"
-    val nav_version = "2.8.2"
-    val room_version = "2.6.1"
 
     implementation("androidx.credentials:credentials:$google_credentielas")
     implementation ("androidx.credentials:credentials-play-services-auth:$google_credentielas")
@@ -102,7 +111,6 @@ dependencies {
 
     // Optionally, you can include the widgets library for ScaleBar, etc.
     implementation ("com.google.maps.android:maps-compose-widgets:4.4.2")
-
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
@@ -120,12 +128,9 @@ dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     }
 
-
-
     //SLIDES
     implementation("com.google.accompanist:accompanist-pager:0.24.3-alpha")
     // If using indicators, also depend on
-
 
     //Glide
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
@@ -144,7 +149,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     //navigation
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
     //ASYNC IMAGE
     implementation("io.coil-kt:coil-compose:2.5.0")
@@ -153,9 +158,14 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     //daguer hilt
-    implementation("com.google.dagger:hilt-android:2.49")
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    ksp("com.google.dagger:hilt-compiler:$hiltVersion")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    ksp("com.google.dagger:hilt-android-compiler:2.48")
+
+    // Room
+    implementation("androidx.room:room-runtime:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

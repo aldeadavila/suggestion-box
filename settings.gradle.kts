@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Aldeadavila Suggestion Box"
+rootProject.name = "suggestion-box"
 include(":app")
  
