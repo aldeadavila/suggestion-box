@@ -21,29 +21,34 @@ import javax.inject.Inject
 @HiltViewModel
 class SuggestionDetailViewModel @Inject constructor(
     private val commentsUseCases: CommentsUseCases,
-    private val savedStateHandle: SavedStateHandle,
+    val savedStateHandle: SavedStateHandle,
     private val authUseCases: AuthUseCases
 ) : ViewModel() {
 
-    var data = savedStateHandle.get<String>("suggestion")
-    var suggestion = Suggestion.fromJson(data!!)
-    var listSuggestionImage = listOf<String>(
-        suggestion.images[0],
-        suggestion.images[1]
-    )
+    var suggestion by mutableStateOf<Suggestion?>(null)
+        private set
+    
+    var listSuggestionImage by mutableStateOf<List<String>>(emptyList())
+        private set
+        
     var commentsResponse by mutableStateOf<Response<List<Comment>>?>(null)
         private set
+        
     var commentResponse by mutableStateOf<Response<Boolean>?>(null)
     var state by mutableStateOf(CommentCreateState())
     var stateUser by mutableStateOf(GetUserState())
 
     val currentUser = authUseCases.getCurrentUser()
-
-
     var errorMessage by mutableStateOf("")
 
     init {
-        getComments()
+        savedStateHandle.get<String>("suggestion")?.let { data ->
+            suggestion = Suggestion.fromJson(data)
+            suggestion?.let { sug ->
+                listSuggestionImage = listOf(sug.images[0], sug.images[1])
+                getComments()
+            }
+        }
     }
 
     fun createComment(comment: Comment) = viewModelScope.launch {
@@ -78,21 +83,22 @@ class SuggestionDetailViewModel @Inject constructor(
     }
 
     private fun getComments() = viewModelScope.launch {
-        commentsResponse = Response.Loading
-        commentsUseCases.findBySuggestionUseCase(suggestion.suggestion_id).collect {
-            commentsResponse = it
+        suggestion?.let { sug ->
+            commentsResponse = Response.Loading
+            commentsUseCases.findBySuggestionUseCase(sug.suggestion_id).collect {
+                commentsResponse = it
+            }
         }
     }
 
     fun onNewComment() {
-        val comment =
-            Comment(
-                suggestion_id = suggestion.suggestion_id,
+        suggestion?.let { sug ->
+            val comment = Comment(
+                suggestion_id = sug.suggestion_id,
                 user_id = currentUser?.uid ?: "",
                 content = state.content
             )
-        createComment(comment)
+            createComment(comment)
+        }
     }
-
-
 }

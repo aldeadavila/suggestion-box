@@ -33,6 +33,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         askNotificationPermission()
+        askLocationPermission()
         tokenNew()
 
         setContent {
@@ -49,12 +50,43 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private fun askLocationPermission() {
+        val fineLocationPermission = Manifest.permission.ACCESS_FINE_LOCATION
+        val coarseLocationPermission = Manifest.permission.ACCESS_COARSE_LOCATION
+
+        when {
+            ContextCompat.checkSelfPermission(this, fineLocationPermission) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(this, coarseLocationPermission) == PackageManager.PERMISSION_GRANTED -> {
+                // Permisos ya concedidos
+                Log.d("LOCATION", "Permisos de ubicación ya concedidos")
+            }
+            else -> {
+                // Solicitar permisos
+                locationPermissionLauncher.launch(arrayOf(fineLocationPermission, coarseLocationPermission))
+            }
+        }
+    }
+
+    private val locationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true &&
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true -> {
+                Log.d("LOCATION", "Permisos de ubicación concedidos")
+            }
+            else -> {
+                Log.d("LOCATION", "Permisos de ubicación denegados")
+            }
+        }
+    }
+
     private fun askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
                 PackageManager.PERMISSION_GRANTED
             ) {
-
+                // Permiso ya concedido
             } else {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
@@ -65,9 +97,9 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.RequestPermission(),
     ) { isGranted: Boolean ->
         if (isGranted) {
-
+            // Permiso concedido
         } else {
-
+            // Permiso denegado
         }
     }
 

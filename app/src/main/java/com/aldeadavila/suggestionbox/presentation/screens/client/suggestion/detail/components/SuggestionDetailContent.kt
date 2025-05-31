@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.compose.foundation.layout.PaddingValues
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.presentation.components.DotsIndicator
 import com.aldeadavila.suggestionbox.presentation.components.SliderView
@@ -44,9 +45,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun SuggestionDetailContent(
     navHostController: NavHostController,
+    paddingValues: PaddingValues,
     vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
-
     val pageState = rememberPagerState()
     var key by remember { mutableStateOf(false) }
     val context = LocalContext.current
@@ -54,9 +55,9 @@ fun SuggestionDetailContent(
 
     Box(
         modifier = Modifier
-            .clickable { keyboard?.hide() },
-
-        ) {
+            .padding(paddingValues)
+            .clickable { keyboard?.hide() }
+    ) {
         Image(
             modifier = Modifier
                 .padding(start = 50.dp)
@@ -64,54 +65,53 @@ fun SuggestionDetailContent(
             painter = painterResource(id = R.drawable.bg_green),
             contentDescription = "",
             contentScale = ContentScale.Crop,
-
             alignment = Alignment.TopEnd
         )
-        Column(
-            modifier = Modifier
-                .padding(20.dp)
-                .fillMaxSize()
-        ) {
-            SliderView(
-                state = pageState,
-                images = vm.listSuggestionImage
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            DotsIndicator(
-                totalDots = vm.listSuggestionImage.size,
-                selectedIndex = pageState.currentPage
-            )
-            Text(
-                text = vm.suggestion.title,
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
-            )
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 10.dp),
-                color = Color.Gray
-            )
 
-            Text(
-                text = vm.suggestion.description,
-                fontSize = 15.sp
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                textAlign = TextAlign.Right,
-                text = "de " + vm.suggestion.user?.nickname,
-                color = Color.Gray,
-                fontSize = 8.sp
-            )
+        vm.suggestion?.let { suggestion ->
+            Column(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .fillMaxSize()
+            ) {
+                SliderView(
+                    state = pageState,
+                    images = vm.listSuggestionImage
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                DotsIndicator(
+                    totalDots = vm.listSuggestionImage.size,
+                    selectedIndex = pageState.currentPage
+                )
+                Text(
+                    text = suggestion.title,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+                HorizontalDivider(
+                    modifier = Modifier.padding(vertical = 10.dp),
+                    color = Color.Gray
+                )
 
-            Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = suggestion.description,
+                    fontSize = 15.sp
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    textAlign = TextAlign.Right,
+                    text = "de " + suggestion.user?.nickname,
+                    color = Color.Gray,
+                    fontSize = 8.sp
+                )
 
+                Spacer(modifier = Modifier.weight(1f))
 
-            GetCommentsBySuggestion(
-                navHostController = navHostController
-            )
-
+                GetCommentsBySuggestion(
+                    navHostController = navHostController
+                )
+            }
         }
-
     }
 
     LaunchedEffect(key1 = key, key2 = vm.errorMessage) {
@@ -127,7 +127,7 @@ fun SuggestionDetailContent(
             delay(8000)
             with(pageState) {
                 val target = if (currentPage < pageCount - 1) currentPage + 1 else 0
-                animateScrollToPage(page = target) //Broken
+                animateScrollToPage(page = target)
                 key = !key
             }
         }
