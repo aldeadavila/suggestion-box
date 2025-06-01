@@ -5,6 +5,7 @@ import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.filled.Flight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
@@ -17,6 +18,7 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.news.list.NewsS
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.SuggestionListScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.update.ProfileUpdateScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.travel.TravelScreen
 
 @Composable
 fun HomeBottomBarNavGraph(navController: NavHostController) {
@@ -29,6 +31,10 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
 
         composable(route = HomeBottomBarScreen.SuggestionList.route) {
             SuggestionListScreen(navController)
+        }
+
+        composable(route = HomeBottomBarScreen.Travel.route) {
+            TravelScreen(navController)
         }
 
         composable(route = HomeBottomBarScreen.Map.route) {
@@ -80,6 +86,12 @@ sealed class HomeBottomBarScreen(
         route = "suggestions",
         title = "Sugerencias",
         icon = Icons.Default.ThumbUp
+    )
+
+    object Travel : HomeBottomBarScreen(
+        route = "travel",
+        title = "Viajar",
+        icon = Icons.Default.Flight
     )
 
     object Profile : HomeBottomBarScreen(

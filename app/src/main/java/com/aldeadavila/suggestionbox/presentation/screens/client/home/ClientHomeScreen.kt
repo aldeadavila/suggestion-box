@@ -38,6 +38,7 @@ fun ClientHomeScreen(navHostController: NavHostController = rememberNavControlle
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         HomeBottomBarScreen.SuggestionList,
+        HomeBottomBarScreen.Travel,
         HomeBottomBarScreen.Map,
         HomeBottomBarScreen.NewsList,
         HomeBottomBarScreen.Profile,
@@ -48,7 +49,6 @@ fun BottomBar(navController: NavHostController) {
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
 
     if (bottomBarDestination) {
-
         BottomNavigation(
             backgroundColor = MaterialTheme.colors.secondary,
         ){
@@ -56,14 +56,11 @@ fun BottomBar(navController: NavHostController) {
                 AddItem(
                     screen = screen,
                     currentDestination = currentDestination,
-                    navController = navController,
-
+                    navController = navController
                 )
             }
         }
-
     }
-
 }
 
 @Composable
