@@ -19,16 +19,17 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list
 import com.aldeadavila.suggestionbox.presentation.screens.profile.info.ProfileScreen
 import com.aldeadavila.suggestionbox.presentation.screens.profile.update.ProfileUpdateScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.travel.TravelScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.travel.create.TravelCreateScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.travel.detail.TravelDetailScreen
+import com.aldeadavila.suggestionbox.presentation.screens.client.travel.update.TravelUpdateScreen
 
 @Composable
 fun HomeBottomBarNavGraph(navController: NavHostController) {
-
     NavHost(
         navController = navController,
         route = Graph.HOME,
         startDestination = HomeBottomBarScreen.SuggestionList.route
     ) {
-
         composable(route = HomeBottomBarScreen.SuggestionList.route) {
             SuggestionListScreen(navController)
         }
@@ -37,14 +38,37 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
             TravelScreen(navController)
         }
 
+        composable(route = "travel/create") {
+            TravelCreateScreen(navController)
+        }
+
+        composable(
+            route = "travel/detail/{travel}",
+            arguments = listOf(navArgument("travel") {
+                type = NavType.StringType
+            })
+        ) {
+            it.arguments?.getString("travel")?.let { travel ->
+                TravelDetailScreen(navController, travelParam = travel)
+            }
+        }
+
+        composable(
+            route = "travel/update/{travel}",
+            arguments = listOf(navArgument("travel") {
+                type = NavType.StringType
+            })
+        ) {
+            it.arguments?.getString("travel")?.let { travel ->
+                TravelUpdateScreen(navController, travelParam = travel)
+            }
+        }
+
         composable(route = HomeBottomBarScreen.Map.route) {
             LocationsListScreen(navController)
         }
 
-        composable(
-            route = HomeBottomBarScreen.NewsList.route,
-
-            ) {
+        composable(route = HomeBottomBarScreen.NewsList.route) {
             NewsScreen(navController)
         }
 
@@ -63,12 +87,9 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
             }
         }
 
-
         detailsNavGraph(navController)
         CommentNavGraph(navController)
-
     }
-
 }
 
 sealed class HomeBottomBarScreen(
@@ -105,6 +126,5 @@ sealed class HomeBottomBarScreen(
         title = "Mapa",
         icon = Icons.Default.Map
     )
-
 }
 
