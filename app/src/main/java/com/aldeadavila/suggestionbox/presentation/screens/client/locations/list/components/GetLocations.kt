@@ -8,25 +8,25 @@ import androidx.navigation.NavHostController
 import com.aldeadavila.suggestionbox.domain.model.Response
 import com.aldeadavila.suggestionbox.presentation.components.ProgressBar
 import com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.LocationsListViewModel
+import com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.WalkingRoutesViewModel
 
 @Composable
 fun GetLocations(
     navHostController: NavHostController,
-    vm: LocationsListViewModel = hiltViewModel()
+    vm: LocationsListViewModel = hiltViewModel(),
+    walkingRoutesViewModel: WalkingRoutesViewModel = hiltViewModel()
 ) {
-
     when (val response = vm.locationsResponse) {
         Response.Loading -> {
             ProgressBar()
         }
 
         is Response.Success -> {
-
             LocationListContent(
                 navHostController,
-                locations = response.data
+                locations = response.data,
+                walkingRoutesViewModel = walkingRoutesViewModel
             )
-
         }
 
         is Response.Failure -> {

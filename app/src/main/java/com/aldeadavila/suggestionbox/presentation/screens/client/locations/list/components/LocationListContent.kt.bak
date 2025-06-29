@@ -53,7 +53,6 @@ import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.domain.model.Location
 import com.aldeadavila.suggestionbox.domain.model.WalkingRoute
 import com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.WalkingRoutesViewModel
-import com.aldeadavila.suggestionbox.presentation.util.WebViewActivity
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -290,10 +289,10 @@ fun LocationListContent(
                                     maxLines = 1
                                 )
                                 
-                                // Añadir un botón explícito para abrir el enlace en el WebView
+                                // Añadir un botón explícito para abrir el enlace
                                 Button(
                                     onClick = {
-                                        openInWebView(context, location.link)
+                                        openUrlInBrowser(context, location.link)
                                     },
                                     modifier = Modifier.padding(top = 4.dp)
                                 ) {
@@ -358,9 +357,9 @@ fun LocationListContent(
 }
 
 /**
- * Abre una URL en la actividad WebView
+ * Función para abrir una URL en el navegador de forma segura
  */
-fun openInWebView(context: Context, url: String) {
+fun openUrlInBrowser(context: Context, url: String) {
     try {
         // Asegurarse de que la URL tiene el formato correcto
         val formattedUrl = if (!url.startsWith("http://") && !url.startsWith("https://")) {
@@ -369,28 +368,30 @@ fun openInWebView(context: Context, url: String) {
             url
         }
         
-        // Mostrar mensaje de depuración
+        // Crear un intent explícito para el navegador
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(formattedUrl))
+        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        
+        // Intentar abrir con el navegador predeterminado
+        context.startActivity(browserIntent)
+        
+        Log.d("MAPS", "URL opened successfully: $formattedUrl")
+    } catch (e: ActivityNotFoundException) {
+        // No se encontró navegador
         Toast.makeText(
             context,
-            "Abriendo: $formattedUrl",
-            Toast.LENGTH_SHORT
-        ).show()
-        
-        // Lanzar la actividad WebView
-        val intent = Intent(context, WebViewActivity::class.java).apply {
-            putExtra("url", formattedUrl)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        context.startActivity(intent)
-        
-        Log.d("MAPS", "URL abierta en WebView: $formattedUrl")
-    } catch (e: Exception) {
-        Log.e("MAPS", "Error al abrir URL en WebView: $url", e)
-        Toast.makeText(
-            context,
-            "Error al abrir el enlace: ${e.message}",
+            "No se encontró ningún navegador para abrir el enlace",
             Toast.LENGTH_LONG
         ).show()
+        Log.e("MAPS", "No browser found to open URL: $url", e)
+    } catch (e: Exception) {
+        // Cualquier otro error
+        Toast.makeText(
+            context,
+            "Error al abrir el enlace: ${e.localizedMessage}",
+            Toast.LENGTH_LONG
+        ).show()
+        Log.e("MAPS", "Error opening URL: $url", e)
     }
 }
 

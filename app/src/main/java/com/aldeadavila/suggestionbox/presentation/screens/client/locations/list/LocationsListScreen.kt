@@ -11,13 +11,17 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.
 @Composable
 fun LocationsListScreen(
     navHostController: NavHostController,
-    vm: LocationsListViewModel = hiltViewModel()
+    vm: LocationsListViewModel = hiltViewModel(),
+    walkingRoutesViewModel: WalkingRoutesViewModel = hiltViewModel()
 ) {
-
+    // Cargar las ubicaciones
     vm.getLocations()
+    
     Scaffold {
-
-        GetLocations(navHostController = navHostController)
+        GetLocations(
+            navHostController = navHostController,
+            walkingRoutesViewModel = walkingRoutesViewModel
+        )
     }
 }
 

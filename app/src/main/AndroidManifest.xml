@@ -50,6 +50,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- Actividad WebView para abrir enlaces -->
+        <activity
+            android:name=".presentation.util.WebViewActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SuggestionBox" />
+            
         <provider
             android:name=".presentation.util.ComposeFileProvider"
             android:authorities="com.aldeadavila.suggestionbox.fileprovider"
