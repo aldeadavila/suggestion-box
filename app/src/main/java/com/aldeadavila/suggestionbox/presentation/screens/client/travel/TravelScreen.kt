@@ -1,6 +1,5 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.travel
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -10,16 +9,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.aldeadavila.suggestionbox.presentation.components.DefaultTopBar
 import com.aldeadavila.suggestionbox.presentation.navigation.DetailsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.travel.components.GetTravels
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TravelScreen(
     navHostController: NavHostController,
+    drawerState: DrawerState? = null,
     vm: TravelViewModel = hiltViewModel()
 ) {
     Scaffold(
+        topBar = {
+            DefaultTopBar(
+                title = "Viajes",
+                drawerState = drawerState
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(
                 modifier = Modifier.padding(bottom = 50.dp),
@@ -31,7 +38,10 @@ fun TravelScreen(
                 )
             }
         }
-    ) {
-        GetTravels(navHostController = navHostController)
+    ) { paddingValues ->
+        GetTravels(
+            navHostController = navHostController,
+            paddingValues = paddingValues
+        )
     }
 } 

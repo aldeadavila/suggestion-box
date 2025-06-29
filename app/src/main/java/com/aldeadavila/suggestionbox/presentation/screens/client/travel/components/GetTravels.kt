@@ -18,57 +18,42 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.travel.TravelVi
 @Composable
 fun GetTravels(
     navHostController: NavHostController,
+    paddingValues: PaddingValues,
     vm: TravelViewModel = hiltViewModel()
 ) {
     val state = vm.state
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(start = 20.dp, end = 20.dp, top = 20.dp)
-    ) {
-        if (state.travels.isEmpty()) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "No hay viajes disponibles",
-                    fontSize = 18.sp
-                )
-            }
+    
+    if (state.isLoading) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
         }
-
+    } else if (state.travels.isEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "No hay viajes disponibles",
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            )
+        }
+    } else {
         LazyColumn(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp)
         ) {
             items(state.travels) { travel ->
-                TravelItem(
-                    travel = travel,
-                    navHostController = navHostController
-                )
-            }
-        }
-
-        if (state.isLoading) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-
-        if (state.error != null) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = state.error,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                TravelItem(travel = travel, navHostController = navHostController)
             }
         }
     }

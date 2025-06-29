@@ -1,6 +1,7 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.components
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -14,7 +15,8 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.
 fun GetLocations(
     navHostController: NavHostController,
     vm: LocationsListViewModel = hiltViewModel(),
-    walkingRoutesViewModel: WalkingRoutesViewModel = hiltViewModel()
+    walkingRoutesViewModel: WalkingRoutesViewModel = hiltViewModel(),
+    paddingValues: PaddingValues
 ) {
     when (val response = vm.locationsResponse) {
         Response.Loading -> {
@@ -23,9 +25,10 @@ fun GetLocations(
 
         is Response.Success -> {
             LocationListContent(
-                navHostController,
+                navHostController = navHostController,
                 locations = response.data,
-                walkingRoutesViewModel = walkingRoutesViewModel
+                walkingRoutesViewModel = walkingRoutesViewModel,
+                paddingValues = paddingValues
             )
         }
 

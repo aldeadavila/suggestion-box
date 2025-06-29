@@ -1,6 +1,7 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.components
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -12,22 +13,21 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list
 @Composable
 fun GetSuggestions(
     navHostController: NavHostController,
+    paddingValues: PaddingValues,
     vm: SuggestionListViewModel = hiltViewModel()
 ) {
-
     when (val response = vm.suggestionsResponse) {
         Response.Loading -> {
             ProgressBar()
         }
 
         is Response.Success -> {
-
             SuggestionListContent(
-                navHostController,
+                navHostController = navHostController,
                 suggestions = response.data,
-                user = vm.currentUser?.uid
+                user = vm.currentUser?.uid,
+                paddingValues = paddingValues
             )
-
         }
 
         is Response.Failure -> {
@@ -41,5 +41,4 @@ fun GetSuggestions(
         else -> {
         }
     }
-
 }

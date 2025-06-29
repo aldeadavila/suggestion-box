@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.filled.Flight
+import androidx.compose.material3.DrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
@@ -24,18 +25,21 @@ import com.aldeadavila.suggestionbox.presentation.screens.client.travel.detail.T
 import com.aldeadavila.suggestionbox.presentation.screens.client.travel.update.TravelUpdateScreen
 
 @Composable
-fun HomeBottomBarNavGraph(navController: NavHostController) {
+fun HomeBottomBarNavGraph(
+    navController: NavHostController,
+    drawerState: DrawerState? = null
+) {
     NavHost(
         navController = navController,
         route = Graph.HOME,
         startDestination = HomeBottomBarScreen.SuggestionList.route
     ) {
         composable(route = HomeBottomBarScreen.SuggestionList.route) {
-            SuggestionListScreen(navController)
+            SuggestionListScreen(navController, drawerState)
         }
 
         composable(route = HomeBottomBarScreen.Travel.route) {
-            TravelScreen(navController)
+            TravelScreen(navController, drawerState)
         }
 
         composable(route = "travel/create") {
@@ -65,15 +69,15 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
         }
 
         composable(route = HomeBottomBarScreen.Map.route) {
-            LocationsListScreen(navController)
+            LocationsListScreen(navController, drawerState)
         }
 
         composable(route = HomeBottomBarScreen.NewsList.route) {
-            NewsScreen(navController)
+            NewsScreen(navController, drawerState)
         }
 
         composable(route = HomeBottomBarScreen.Profile.route) {
-            ProfileScreen(navController)
+            ProfileScreen(navController, drawerState)
         }
 
         composable(

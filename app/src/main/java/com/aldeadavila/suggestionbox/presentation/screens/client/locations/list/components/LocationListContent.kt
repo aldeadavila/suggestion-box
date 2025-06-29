@@ -15,6 +15,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -75,7 +76,8 @@ import kotlinx.coroutines.withContext
 fun LocationListContent(
     navHostController: NavHostController,
     locations: List<Location>,
-    walkingRoutesViewModel: WalkingRoutesViewModel = hiltViewModel()
+    walkingRoutesViewModel: WalkingRoutesViewModel = hiltViewModel(),
+    paddingValues: PaddingValues
 ) {
     Log.d("MAPS", "LocationListContent started")
     
@@ -127,7 +129,11 @@ fun LocationListContent(
         }
     }
     
-    Box(Modifier.fillMaxSize()) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+    ) {
         val initialCoordinates = LatLng(41.21850902356192, -6.619980581162994)
         val cameraPositionState = rememberCameraPositionState {
             position = CameraPosition.fromLatLngZoom(initialCoordinates, 14f)
@@ -173,8 +179,7 @@ fun LocationListContent(
         
         GoogleMap(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 55.dp),
+                .fillMaxSize(),
             cameraPositionState = cameraPositionState,
             properties = properties,
             uiSettings = uiSettings,

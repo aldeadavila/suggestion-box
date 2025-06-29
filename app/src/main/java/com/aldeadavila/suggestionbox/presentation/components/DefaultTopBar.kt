@@ -2,6 +2,7 @@ package com.aldeadavila.suggestionbox.presentation.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,11 +21,10 @@ import androidx.navigation.NavHostController
 @Composable
 fun DefaultTopBar(
     title: String,
-    navController: NavHostController? = null, //null
-    upAvailable: Boolean = false
-
+    navController: NavHostController? = null,
+    upAvailable: Boolean = false,
+    drawerState: DrawerState? = null
 ) {
-
     TopAppBar(
         title = {
             Text(
@@ -39,10 +39,13 @@ fun DefaultTopBar(
                 }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "",
+                        contentDescription = "Volver",
                         tint = Color.Black
                     )
                 }
+            } else if (drawerState != null) {
+                // Si no hay botón de volver pero sí hay drawerState, mostrar el botón del menú
+                DrawerButton(drawerState = drawerState)
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(

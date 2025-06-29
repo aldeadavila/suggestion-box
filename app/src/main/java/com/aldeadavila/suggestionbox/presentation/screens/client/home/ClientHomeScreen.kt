@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import androidx.compose.material.*
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.SnackbarDefaults.backgroundColor
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -19,19 +21,25 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.aldeadavila.suggestionbox.presentation.components.DrawerMenu
 import com.aldeadavila.suggestionbox.presentation.navigation.HomeBottomBarNavGraph
 import com.aldeadavila.suggestionbox.presentation.navigation.HomeBottomBarScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ClientHomeScreen(navHostController: NavHostController = rememberNavController()
-) {
-    Scaffold (
-        bottomBar = { BottomBar(navController = navHostController) }
-    ){
-        HomeBottomBarNavGraph(navController = navHostController)
+fun ClientHomeScreen(navHostController: NavHostController = rememberNavController()) {
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    
+    DrawerMenu(
+        drawerState = drawerState,
+        navController = navHostController
+    ) {
+        Scaffold(
+            bottomBar = { BottomBar(navController = navHostController) }
+        ) {
+            HomeBottomBarNavGraph(navController = navHostController, drawerState = drawerState)
+        }
     }
-
 }
 
 @Composable
@@ -94,5 +102,4 @@ fun RowScope.AddItem(
             }
         }
     )
-
 }
