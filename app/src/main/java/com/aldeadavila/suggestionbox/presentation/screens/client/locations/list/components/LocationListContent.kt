@@ -26,6 +26,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Layers
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
@@ -55,6 +57,7 @@ import com.aldeadavila.suggestionbox.domain.model.Location
 import com.aldeadavila.suggestionbox.domain.model.WalkingRoute
 import com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.WalkingRoutesViewModel
 import com.aldeadavila.suggestionbox.presentation.util.WebViewActivity
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -134,16 +137,20 @@ fun LocationListContent(
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        val initialCoordinates = LatLng(41.21850902356192, -6.619980581162994)
+        // Coordenadas de Aldeadávila
+        val aldeadavilaCoordinates = LatLng(41.21850902356192, -6.619980581162994)
         val cameraPositionState = rememberCameraPositionState {
-            position = CameraPosition.fromLatLngZoom(initialCoordinates, 14f)
+            position = CameraPosition.fromLatLngZoom(aldeadavilaCoordinates, 14f)
         }
+        
+        // Estado para manejar la ubicación actual
+        var currentUserLocation by remember { mutableStateOf<LatLng?>(null) }
         
         var uiSettings by remember {
             mutableStateOf(
                 MapUiSettings(
                     zoomControlsEnabled = true,
-                    myLocationButtonEnabled = true,
+                    myLocationButtonEnabled = false, // Desactivamos el botón predeterminado porque crearemos el nuestro
                     mapToolbarEnabled = true
                 )
             )
@@ -328,7 +335,7 @@ fun LocationListContent(
                 .padding(top = 16.dp)
         )
 
-        // Botón para cambiar entre vista normal y satélite
+        // Botón para cambiar entre vista normal y satélite (abajo a la derecha)
         FloatingActionButton(
             onClick = {
                 mapType = if (mapType == MapType.NORMAL) MapType.SATELLITE else MapType.NORMAL
@@ -336,13 +343,68 @@ fun LocationListContent(
             },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp),
+                .padding(bottom = 16.dp, end = 16.dp),
             containerColor = Color.White,
             contentColor = Color.Black
         ) {
             Icon(
                 imageVector = Icons.Default.Layers,
                 contentDescription = "Cambiar tipo de mapa"
+            )
+        }
+        
+        // Botón para mostrar la ubicación actual (abajo a la izquierda)
+        FloatingActionButton(
+            onClick = {
+                if (hasLocationPermission.value) {
+                    val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+                    try {
+                        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                            if (location != null) {
+                                val userLatLng = LatLng(location.latitude, location.longitude)
+                                currentUserLocation = userLatLng
+                                // Mover la cámara a la ubicación del usuario
+                                cameraPositionState.position = CameraPosition.fromLatLngZoom(userLatLng, 16f)
+                                Toast.makeText(context, "Ubicación actual mostrada", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(context, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } catch (e: SecurityException) {
+                        Toast.makeText(context, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(context, "Se requieren permisos de ubicación", Toast.LENGTH_SHORT).show()
+                }
+            },
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(bottom = 16.dp, start = 16.dp),
+            containerColor = Color.White,
+            contentColor = Color.Blue
+        ) {
+            Icon(
+                imageVector = Icons.Default.MyLocation,
+                contentDescription = "Mi ubicación"
+            )
+        }
+        
+        // Botón para volver a Aldeadávila (centro abajo)
+        FloatingActionButton(
+            onClick = {
+                // Mover la cámara a Aldeadávila
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(aldeadavilaCoordinates, 14f)
+                Toast.makeText(context, "Volviendo a Aldeadávila", Toast.LENGTH_SHORT).show()
+            },
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 16.dp),
+            containerColor = Color.White,
+            contentColor = Color.Green
+        ) {
+            Icon(
+                imageVector = Icons.Default.LocationOn,
+                contentDescription = "Volver a Aldeadávila"
             )
         }
 

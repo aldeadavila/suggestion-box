@@ -55,7 +55,14 @@ fun BottomBar(navController: NavHostController) {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+    
+    // No mostrar la barra inferior en la pantalla del mapa
+    val currentRoute = currentDestination?.route
+    if (currentRoute == "map") {
+        return
+    }
+    
+    val bottomBarDestination = screens.any { it.route == currentRoute }
 
     if (bottomBarDestination) {
         BottomNavigation(
