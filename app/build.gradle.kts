@@ -18,8 +18,8 @@ android {
         applicationId = "com.aldeadavila.suggestionbox"
         minSdk = 26
         targetSdk = 34
-        versionCode = 29
-        versionName = "1.29"
+        versionCode = 30
+        versionName = "1.30"
   
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
