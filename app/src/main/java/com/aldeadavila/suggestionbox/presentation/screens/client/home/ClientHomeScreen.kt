@@ -45,6 +45,7 @@ fun ClientHomeScreen(navHostController: NavHostController = rememberNavControlle
 @Composable
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
+        HomeBottomBarScreen.Home,
         HomeBottomBarScreen.SuggestionList,
         HomeBottomBarScreen.Travel,
         HomeBottomBarScreen.Map,

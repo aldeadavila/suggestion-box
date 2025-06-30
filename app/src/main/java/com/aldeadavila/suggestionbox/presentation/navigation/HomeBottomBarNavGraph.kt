@@ -2,6 +2,7 @@ package com.aldeadavila.suggestionbox.presentation.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ThumbUp
@@ -14,6 +15,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.aldeadavila.suggestionbox.presentation.screens.client.home.HomeScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.LocationsListScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.news.list.NewsScreen
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.list.SuggestionListScreen
@@ -32,8 +34,12 @@ fun HomeBottomBarNavGraph(
     NavHost(
         navController = navController,
         route = Graph.HOME,
-        startDestination = HomeBottomBarScreen.SuggestionList.route
+        startDestination = HomeBottomBarScreen.Home.route
     ) {
+        composable(route = HomeBottomBarScreen.Home.route) {
+            HomeScreen(navController, drawerState)
+        }
+        
         composable(route = HomeBottomBarScreen.SuggestionList.route) {
             SuggestionListScreen(navController, drawerState)
         }
@@ -101,6 +107,12 @@ sealed class HomeBottomBarScreen(
     val title: String,
     val icon: ImageVector
 ) {
+    object Home : HomeBottomBarScreen(
+        route = "home",
+        title = "Inicio",
+        icon = Icons.Default.Home
+    )
+    
     object NewsList : HomeBottomBarScreen(
         route = "news",
         title = "Noticias",

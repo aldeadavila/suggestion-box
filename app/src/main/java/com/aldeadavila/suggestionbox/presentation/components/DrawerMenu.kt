@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Flight
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Person
@@ -60,6 +61,7 @@ fun DrawerMenu(
     var selectedItem by remember { mutableStateOf(0) }
     
     val items = listOf(
+        DrawerItem("Inicio", Icons.Default.Home, HomeBottomBarScreen.Home.route),
         DrawerItem("Sugerencias", Icons.Default.ThumbUp, HomeBottomBarScreen.SuggestionList.route),
         DrawerItem("Viajar", Icons.Default.Flight, HomeBottomBarScreen.Travel.route),
         DrawerItem("Mapa", Icons.Default.Map, HomeBottomBarScreen.Map.route),
@@ -137,7 +139,7 @@ fun DrawerMenu(
                         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
                     )
                     
-                    if (index == 4) {
+                    if (index == 5) {
                         Divider(
                             modifier = Modifier
                                 .fillMaxWidth()
