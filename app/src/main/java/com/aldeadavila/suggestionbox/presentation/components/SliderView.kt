@@ -16,24 +16,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.aldeadavila.suggestionbox.R
 import com.aldeadavila.suggestionbox.ui.theme.md_theme_light_primaryContainer
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
 
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SliderView(state: PagerState, images: List<String>) {
 
     val imageUrl = remember { mutableStateOf("") }
     HorizontalPager(
         state = state,
-        count = images.size, modifier = Modifier
+        modifier = Modifier
             .height(150.dp)
             .fillMaxWidth()
             .background(color = Color.White)

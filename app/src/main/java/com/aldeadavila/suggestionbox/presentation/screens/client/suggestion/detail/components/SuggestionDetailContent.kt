@@ -33,22 +33,23 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.compose.foundation.layout.PaddingValues
 import com.aldeadavila.suggestionbox.R
+import androidx.compose.foundation.pager.rememberPagerState
 import com.aldeadavila.suggestionbox.presentation.components.DotsIndicator
 import com.aldeadavila.suggestionbox.presentation.components.SliderView
 import com.aldeadavila.suggestionbox.presentation.screens.client.suggestion.detail.SuggestionDetailViewModel
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SuggestionDetailContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
     vm: SuggestionDetailViewModel = hiltViewModel()
 ) {
-    val pageState = rememberPagerState()
+    val pageState = rememberPagerState(
+        initialPage = 0,
+        pageCount = { vm.listSuggestionImage.size.coerceAtLeast(1) }
+    )
     var key by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val keyboard = LocalSoftwareKeyboardController.current

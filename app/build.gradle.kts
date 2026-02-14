@@ -12,14 +12,14 @@ plugins {
 
 android {
     namespace = "com.aldeadavila.suggestionbox"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.aldeadavila.suggestionbox"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 30
-        versionName = "1.30"
+        targetSdk = 35
+        versionCode = 31
+        versionName = "1.31"
   
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -83,43 +83,45 @@ android {
 }
 
 dependencies {
-    val navVersion = "2.7.7"
+    val navVersion = "2.8.4"
     val roomVersion = "2.6.1"
     val hiltVersion = rootProject.extra["hilt_version"] as String
     val composeVersion = rootProject.extra["compose_version"] as String
 
-    // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
+    // Force Credentials & Google ID to versions built with Kotlin 1.9 (1.4.0 does not exist; 1.6.x uses Kotlin 2.1)
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.credentials:credentials:1.3.0")
+            force("androidx.credentials:credentials-play-services-auth:1.3.0")
+            force("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+        }
+    }
 
-    // Add the dependency for the Firebase SDK for Google Analytics
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
 
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage")
-    implementation("com.google.firebase:firebase-database-ktx:20.3.1")
-    implementation ("com.google.firebase:firebase-messaging-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.firebase:firebase-messaging-ktx")
 
-    val google_credentielas = "1.3.0"
-
-    implementation("androidx.credentials:credentials:$google_credentielas")
-    implementation ("androidx.credentials:credentials-play-services-auth:$google_credentielas")
+    // Credentials & Google ID (1.3.0 is latest stable compatible with Kotlin 1.9)
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
     // Maps SDK for Android
-    implementation("com.google.android.gms:play-services-location:21.2.0")
-    implementation ("com.google.android.gms:play-services-maps:18.2.0")
-    implementation ("com.google.maps.android:maps-compose:4.3.3")
-    // Optionally, you can include the Compose utils library for Clustering,
-    // Street View metadata checks, etc.
-    implementation ("com.google.maps.android:maps-compose-utils:4.3.3")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
+    implementation("com.google.maps.android:maps-compose:4.4.1")
+    implementation("com.google.maps.android:maps-compose-utils:4.4.1")
+    implementation("com.google.maps.android:maps-compose-widgets:4.4.1")
 
-    // Optionally, you can include the widgets library for ScaleBar, etc.
-    implementation ("com.google.maps.android:maps-compose-widgets:4.3.3")
-
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.activity:activity-compose:1.9.3")
+    implementation(platform("androidx.compose:compose-bom:2024.08.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -128,38 +130,35 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
 
-    dependencies {
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-    }
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
-    //SLIDES
-    implementation("com.google.accompanist:accompanist-pager:0.34.0")
-    // If using indicators, also depend on
+    // Pager (replaces deprecated Accompanist)
+    implementation("androidx.compose.foundation:foundation")
 
-    //Glide
+    // Glide
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 
-    //FILES INFORMATION
-    implementation("commons-io:commons-io:2.15.1")
+    // FILES
+    implementation("commons-io:commons-io:2.17.0")
 
-    //GSON
-    implementation("com.google.code.gson:gson:2.10.1")
+    // GSON
+    implementation("com.google.code.gson:gson:2.11.0")
 
-    //MOSHI
+    // MOSHI
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
 
-    //RETROFIT
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // RETROFIT
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
-    //navigation
+    // Navigation
     implementation("androidx.navigation:navigation-compose:$navVersion")
 
-    //ASYNC IMAGE
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
-    //DATA STORE
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     //daguer hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
@@ -172,9 +171,9 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
 
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.00"))
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.08.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

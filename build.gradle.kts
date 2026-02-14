@@ -19,13 +19,21 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.google.gms:google-services:4.4.1")
+        classpath("com.google.gms:google-services:4.4.2")
         classpath("com.google.dagger:hilt-android-gradle-plugin:${project.extra["hilt_version"]}")
         classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
     }
 }
 
 allprojects {
+    configurations.all {
+        resolutionStrategy {
+            // Keep Kotlin 1.9.x to match project Kotlin version (avoid 2.1.x from transitive deps)
+            force("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+            force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22")
+            force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.22")
+        }
+    }
     tasks.withType<JavaCompile>().configureEach {
         sourceCompatibility = JavaVersion.VERSION_17.toString()
         targetCompatibility = JavaVersion.VERSION_17.toString()
