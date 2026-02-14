@@ -86,6 +86,18 @@ fun LocationListContent(
     
     val context = LocalContext.current
     
+    LaunchedEffect(Unit) {
+        val apiKey = try {
+            context.packageManager
+                .getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
+                .metaData?.getString("com.google.android.geo.API_KEY").orEmpty()
+        } catch (e: Exception) {
+            ""
+        }
+        val keyOk = apiKey.isNotBlank() && apiKey != "DEFAULT_API_KEY"
+        Log.d("MAPS", "Maps API key in manifest: ${if (keyOk) "present (length=${apiKey.length})" else "MISSING or default - map will not work" }")
+    }
+
     // Procesar todos los archivos GPX disponibles en assets
     LaunchedEffect(Unit) {
         if (walkingRoutesViewModel.routes.isEmpty()) {

@@ -1,8 +1,9 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.util.Properties
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
@@ -18,19 +19,24 @@ android {
         applicationId = "com.aldeadavila.suggestionbox"
         minSdk = 26
         targetSdk = 35
-        versionCode = 31
-        versionName = "1.31"
+        versionCode = 32
+        versionName = "1.32"
   
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
 
-        // Read Maps API key from local.properties
-        val properties = project.properties
-        manifestPlaceholders += mapOf(
-            "MAPS_API_KEY" to (properties["MAPS_API_KEY"] as String? ?: "")
-        )
+        // Read Maps API key from local.properties (and fallback to project.properties)
+        val mapsApiKey = run {
+            val localFile = rootProject.file("local.properties")
+            if (localFile.exists()) {
+                val local = Properties()
+                local.load(localFile.inputStream())
+                local.getProperty("MAPS_API_KEY", "")?.takeIf { it.isNotBlank() }
+            } else null
+        } ?: (project.findProperty("MAPS_API_KEY") as String? ?: "")
+        manifestPlaceholders += mapOf("MAPS_API_KEY" to mapsApiKey)
     }
 
     buildTypes {
@@ -70,10 +76,6 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
-
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
@@ -88,15 +90,6 @@ dependencies {
     val hiltVersion = rootProject.extra["hilt_version"] as String
     val composeVersion = rootProject.extra["compose_version"] as String
 
-    // Force Credentials & Google ID to versions built with Kotlin 1.9 (1.4.0 does not exist; 1.6.x uses Kotlin 2.1)
-    configurations.all {
-        resolutionStrategy {
-            force("androidx.credentials:credentials:1.3.0")
-            force("androidx.credentials:credentials-play-services-auth:1.3.0")
-            force("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-        }
-    }
-
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
 
@@ -106,10 +99,10 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
 
-    // Credentials & Google ID (1.3.0 is latest stable compatible with Kotlin 1.9)
-    implementation("androidx.credentials:credentials:1.3.0")
-    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+    // Credentials & Google ID (compatible with Kotlin 2.1)
+    implementation("androidx.credentials:credentials:1.5.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.2.0")
 
     // Maps SDK for Android
     implementation("com.google.android.gms:play-services-location:21.3.0")
@@ -192,4 +185,6 @@ secrets {
     // "sdk.dir" is ignored by default.
     ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
     ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
+    // MAPS_API_KEY is set in defaultConfig from local.properties; do not overwrite with default.
+    ignoreList.add("MAPS_API_KEY")
 }
