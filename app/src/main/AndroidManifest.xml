@@ -38,6 +38,8 @@
         android:theme="@style/Theme.SuggestionBox"
         android:usesCleartextTraffic="false"
         tools:targetApi="31">
+        <!-- Requerido por Google Play Services / Maps en API 28+ (Apache HTTP eliminado del SDK) -->
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -13,20 +13,9 @@ plugins {
 
 android {
     namespace = "com.aldeadavila.suggestionbox"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.aldeadavila.suggestionbox"
-        minSdk = 26
-        targetSdk = 35
-        versionCode = 32
-        versionName = "1.32"
-  
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
-
         // Read Maps API key from local.properties (and fallback to project.properties)
         val mapsApiKey = run {
             val localFile = rootProject.file("local.properties")
@@ -37,6 +26,15 @@ android {
             } else null
         } ?: (project.findProperty("MAPS_API_KEY") as String? ?: "")
         manifestPlaceholders += mapOf("MAPS_API_KEY" to mapsApiKey)
+        applicationId = "com.aldeadavila.suggestionbox"
+        minSdk = 26
+        targetSdk = 36
+        versionCode = 32
+        versionName = "1.32"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -85,10 +83,9 @@ android {
 }
 
 dependencies {
-    val navVersion = "2.8.4"
-    val roomVersion = "2.6.1"
+    val navVersion = "2.9.7"
+    val roomVersion = "2.8.4"
     val hiltVersion = rootProject.extra["hilt_version"] as String
-    val composeVersion = rootProject.extra["compose_version"] as String
 
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
@@ -106,22 +103,21 @@ dependencies {
 
     // Maps SDK for Android
     implementation("com.google.android.gms:play-services-location:21.3.0")
-    implementation("com.google.android.gms:play-services-maps:19.0.0")
+    implementation("com.google.android.gms:play-services-maps:20.0.0")
     implementation("com.google.maps.android:maps-compose:4.4.1")
     implementation("com.google.maps.android:maps-compose-utils:4.4.1")
     implementation("com.google.maps.android:maps-compose-widgets:4.4.1")
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
-    implementation("androidx.activity:activity-compose:1.9.3")
-    implementation(platform("androidx.compose:compose-bom:2024.08.00"))
+    implementation("androidx.core:core-ktx:1.17.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
+    implementation("androidx.activity:activity-compose:1.12.4")
+    implementation(platform("androidx.compose:compose-bom:2025.08.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.material:material")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
@@ -151,12 +147,12 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.7.0")
 
     // DataStore
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("androidx.datastore:datastore-preferences:1.2.0")
 
-    //daguer hilt
+    // Hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     ksp("com.google.dagger:hilt-compiler:$hiltVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
 
     // Room
     implementation("androidx.room:room-runtime:$roomVersion")
@@ -166,7 +162,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.08.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2025.08.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

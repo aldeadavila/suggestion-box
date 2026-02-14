@@ -19,7 +19,7 @@ fun Register(navHostController: NavHostController, vm: RegisterViewModel = hiltV
             ProgressBar()
         }
         is Response.Failure -> {
-            Toast.makeText(LocalContext.current, registerResponse.exception.message ?: "Error desconocido", Toast.LENGTH_LONG)
+            Toast.makeText(LocalContext.current, registerResponse.exception.message ?: "Error desconocido", Toast.LENGTH_LONG).show()
         }
         is Response.Success -> {
             LaunchedEffect(Unit) {

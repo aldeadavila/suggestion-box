@@ -1,7 +1,6 @@
 package com.aldeadavila.suggestionbox.presentation.screens.client.locations.list.components
 
 import android.Manifest
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -347,7 +346,7 @@ fun LocationListContent(
                 .padding(top = 16.dp)
         )
 
-        // Botón para cambiar entre vista normal y satélite (abajo a la derecha)
+        // Botón para cambiar entre vista normal y satélite (abajo a la derecha, desplazado a la izquierda para no tapar zoom)
         FloatingActionButton(
             onClick = {
                 mapType = if (mapType == MapType.NORMAL) MapType.SATELLITE else MapType.NORMAL
@@ -355,7 +354,7 @@ fun LocationListContent(
             },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(bottom = 16.dp, end = 16.dp),
+                .padding(bottom = 16.dp, end = 72.dp),
             containerColor = Color.White,
             contentColor = Color.Black
         ) {
